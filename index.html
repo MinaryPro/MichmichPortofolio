@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minary Finance V42</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300d4ff'/%3E%3Cstop offset='100%25' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='%230f1c2e'/%3E%3Cpath d='M24 70V35L50 55L76 35V70' fill='none' stroke='url(%23g)' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+    <style>
+        :root {
+            --bg: #080e1a; --surface: #0f1c2e; --surface2: #162236; --surface3: #1d2d45;
+            --accent: #00d4ff; --accent2: #7c3aed; --accent3: #f59e0b;
+            --success: #00e5a0; --danger: #ff4d6d; --warning: #fbbf24;
+            --text: #e8f0fe; --muted: #64748b; --border: #1e3a5f;
+            --cto: #00d4ff; --pea: #00e5a0; --pee: #f59e0b;
+            --r: 16px; --r2: 12px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        /* SCROLLBAR TRANSPARENTE ET INTERACTIVE */
+        ::-webkit-scrollbar { width: 14px; height: 14px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; border: 4px solid var(--bg); transition: 0.2s; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); padding: 24px 20px; max-width: 1500px; margin: 0 auto; line-height: 1.5; overflow-x: hidden; overflow-y: scroll; }
+
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ── HEADER ── */
+        .header-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; animation: fadeUp 0.5s ease; }
+        .brand { display: flex; align-items: center; gap: 14px; }
+        
+        /* STYLE LOGO : Boite sombre avec lueur autour */
+        .brand-icon { 
+            width: 48px; 
+            height: 48px; 
+            background: var(--surface);
+            border: 1px solid rgba(0, 212, 255, 0.25);
+            border-radius: 14px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 0 16px rgba(0, 212, 255, 0.4); /* Le halo lumineux */
+            transition: all 0.3s ease;
+        }
+        .brand-icon:hover {
+            border-color: rgba(124, 58, 237, 0.4);
+            box-shadow: 0 0 24px rgba(124, 58, 237, 0.6);
+            transform: scale(1.05);
+        }
+
+        h1 { font-size: 1.8em; font-weight: 800; letter-spacing: -0.03em; }
+        h1 span { color: var(--accent); }
+        .version-badge { font-size: 0.65em; font-weight: 700; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); color: var(--accent); padding: 3px 8px; border-radius: 6px; vertical-align: middle; margin-left: 6px; }
+
+        /* ── BOUTONS ── */
+        .header-buttons { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+        .btn { height: 42px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9em; font-weight: 700; border-radius: 10px; border: none; cursor: pointer; transition: 0.2s; font-family: 'DM Sans', sans-serif; white-space: nowrap; text-transform: none; }
+        .btn:active { transform: scale(0.96); }
+        
+        .btn-primary { background: var(--accent); color: #000; box-shadow: 0 4px 16px rgba(0,212,255,0.3); }
+        .btn-primary:hover { background: #33dcff; transform: translateY(-1px); }
+        .btn-secondary { background: var(--surface3); color: var(--text); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: var(--surface2); border-color: var(--accent); transform: translateY(-1px); }
+        .btn-success { background: var(--success); color: #000; box-shadow: 0 4px 16px rgba(0,229,160,0.25); }
+        .btn-success:hover { background: #33ebb5; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,229,160,0.4); }
+        .btn-warning { background: #fbbf24 !important; color: #000 !important; box-shadow: 0 4px 16px rgba(251, 191, 36, 0.4); opacity: 1 !important; }
+        .btn-warning:hover { background: #fcd34d !important; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(251, 191, 36, 0.6); }
+        .btn-danger { background: rgba(255,77,109,0.15); color: var(--danger); border: 1px solid rgba(255,77,109,0.3); }
+        .btn-danger:hover { background: var(--danger); color: white; }
+        .btn-incognito { background: var(--surface3); color: var(--text); border: 1px solid var(--border); width: 130px; justify-content: center; }
+        .btn-incognito.active { background: rgba(0,229,160,0.15); color: var(--success); border-color: var(--success); }
+
+        #api-status { font-size: 0.82em; color: var(--muted); width: 100%; text-align: right; margin-top:-10px; }
+        .spinner { width: 16px; height: 16px; border: 2px solid rgba(0,0,0,0.2); border-top-color: #000; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; vertical-align: middle; margin-right: 5px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── DASHBOARD ── */
+        .dashboard-global, .dashboard-tab { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; animation: fadeUp 0.5s ease 0.1s both; }
+        .dashboard-global { gap: 2px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 0 40px rgba(0,212,255,0.05); }
+        
+        .stat-box-g, .stat-box { display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; background: var(--surface); padding: 20px; gap: 4px; border: 1px solid var(--border); }
+        .stat-box-g { border: none; border-right: 1px solid var(--border); position: relative; border-radius: 0; }
+        .stat-box-g:last-child { border-right: none; }
+        .stat-box-g::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); }
+        .stat-box { border-radius: var(--r2); transition: 0.2s; }
+        .stat-box:hover { border-color: rgba(0,212,255,0.3); background: var(--surface2); }
+
+        .stat-label { font-size: 0.75em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); height: 28px; display: flex; align-items: flex-end; padding-bottom: 4px; width: 100%; }
+        .main-val { font-size: 1.45em; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; font-family: 'DM Mono', monospace; color: var(--text); height: 32px; display: flex; align-items: center; width: 100%; overflow: hidden; text-overflow: ellipsis; }
+        .sub-val { font-size: 0.82em; font-weight: 600; font-family: 'DM Mono', monospace; color: var(--muted); height: 20px; display: flex; align-items: center; width: 100%; }
+        
+        .positif .main-val, .positif .sub-val { color: var(--success); }
+        .negatif .main-val, .negatif .sub-val { color: var(--danger); }
+
+        /* ── TABS ── */
+        .tabs { display: flex; gap: 4px; margin-bottom: 20px; background: var(--surface); border-radius: 14px; padding: 5px; border: 1px solid var(--border); overflow-x: auto; animation: fadeUp 0.5s ease 0.15s both; }
+        .tab-btn { background: transparent; border: none; padding: 10px 20px; font-size: 0.9em; font-weight: 600; color: var(--muted); cursor: pointer; border-radius: 10px; transition: all 0.25s; font-family: 'DM Sans', sans-serif; white-space: nowrap; text-transform: none; display: flex; align-items: center;}
+        .tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+        .tab-btn.active { color: #000; background: var(--accent); box-shadow: 0 2px 12px rgba(0,212,255,0.4); }
+
+        /* ── FORM ── */
+        .card { background: var(--surface); border-radius: var(--r); border: 1px solid var(--border); padding: 24px; margin-bottom: 20px; transition: border-color 0.2s; }
+        .card:hover { border-color: rgba(0,212,255,0.15); }
+        .card h3 { font-size: 1.05em; font-weight: 700; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); color: var(--text); display: flex; justify-content: space-between; align-items: center; }
+
+        .form-grid { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
+        .input-group { display: flex; flex-direction: column; justify-content: flex-end; flex: 1 1 180px; }
+        .input-group label { font-size: 0.75em; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; height: 28px; display: flex; align-items: flex-end; padding-bottom: 6px; margin: 0; }
+        
+        input[type="text"], input[type="number"], input[type="date"], input[type="month"], select { padding: 11px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface3); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.95em; transition: 0.2s; color-scheme: dark; width: 100%; }
+        input[type="number"] { font-family: 'DM Mono', monospace; font-weight: 600;}
+        input:focus, select:focus { outline: none; border-color: var(--accent); background: var(--surface2); box-shadow: 0 0 0 3px rgba(0,212,255,0.15); }
+        input[readonly] { background: rgba(0,0,0,0.2) !important; color: var(--accent) !important; border-color: transparent !important; cursor: not-allowed; font-weight: bold; }
+
+        .radio-group { display: flex; gap: 18px; background: var(--surface3); padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); width: 100%; flex: 1 1 100%; margin-bottom: 8px; }
+        .radio-group label { display: flex; align-items: center; gap: 8px; font-size: 0.85em; cursor: pointer; color: var(--text); margin: 0; min-height: auto; padding: 0; font-family: 'DM Sans', sans-serif; text-transform: none; letter-spacing: normal;}
+        .radio-group input[type="radio"] { accent-color: var(--accent); width: 16px; height: 16px; margin: 0; }
+        
+        button[type="submit"] { padding: 12px 20px; border: none; border-radius: 10px; background: var(--accent); color: #000; cursor: pointer; font-weight: 700; font-size: 0.95em; transition: all 0.2s; flex: 1 1 100%; font-family: 'DM Sans', sans-serif; margin-top: 10px; height: 48px; width: 100%;}
+        button[type="submit"]:hover { background: #33dcff; transform: translateY(-1px); }
+
+        /* ── TABLE ── */
+        table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+        th, td { padding: 12px 10px; text-align: right; border-bottom: 1px solid rgba(30,58,95,0.5); white-space: nowrap; font-family: 'DM Mono', monospace; vertical-align: middle; height: 50px; }
+        th:first-child, td:first-child, tfoot td:first-child { text-align: left; font-family: 'DM Sans', sans-serif;}
+        th { color: var(--muted); font-size: 0.75em; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; user-select: none; font-weight: 700; font-family: 'DM Sans', sans-serif;}
+        th:hover { color: var(--text); }
+        tbody tr:hover { background: rgba(0,212,255,0.03); }
+        tfoot { background: rgba(0,12,30,0.6); font-weight: 700; border-top: 2px solid var(--accent); }
+        tfoot td { padding: 16px 10px; }
+
+        .badge-sector { font-size: 0.75em; padding: 3px 8px; border-radius: 6px; background: rgba(148, 163, 184, 0.15); color: var(--muted); display: inline-block; font-weight: 600; font-family: 'DM Sans', sans-serif; margin-left: 8px;}
+
+        .positif { color: var(--success) !important; font-weight: 700; }
+        .negatif { color: var(--danger) !important; font-weight: 700; }
+        .perf-block { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; justify-content: center;}
+        .perf-amount { font-size: 0.95em; white-space: nowrap; font-weight: 600;}
+        .perf-pct { font-size: 0.75em; font-weight: 700; background: rgba(255,255,255,0.06); padding: 2px 5px; border-radius: 4px; white-space: nowrap; align-self: flex-end; font-family: 'DM Mono', monospace;}
+
+        .inline-edit { background: rgba(255,255,255,0.03); border: 1px dashed var(--border); color: inherit; font-size: 0.95em; font-weight: 600; text-align: right; width: 85px; padding: 6px 8px; border-radius: 7px; transition: all 0.2s; font-family: 'DM Mono', monospace; margin: 0; }
+        .inline-edit.text-left { text-align: left; font-family: 'DM Sans', sans-serif; width: 140px; }
+        .inline-edit:focus { outline: none; border-style: solid; border-color: var(--accent); background: var(--surface3); transform: scale(1.04); }
+        
+        button.delete-btn { background: rgba(255,77,109,0.08); color: var(--danger); padding: 7px 10px; border: none; cursor: pointer; border-radius: 7px; transition: 0.2s; font-size: 0.9em; margin-left: 4px;}
+        button.delete-btn:hover { background: var(--danger); color: white; transform: scale(1.1); }
+
+        .cash-input-wrapper { display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom: 6px; }
+        .cash-input-wrapper input { width: 90px; padding: 6px 10px; font-size: 1.05em; font-weight: 700; background: rgba(0,212,255,0.05); border: 1px solid rgba(0,212,255,0.3); color: var(--accent); border-radius: 8px; text-align: right; transition: 0.2s; font-family: 'DM Mono', monospace; }
+
+        /* ── CHARTS ── */
+        .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px; animation: fadeUp 0.5s ease 0.2s both; }
+        .chart-container { position: relative; height: 300px; width: 100%; }
+        @media (max-width: 900px) { .charts-grid { grid-template-columns: 1fr; } }
+
+        .grid-2x2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        @media (max-width: 900px) { .grid-2x2 { grid-template-columns: 1fr; } }
+
+        .section-content { display: none; opacity: 0; }
+        .section-content.active { display: block; animation: fadeUp 0.4s forwards; }
+
+        /* ── INDICES CARDS ── */
+        .indices-wrapper { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 10px; }
+        .idx-card { flex: 1 1 200px; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .idx-card:hover { transform: translateY(-3px); border-color: rgba(0,212,255,0.4); }
+        .idx-title { font-size: 0.85em; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 700; font-family: 'DM Sans', sans-serif;}
+        .idx-val { font-size: 1.6em; font-weight: 800; color: var(--text); font-family: 'DM Mono', monospace; margin-bottom: 12px; }
+        .idx-row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 0.85em; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px; font-family: 'DM Sans', sans-serif;}
+        .idx-label { color: var(--muted); font-weight: 500; }
+        .idx-badge { padding: 4px 8px; border-radius: 6px; font-weight: 700; font-family: 'DM Mono', monospace; font-size: 0.85em; }
+        .idx-badge.pos { background: rgba(0,229,160,0.1); color: var(--success); }
+        .idx-badge.neg { background: rgba(255,77,109,0.1); color: var(--danger); }
+        .idx-badge.neut { background: rgba(255,255,255,0.05); color: var(--muted); }
+
+        /* ── REF TABLES & ACCORDEON ── */
+        .ref-table { width: 100%; margin-bottom: 10px; }
+        .ref-table th, .ref-table td { padding: 10px; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.88em; font-family: 'DM Sans', sans-serif; height: auto;}
+        .ref-table td input { width: 100%; max-width: 180px; font-family: 'DM Mono', monospace; }
+        .section-title { color: var(--accent); font-size: 0.9em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin: 20px 0 12px; font-family: 'DM Sans', sans-serif;}
+
+        details.custom-details { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r2); padding: 20px; margin-top: 20px; transition: 0.2s; }
+        details.custom-details[open] { border-color: rgba(0,212,255,0.3); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        details.custom-details summary { font-weight: 700; color: var(--text); cursor: pointer; list-style: none; font-size: 1.05em; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; user-select: none; }
+        details.custom-details summary::-webkit-details-marker { display: none; }
+        details.custom-details summary::before { content: '▶'; margin-right: 12px; font-size: 0.8em; transition: 0.2s transform; color: var(--accent); }
+        details.custom-details[open] summary::before { transform: rotate(90deg); }
+
+        /* ── INCOGNITO ── */
+        body.incognito-mode .blur-text { filter: blur(7px); opacity: 0.65; pointer-events: none; user-select: none; }
+        body.incognito-mode input[type="number"].inline-edit,
+        body.incognito-mode input[type="text"].inline-edit,
+        body.incognito-mode input[type="number"]#input-cash { color: transparent; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        body.incognito-mode input[type="number"].inline-edit:focus,
+        body.incognito-mode input[type="text"].inline-edit:focus,
+        body.incognito-mode input[type="number"]#input-cash:focus { color: var(--text); text-shadow: none; }
+
+        .toast { position: fixed; bottom: 24px; right: 24px; z-index: 2000; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.4); transform: translateY(100px); opacity: 0; transition: all 0.3s; display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 0.9em; font-family: 'DM Sans', sans-serif;}
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { border-color: var(--success); }
+        .toast.error { border-color: var(--danger); }
+    </style>
+</head>
+<body>
+
+<div id="toast" class="toast"><span id="toast-icon">✅</span><span id="toast-msg">Message</span></div>
+
+<div class="header-container">
+    <div class="brand">
+        <div class="brand-icon">
+            <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="gLogo" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#00d4ff"/>
+                        <stop offset="100%" stop-color="#7c3aed"/>
+                    </linearGradient>
+                </defs>
+                <path d="M22 75 V35 L50 55 L78 35 V75" fill="none" stroke="url(#gLogo)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <div>
+            <h1>Minary<span> Finance</span> <span class="version-badge">V42</span></h1>
+            <div style="font-size:0.78em; color:var(--muted); margin-top:2px;">Portefeuille boursier</div>
+        </div>
+    </div>
+    <div class="header-buttons">
+        <button type="button" class="btn btn-success" onclick="exporterDonnees()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            Sauvegarder
+        </button>
+        <label class="btn btn-warning" style="cursor:pointer" title="Charger un fichier de sauvegarde">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2-2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            Restaurer <input type="file" id="import-file" style="display:none" accept=".json" onchange="importerDonnees(event)">
+        </label>
+        <button type="button" id="btn-incognito" class="btn btn-incognito" onclick="toggleIncognito()">
+            <svg id="icon-incognito" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"></svg> 
+            <span id="text-incognito">Masquer</span>
+        </button>
+        <button type="button" id="btn-actualiser" class="btn btn-primary" onclick="actualiserTousLesPrix()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:4px;"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/></svg>
+            Actualiser
+        </button>
+    </div>
+    <div id="api-status"></div>
+</div>
+
+<div class="dashboard-global" id="dashboard-global-wrapper">
+    <div class="stat-box-g">
+        <div class="stat-label-g">Valeur Globale</div>
+        <div class="main-val" id="global-actuel" style="color:var(--accent)">0 €</div>
+        <div class="sub-val" id="global-cash">Dont cash : 0 €</div>
+    </div>
+    <div class="stat-box-g">
+        <div class="stat-label-g">Apports Nets</div>
+        <div class="main-val" id="global-apports" style="color:var(--text)">0 €</div>
+        <div class="sub-val" id="global-investi-label">Capital injecté</div>
+    </div>
+    <div class="stat-box-g" id="box-global-perf">
+        <div class="stat-label-g">Plus/Moins-Value</div>
+        <div class="main-val" id="global-perf-val">—</div>
+        <div class="sub-val" id="global-perf-pct">—</div>
+    </div>
+    <div class="stat-box-g" id="box-global-ytd">
+        <div class="stat-label-g">Perf. YTD (Année)</div>
+        <div class="main-val" id="global-ytd-val">—</div>
+        <div class="sub-val" id="global-ytd-pct">—</div>
+    </div>
+    <div class="stat-box-g" id="box-global-month">
+        <div class="stat-label-g">Perf. Mois</div>
+        <div class="main-val" id="global-month-val">—</div>
+        <div class="sub-val" id="global-month-pct">—</div>
+    </div>
+</div>
+
+<div class="tabs">
+    <button type="button" class="tab-btn active" onclick="changerOnglet('ACCUEIL')" id="tab-ACCUEIL">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Accueil
+    </button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('CTO')" id="tab-CTO">CTO</button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('PEA')" id="tab-PEA">PEA</button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('PEE')" id="tab-PEE">PEE</button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('INDICES')" id="tab-INDICES">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg> Indices
+    </button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('BILAN')" id="tab-BILAN">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> Bilan
+    </button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('REF')" id="tab-REF">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg> Réf.
+    </button>
+</div>
+
+<div id="section-accueil" class="section-content active">
+    <div class="card">
+        <h3>Synthèse des Portefeuilles</h3>
+        <div style="overflow-x:auto">
+            <table>
+                <thead><tr>
+                    <th>Enveloppe</th>
+                    <th>Apports Nets</th>
+                    <th>Valeur (avec Cash)</th>
+                    <th style="text-align: right;">Plus-Value</th>
+                </tr></thead>
+                <tbody id="table-accueil-body"></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="charts-grid">
+        <div class="card" style="margin-bottom:0">
+            <h3>Évolution Globale du Portefeuille (Suivi)</h3>
+            <div class="chart-container"><canvas id="historyChart"></canvas></div>
+        </div>
+        <div class="card" style="margin-bottom:0">
+            <h3>Répartition Globale par Secteur</h3>
+            <div class="chart-container" style="height:250px; margin-top:10px"><canvas id="sectorChart"></canvas></div>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-tab" id="dashboard-onglet" style="display:none;">
+    <div class="stat-box">
+        <div class="stat-label">Valeur (Avec Cash)</div>
+        <div class="main-val" id="onglet-actuel">0 €</div>
+        <div class="sub-val" style="visibility:hidden">_</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-label">Apports Nets</div>
+        <div class="main-val" id="onglet-investi">0 €</div>
+        <div class="sub-val" style="visibility:hidden">_</div>
+    </div>
+    <div class="stat-box" id="box-onglet-perf">
+        <div class="stat-label">Plus/Moins-Value</div>
+        <div class="main-val" id="onglet-perf-val">—</div>
+        <div class="sub-val" id="onglet-perf-pct">—</div>
+    </div>
+    <div class="stat-box" id="box-onglet-ytd">
+        <div class="stat-label">Perf. YTD</div>
+        <div class="main-val" id="onglet-ytd-val">—</div>
+        <div class="sub-val" id="onglet-ytd-pct">—</div>
+    </div>
+    <div class="stat-box" id="box-onglet-month">
+        <div class="stat-label">Perf. Mois</div>
+        <div class="main-val" id="onglet-month-val">—</div>
+        <div class="sub-val" id="onglet-month-pct">—</div>
+    </div>
+    
+    <div class="stat-box" id="box-liquidites" style="background:rgba(0,212,255,0.03); border-color:rgba(0,212,255,0.2); justify-content:center; display:none;">
+        <div class="cash-input-wrapper">
+            <span id="cash-label" style="font-size:0.85em; color:var(--muted); font-weight:700; margin-right: 12px; width:70px; display:inline-block;">Cash CTO</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+                <input type="number" id="input-cash" min="0" step="0.01" value="0" onchange="majCash()">
+                <span style="color:var(--muted); font-weight:bold; font-family: 'DM Sans', sans-serif;">€</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="section-bourse" class="section-content">
+    <div class="card">
+        <h3>Ajouter une position (Manuel)</h3>
+        <form id="form-bourse" class="form-grid">
+            <div class="radio-group">
+                <label><input type="radio" name="modeSaisie" value="detail" checked> Prix d'achat + Frais</label>
+                <label><input type="radio" name="modeSaisie" value="pru"> Saisir le PRU</label>
+            </div>
+            <div class="input-group"><label>Nom / Ticker</label><input type="text" id="ticker" required autocomplete="off" placeholder="Ex: LVMH"></div>
+            <div class="input-group"><label>Date d'achat</label><input type="date" id="dateAchat" required></div>
+            <div class="input-group"><label>Secteur</label>
+                <select id="secteur">
+                    <option value="Technologie">Technologie</option><option value="Santé">Santé</option>
+                    <option value="Finance">Finance</option><option value="Énergie">Énergie</option>
+                    <option value="Consommation">Consommation</option><option value="Industrie">Industrie</option>
+                    <option value="Immobilier">Immobilier</option><option value="Matières premières">Matières premières</option><option value="Fonds/ETF">Fonds / ETF</option>
+                    <option value="Autre" selected>Autre</option>
+                </select>
+            </div>
+            <div class="input-group"><label>Quantité</label><input type="number" id="quantite" min="0.0001" step="0.0001" required></div>
+            <div class="input-group" id="group-prixAchat"><label>Prix Achat Unitaire</label><input type="number" id="prixAchat" min="0.01" step="0.01" required></div>
+            <div class="input-group" id="group-frais"><label>Frais Courtage (%)</label><input type="number" id="fraisPourcent" min="0" step="0.01" value="0.5"></div>
+            <div class="input-group" id="group-pru" style="display:none"><label>PRU Direct</label><input type="number" id="pruDirect" min="0.01" step="0.01"></div>
+            <div class="input-group"><label>Dividendes perçus</label><input type="number" id="dividendes" min="0" step="0.01" value="0"></div>
+            <button type="submit" id="btn-ajouter-bourse">➕ Ajouter au portefeuille</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3>Positions <span style="color:var(--muted); font-size:0.8em; font-weight:500; font-family:'DM Sans', sans-serif;">Cliquez sur les en-têtes pour trier (Modifiez Nom et Prix)</span></h3>
+        <div style="overflow-x:auto">
+            <table>
+                <thead><tr>
+                    <th onclick="trierBourse('ticker')">Entreprise (Édit) ↕</th>
+                    <th onclick="trierBourse('dateAchat')">Date ↕</th>
+                    <th onclick="trierBourse('quantite')">Qté ↕</th>
+                    <th onclick="trierBourse('pru')">PRU ↕</th>
+                    <th onclick="trierBourse('investi')">Investi ↕</th>
+                    <th onclick="trierBourse('prixActuel')">Cours Actuel ↕</th>
+                    <th onclick="trierBourse('valeur')">Valeur ↕</th>
+                    <th onclick="trierBourse('dividendes')">Dividendes ↕</th>
+                    <th onclick="trierBourse('perfEuro')" style="text-align:right;">Plus-Value Latente ↕</th>
+                    <th style="text-align:center">Action</th>
+                </tr></thead>
+                <tbody id="table-bourse-body"></tbody>
+                <tfoot id="table-bourse-foot"></tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="section-pee" class="section-content">
+    <div class="card">
+        <h3>Nouvelle évaluation PEE</h3>
+        <form id="form-pee" class="form-grid" style="align-items:flex-end;">
+            <div class="input-group"><label>Date</label><input type="date" id="pee-date" required></div>
+            <div class="input-group"><label>Montant Investi (€)</label><input type="number" id="pee-investi" min="0" step="0.01" required></div>
+            <div class="input-group"><label>Valeur Totale (€)</label><input type="number" id="pee-actuel" min="0" step="0.01" required></div>
+            <div class="input-group">
+                <button type="submit" class="btn btn-success" style="height:48px; font-size:0.95em; border-radius:10px; width: 100%;">✔ Enregistrer</button>
+            </div>
+        </form>
+    </div>
+    <div class="card">
+        <h3>Historique PEE</h3>
+        <div style="overflow-x:auto">
+            <table>
+                <thead><tr><th>Date</th><th>Apports (Édit)</th><th>Valeur (Édit)</th><th style="text-align:right;">Performance</th><th style="text-align:center;">Action</th></tr></thead>
+                <tbody id="table-pee-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="section-indices" class="section-content">
+    <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:15px; margin-bottom:15px;">
+            <h3 style="border:none; margin:0; padding:0;">📊 Comparaison avec les Indices</h3>
+            <button type="button" class="btn btn-primary" onclick="actualiserIndices()" style="font-size:0.85em; height:36px; padding:0 16px">
+                <span class="spinner" id="indices-spinner" style="display:none"></span> Actualiser Auto
+            </button>
+        </div>
+        
+        <div class="indices-wrapper" id="indices-grid">
+            <div class="idx-card" style="border-color: var(--accent);">
+                <div class="idx-title">Mon Portefeuille</div>
+                <div class="idx-val" id="idx-p-val">—</div>
+                <div class="idx-row"><span class="idx-label">YTD</span><span class="idx-badge neut" id="idx-p-ytd">—</span></div>
+                <div class="idx-row"><span class="idx-label">Depuis Origine</span><span class="idx-badge neut" id="idx-p-all">—</span></div>
+            </div>
+            <div class="idx-card">
+                <div class="idx-title">CAC 40</div>
+                <div class="idx-val" id="idx-cac-val">—</div>
+                <div class="idx-row"><span class="idx-label">YTD</span><span class="idx-badge neut" id="idx-cac-ytd">—</span></div>
+                <div class="idx-row"><span class="idx-label">Depuis Origine</span><span class="idx-badge neut" id="idx-cac-all">—</span></div>
+            </div>
+            <div class="idx-card">
+                <div class="idx-title">S&P 500</div>
+                <div class="idx-val" id="idx-sp-val">—</div>
+                <div class="idx-row"><span class="idx-label">YTD</span><span class="idx-badge neut" id="idx-sp-ytd">—</span></div>
+                <div class="idx-row"><span class="idx-label">Depuis Origine</span><span class="idx-badge neut" id="idx-sp-all">—</span></div>
+            </div>
+            <div class="idx-card">
+                <div class="idx-title">MSCI World</div>
+                <div class="idx-val" id="idx-msci-val">—</div>
+                <div class="idx-row"><span class="idx-label">YTD</span><span class="idx-badge neut" id="idx-msci-ytd">—</span></div>
+                <div class="idx-row"><span class="idx-label">Depuis Origine</span><span class="idx-badge neut" id="idx-msci-all">—</span></div>
+            </div>
+            <div class="idx-card">
+                <div class="idx-title">Nasdaq 100</div>
+                <div class="idx-val" id="idx-ndx-val">—</div>
+                <div class="idx-row"><span class="idx-label">YTD</span><span class="idx-badge neut" id="idx-ndx-ytd">—</span></div>
+                <div class="idx-row"><span class="idx-label">Depuis Origine</span><span class="idx-badge neut" id="idx-ndx-all">—</span></div>
+            </div>
+            <div class="idx-card">
+                <div class="idx-title">DAX</div>
+                <div class="idx-val" id="idx-dax-val">—</div>
+                <div class="idx-row"><span class="idx-label">YTD</span><span class="idx-badge neut" id="idx-dax-ytd">—</span></div>
+                <div class="idx-row"><span class="idx-label">Depuis Origine</span><span class="idx-badge neut" id="idx-dax-all">—</span></div>
+            </div>
+            <div class="idx-card">
+                <div class="idx-title">Eurostoxx 50</div>
+                <div class="idx-val" id="idx-estx50-val">—</div>
+                <div class="idx-row"><span class="idx-label">YTD</span><span class="idx-badge neut" id="idx-estx50-ytd">—</span></div>
+                <div class="idx-row"><span class="idx-label">Depuis Origine</span><span class="idx-badge neut" id="idx-estx50-all">—</span></div>
+            </div>
+        </div>
+
+        <div style="margin-top:35px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div>
+                <h3 style="font-size:1em; border-bottom:none; padding-bottom:0; margin-bottom:15px">Comparaison (Perf. % YTD)</h3>
+                <div class="chart-container" style="height:350px"><canvas id="indicesChart"></canvas></div>
+            </div>
+            <div>
+                <h3 style="font-size:1em; border-bottom:none; padding-bottom:0; margin-bottom:15px">Comparaison (Perf. % Depuis Origine)</h3>
+                <div class="chart-container" style="height:350px"><canvas id="indicesOrigineChart"></canvas></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="section-bilan" class="section-content">
+    <div class="card">
+        <h3>📈 Évolution des Portefeuilles</h3>
+        <div class="grid-2x2">
+            <div><h4 style="margin-bottom:10px;">Total Portefeuille</h4><div class="chart-container" style="height:250px"><canvas id="chart-total"></canvas></div></div>
+            <div><h4 style="margin-bottom:10px; color:var(--cto);">CTO</h4><div class="chart-container" style="height:250px"><canvas id="chart-cto"></canvas></div></div>
+            <div><h4 style="margin-bottom:10px; color:var(--pea);">PEA</h4><div class="chart-container" style="height:250px"><canvas id="chart-pea"></canvas></div></div>
+            <div><h4 style="margin-bottom:10px; color:var(--pee);">PEE</h4><div class="chart-container" style="height:250px"><canvas id="chart-pee"></canvas></div></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>📝 Saisie Journalière</h3>
+        <form id="form-suivi-journalier" class="form-grid" style="align-items:flex-end;">
+            <div class="input-group"><label>Date</label><input type="date" id="suivi-date" required></div>
+            <div class="input-group"><label>Valeur CTO (€)</label><input type="number" id="suivi-cto" step="0.01" value="0" required></div>
+            <div class="input-group"><label>Valeur PEA (€)</label><input type="number" id="suivi-pea" step="0.01" value="0" required></div>
+            <div class="input-group"><label>Valeur PEE (€)</label><input type="number" id="suivi-pee" step="0.01" value="0" required></div>
+            <div class="input-group"><label>Cash Total (€)</label><input type="number" id="suivi-cash" step="0.01" value="0" required></div>
+            <div class="input-group">
+                <button type="submit" class="btn btn-success" style="height:48px; margin-bottom:0; width:100%; border-radius:10px;">➕ Ajouter</button>
+            </div>
+        </form>
+
+        <div style="overflow-x:auto; margin-top:20px;">
+            <table class="table-bilan">
+                <thead><tr>
+                    <th>Date</th>
+                    <th>CTO</th>
+                    <th>PEA</th>
+                    <th>PEE</th>
+                    <th>Cash Total</th>
+                    <th style="color:var(--accent);">Total Global</th>
+                    <th style="text-align:center;">Action</th>
+                </tr></thead>
+                <tbody id="table-suivi-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="section-ref" class="section-content">
+    <div class="card">
+        <h3>① Apports nets depuis l'origine</h3>
+        <table class="ref-table">
+            <thead><tr><th style="width:30%">Compte</th><th>Apports Nets Totaux (€)</th></tr></thead>
+            <tbody>
+                <tr style="background:rgba(0,212,255,0.04)"><td><strong>Total Global</strong></td><td><input type="number" id="ref-orig-g-app" step="0.01" readonly title="Calculé automatiquement"></td></tr>
+                <tr><td><span style="color:var(--cto); font-weight:700">CTO</span></td><td><input type="number" id="ref-orig-cto-app" step="0.01" oninput="autoCalcRef()"></td></tr>
+                <tr><td><span style="color:var(--pea); font-weight:700">PEA</span></td><td><input type="number" id="ref-orig-pea-app" step="0.01" oninput="autoCalcRef()"></td></tr>
+                <tr><td><span style="color:var(--pee); font-weight:700">PEE</span></td><td><input type="number" id="ref-orig-pee-app" step="0.01" oninput="autoCalcRef()"></td></tr>
+            </tbody>
+        </table>
+
+        <h3 style="margin-top:32px">② Valeur au 1er janvier <span id="ref-ytd-year" style="color:var(--accent)"></span></h3>
+        <table class="ref-table">
+            <thead><tr><th style="width:30%">Compte</th><th>Valeur totale au 1er Janvier (€)</th></tr></thead>
+            <tbody>
+                <tr style="background:rgba(0,212,255,0.04)"><td><strong>Total Global</strong></td><td><input type="number" id="ref-ytd-g-val" step="0.01" readonly></td></tr>
+                <tr><td><span style="color:var(--cto); font-weight:700">CTO</span></td><td><input type="number" id="ref-ytd-cto-val" step="0.01" oninput="autoCalcRef()"></td></tr>
+                <tr><td><span style="color:var(--pea); font-weight:700">PEA</span></td><td><input type="number" id="ref-ytd-pea-val" step="0.01" oninput="autoCalcRef()"></td></tr>
+                <tr><td><span style="color:var(--pee); font-weight:700">PEE</span></td><td><input type="number" id="ref-ytd-pee-val" step="0.01" oninput="autoCalcRef()"></td></tr>
+            </tbody>
+        </table>
+
+        <h3 style="margin-top:32px">③ Valeur au 1er <span id="ref-mois-label" style="color:var(--success)"></span></h3>
+        <table class="ref-table">
+            <thead><tr><th style="width:30%">Compte</th><th>Valeur totale au 1er du Mois (€)</th></tr></thead>
+            <tbody>
+                <tr style="background:rgba(0,212,255,0.04)"><td><strong>Total Global</strong></td><td><input type="number" id="ref-mois-g-val" step="0.01" readonly></td></tr>
+                <tr><td><span style="color:var(--cto); font-weight:700">CTO</span></td><td><input type="number" id="ref-mois-cto-val" step="0.01" oninput="autoCalcRef()"></td></tr>
+                <tr><td><span style="color:var(--pea); font-weight:700">PEA</span></td><td><input type="number" id="ref-mois-pea-val" step="0.01" oninput="autoCalcRef()"></td></tr>
+                <tr><td><span style="color:var(--pee); font-weight:700">PEE</span></td><td><input type="number" id="ref-mois-pee-val" step="0.01" oninput="autoCalcRef()"></td></tr>
+            </tbody>
+        </table>
+
+        <button type="button" class="btn btn-primary" style="width:100%; margin-top:24px; height:48px; font-size:1em; justify-content:center;" onclick="sauvegarderReferences()">💾 Enregistrer les références</button>
+        
+        <details class="custom-details">
+            <summary>📊 Données des Indices (Références Manuelles)</summary>
+            <div style="margin-top: 20px;">
+                <p style="font-size:0.85em; color:var(--muted); margin-bottom:15px;">
+                    Renseignez les valeurs de référence pour calculer les performances dans l'onglet Indices.
+                </p>
+                <table class="ref-table">
+                    <thead><tr><th style="width:25%">Indice</th><th>Valeur Origine (01/10/2024)</th><th>Valeur YTD (01/01/2026)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Mon Portefeuille</td><td><input type="number" id="ref-port-orig" step="0.01"></td><td><input type="number" id="ref-port-ytd" step="0.01"></td></tr>
+                        <tr><td>CAC 40</td><td><input type="number" id="ref-cac-orig" step="0.01"></td><td><input type="number" id="ref-cac-ytd" step="0.01"></td></tr>
+                        <tr><td>S&P 500</td><td><input type="number" id="ref-sp-orig" step="0.01"></td><td><input type="number" id="ref-sp-ytd" step="0.01"></td></tr>
+                        <tr><td>MSCI World</td><td><input type="number" id="ref-msci-orig" step="0.01"></td><td><input type="number" id="ref-msci-ytd" step="0.01"></td></tr>
+                        <tr><td>Nasdaq 100</td><td><input type="number" id="ref-ndx-orig" step="0.01"></td><td><input type="number" id="ref-ndx-ytd" step="0.01"></td></tr>
+                        <tr><td>DAX</td><td><input type="number" id="ref-dax-orig" step="0.01"></td><td><input type="number" id="ref-dax-ytd" step="0.01"></td></tr>
+                        <tr><td>Eurostoxx 50</td><td><input type="number" id="ref-estx50-orig" step="0.01"></td><td><input type="number" id="ref-estx50-ytd" step="0.01"></td></tr>
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary" style="width:100%; margin-top:20px; height:48px; font-size:1em; justify-content:center; background:rgba(245,158,11,0.15); color:var(--accent3); border:1px solid rgba(245,158,11,0.3); box-shadow:none;" onclick="sauvegarderReferencesIndices()">💾 Enregistrer les indices</button>
+            </div>
+        </details>
+    </div>
+</div>
+
+<script>
+// ─── CONFIG ───────────────────────────────────────────────────────
+const FINNHUB_KEY = ""; // Clé supprimée par sécurité
+
+// Empêcher le navigateur de restaurer la position de défilement au rafraîchissement
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
+// ─── STATE ────────────────────────────────────────────────────────
+let isIncognito = localStorage.getItem('incognitoV42') === 'true';
+let appData = JSON.parse(localStorage.getItem('portefeuilleV42'))
+    || JSON.parse(localStorage.getItem('portefeuilleV41'))
+    || JSON.parse(localStorage.getItem('portefeuilleV40'))
+    || { CTO: [], PEA: [], PEE: [], cashCTO: 0, cashPEA: 0 };
+let historiqueData = JSON.parse(localStorage.getItem('historiqueV42'))
+    || JSON.parse(localStorage.getItem('historiqueV41'))
+    || JSON.parse(localStorage.getItem('historiqueV40'))
+    || [];
+
+// Valeurs par defaut si le fichier est vierge
+if (!appData.references || !appData.references.ytd || !appData.references.ytd.global || appData.references.ytd.global.v === null) {
+    appData.references = {
+        origine: { global: null, CTO: null, PEA: null, PEE: null },
+        ytd: { global: {v: null, a: null}, CTO: {v: null, a: null}, PEA: {v: null, a: null}, PEE: {v: null, a: null} },
+        mois: { global: {v: null, a: null}, CTO: {v: null, a: null}, PEA: {v: null, a: null}, PEE: {v: null, a: null} }
+    };
+}
+if (!appData.archives) appData.archives = {};
+
+// Mise à niveau sécurisée pour les nouveaux indices et le nouveau système (Origine + YTD manuels)
+if (!appData.indicesRef) appData.indicesRef = {};
+['port','cac','sp','msci','ndx','dax','estx50'].forEach(k => { 
+    if(!appData.indicesRef[k]) appData.indicesRef[k] = {orig: null, ytd: null};
+    if(appData.indicesRef[k].ytd === undefined) appData.indicesRef[k].ytd = null;
+    if(appData.indicesRef[k].orig === undefined) appData.indicesRef[k].orig = null;
+});
+
+if (!appData.suiviManuel) appData.suiviManuel = [];
+['CTO','PEA'].forEach(c => appData[c].forEach(a => { if(!a.nom) a.nom=""; }));
+
+let ongletActif = 'ACCUEIL'; 
+let historyChart = null, sectorChart = null, indicesChart = null, indicesOrigineChart = null;
+let etatTri = { colonne: null, asc: true };
+let perfsActuelles = { global:{investi:0,actuel:0,perf:0,cash:0,apports:0,base_perf:0}, CTO:{investi:0,actuel:0,perf:0,cash:0,unrealizedPerf:0,apports:0,base_perf:0}, PEA:{investi:0,actuel:0,perf:0,cash:0,unrealizedPerf:0,apports:0,base_perf:0}, PEE:{investi:0,actuel:0,perf:0,cash:0,apports:0,base_perf:0} };
+
+document.getElementById('dateAchat').valueAsDate = new Date();
+
+function toast(msg, type='success') {
+    const t = document.getElementById('toast'), m = document.getElementById('toast-msg'), i = document.getElementById('toast-icon');
+    t.className = 'toast ' + type;
+    i.textContent = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+    m.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// ─── INCOGNITO ────────────────────────────────────────────────────
+function initIncognito() {
+    const btn = document.getElementById('btn-incognito');
+    const icon = document.getElementById('icon-incognito');
+    const txt = document.getElementById('text-incognito');
+    document.body.classList.toggle('incognito-mode', isIncognito);
+    btn.classList.toggle('active', isIncognito);
+    if(isIncognito) {
+        icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+        txt.textContent = 'Afficher';
+    } else {
+        icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+        txt.textContent = 'Masquer';
+    }
+}
+function toggleIncognito() {
+    isIncognito = !isIncognito; localStorage.setItem('incognitoV42', isIncognito);
+    initIncognito(); mettreAJourAffichage(); 
+    if(ongletActif === 'ACCUEIL') mettreAJourGraphiqueLigne();
+    if(ongletActif === 'BILAN') { renderTableSuivi(); renderSuiviCharts(); }
+    if(ongletActif === 'INDICES') actualiserIndices();
+}
+initIncognito();
+
+function W(valStr) { return isIncognito ? '***' : valStr; }
+const fmt0 = (n) => n.toLocaleString('fr-FR', {minimumFractionDigits:0, maximumFractionDigits:0});
+const fmt2 = (n) => n.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2});
+const fmtE0 = (n) => fmt0(n) + ' €';
+const fmtE2 = (n) => fmt2(n) + ' €';
+const signe = n => n >= 0 ? '+' : '';
+
+function updatePerfDisplay(boxId, valId, pctId, montant, pct) {
+    const box = document.getElementById(boxId);
+    const elVal = document.getElementById(valId);
+    const elPct = document.getElementById(pctId);
+    if(!box || !elVal || !elPct) return;
+    
+    box.classList.remove('positif', 'negatif');
+    if (montant !== null) {
+        box.classList.add(montant >= 0 ? 'positif' : 'negatif');
+        elVal.textContent = isIncognito ? '***' : signe(montant) + fmt0(montant) + ' €';
+        elPct.textContent = signe(pct) + pct.toFixed(2) + ' %';
+    } else {
+        elVal.textContent = '—';
+        elPct.textContent = '—';
+        elVal.style.color = 'var(--text)';
+    }
+}
+
+function perfHtml(montant, pct, align='right') {
+    const cls = montant >= 0 ? 'positif' : 'negatif';
+    const pStr = signe(pct) + pct.toFixed(2) + ' %';
+    const flexAlign = align === 'right' ? 'flex-end' : 'flex-start';
+    if (isIncognito) {
+        return `<div class="perf-block" style="align-items:${flexAlign};"><span class="perf-pct ${cls}">${pStr}</span></div>`;
+    }
+    const mStr = signe(montant) + fmtE2(montant);
+    return `<div class="perf-block" style="align-items:${flexAlign};"><span class="perf-amount ${cls}">${mStr}</span><span class="perf-pct ${cls}">${pStr}</span></div>`;
+}
+
+function exporterDonnees() {
+    const blob = new Blob([JSON.stringify({appData, historiqueData}, null, 2)], {type:'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = `MinaryFinance_V42_${new Date().toISOString().split('T')[0]}.json`; a.click();
+    toast('Données sauvegardées !');
+}
+function importerDonnees(event) {
+    const file = event.target.files[0]; if(!file) return; const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const imported = JSON.parse(e.target.result);
+            if (imported.appData && imported.historiqueData) {
+                appData = imported.appData; historiqueData = imported.historiqueData;
+                if(!appData.archives) appData.archives = {};
+                if(!appData.suiviManuel) appData.suiviManuel = [];
+                if(!appData.indicesRef) appData.indicesRef = {};
+                ['port','cac','sp','msci','ndx','dax','estx50'].forEach(k => { 
+                    if(!appData.indicesRef[k]) appData.indicesRef[k] = {orig: null, ytd: null};
+                });
+                if(!appData.references.origine) appData.references.origine = { global:null, CTO:null, PEA:null, PEE:null };
+                localStorage.setItem('portefeuilleV42', JSON.stringify(appData)); localStorage.setItem('historiqueV42', JSON.stringify(historiqueData));
+                chargerFormulaireReferences(); chargerFormulaireReferencesIndices(); changerOnglet('ACCUEIL'); toast('Données restaurées avec succès !');
+            } else toast('Fichier invalide.', 'error');
+        } catch(err) { toast('Erreur lecture JSON.', 'error'); }
+    }; reader.readAsText(file);
+}
+
+function changerOnglet(nom) {
+    ongletActif = nom; 
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); 
+    document.getElementById('tab-' + nom).classList.add('active'); 
+    document.querySelectorAll('.section-content').forEach(s => { s.classList.remove('active'); });
+    
+    const hideGlobal = ['REF','BILAN','INDICES'].includes(nom); 
+    document.getElementById('dashboard-global-wrapper').style.display = hideGlobal ? 'none' : 'grid'; 
+    document.getElementById('dashboard-onglet').style.display = ['REF','BILAN','INDICES','ACCUEIL'].includes(nom) ? 'none' : 'grid'; 
+    
+    const boxLiq = document.getElementById('box-liquidites');
+    if (nom === 'CTO' || nom === 'PEA') {
+        boxLiq.style.display = 'flex';
+        document.getElementById('cash-label').textContent = 'Cash ' + nom;
+        document.getElementById('input-cash').value = appData['cash'+nom] || 0;
+    } else {
+        boxLiq.style.display = 'none';
+    }
+    
+    // Remonter en haut de page à chaque changement d'onglet pour éviter les décalages
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (nom === 'ACCUEIL') { 
+        document.getElementById('section-accueil').classList.add('active'); 
+        mettreAJourAffichage(); 
+        mettreAJourGraphiqueLigne(); 
+    }
+    else if (nom === 'CTO' || nom === 'PEA') { 
+        document.getElementById('section-bourse').classList.add('active'); 
+        mettreAJourAffichage(); 
+    } 
+    else if (nom === 'PEE') { 
+        document.getElementById('section-pee').classList.add('active'); 
+        document.getElementById('pee-date').valueAsDate = new Date(); 
+        mettreAJourAffichage(); 
+    } 
+    else if (nom === 'INDICES') { document.getElementById('section-indices').classList.add('active'); actualiserIndices(); } 
+    else if (nom === 'BILAN') { 
+        document.getElementById('section-bilan').classList.add('active'); 
+        renderTableSuivi(); 
+        renderSuiviCharts(); 
+    } 
+    else if (nom === 'REF') { document.getElementById('section-ref').classList.add('active'); chargerFormulaireReferences(); chargerFormulaireReferencesIndices(); }
+}
+
+function majCash() { 
+    if (!['CTO','PEA'].includes(ongletActif)) return; 
+    appData['cash'+ongletActif] = parseFloat(document.getElementById('input-cash').value) || 0; 
+    mettreAJourAffichage(); sauvegarderHistorique(); 
+}
+
+function mettreAJourAffichage() {
+    perfsActuelles = { 
+        global:{investi:0,actuel:0,perf:0,cash:0,apports:0,base_perf:0}, 
+        CTO:{investi:0,actuel:0,perf:0,cash:0,unrealizedPerf:0,apports:0,base_perf:0}, 
+        PEA:{investi:0,actuel:0,perf:0,cash:0,unrealizedPerf:0,apports:0,base_perf:0}, 
+        PEE:{investi:0,actuel:0,perf:0,cash:0,apports:0,base_perf:0} 
+    };
+    let sectorDist = {};
+
+    ['CTO','PEA'].forEach(c => { 
+        appData[c].forEach(a => { 
+            const cout = (a.quantite * a.prixAchat) + a.frais; 
+            const val = a.quantite * a.prixActuel; 
+            perfsActuelles[c].investi += cout; 
+            perfsActuelles[c].actuel += val; 
+            const pvLigne = (val - cout) + a.dividendes;
+            perfsActuelles[c].unrealizedPerf += pvLigne; 
+            sectorDist[a.secteur] = (sectorDist[a.secteur] || 0) + val; 
+        }); 
+        perfsActuelles[c].cash = appData['cash'+c] || 0;
+    });
+
+    const oG = appData.references.origine.global; const oC = appData.references.origine.CTO; const oP = appData.references.origine.PEA; const oE = appData.references.origine.PEE;
+
+    // LOGIQUE DE CALCUL NEUTRE AU CASH
+    ['CTO', 'PEA'].forEach(c => {
+        let o = (c === 'CTO') ? oC : oP;
+        let val_actions = perfsActuelles[c].actuel;
+        let cash = perfsActuelles[c].cash;
+        let val_total = val_actions + cash;
+        
+        if (o !== null && o !== '') { 
+            perfsActuelles[c].apports = parseFloat(o); 
+            perfsActuelles[c].base_perf = perfsActuelles[c].apports - cash;
+            if (perfsActuelles[c].base_perf <= 0) perfsActuelles[c].base_perf = 1;
+        } else { 
+            perfsActuelles[c].apports = perfsActuelles[c].investi + cash; 
+            perfsActuelles[c].base_perf = perfsActuelles[c].investi;
+            if (perfsActuelles[c].base_perf <= 0) perfsActuelles[c].base_perf = 1;
+        }
+        perfsActuelles[c].actuel = val_total;
+        perfsActuelles[c].perf = val_total - perfsActuelles[c].apports;
+    });
+
+    if (appData.PEE.length > 0) { 
+        appData.PEE.sort((a,b) => new Date(a.date)-new Date(b.date)); 
+        const last = appData.PEE[appData.PEE.length-1]; 
+        perfsActuelles.PEE.actuel = last.actuel;
+        perfsActuelles.PEE.investi = last.investi;
+    } else {
+        perfsActuelles.PEE.actuel = 0;
+        perfsActuelles.PEE.investi = 0;
+    }
+    
+    if (oE !== null && oE !== '') { 
+        perfsActuelles.PEE.apports = parseFloat(oE); 
+        perfsActuelles.PEE.base_perf = perfsActuelles.PEE.apports;
+    } else { 
+        perfsActuelles.PEE.apports = perfsActuelles.PEE.investi; 
+        perfsActuelles.PEE.base_perf = perfsActuelles.PEE.investi;
+    }
+    if (perfsActuelles.PEE.base_perf <= 0) perfsActuelles.PEE.base_perf = 1;
+    perfsActuelles.PEE.perf = perfsActuelles.PEE.actuel - perfsActuelles.PEE.apports; 
+
+    perfsActuelles.global.actuel = perfsActuelles.CTO.actuel + perfsActuelles.PEA.actuel + perfsActuelles.PEE.actuel;
+    perfsActuelles.global.cash = perfsActuelles.CTO.cash + perfsActuelles.PEA.cash;
+    
+    if (oG !== null && oG !== '') { 
+        perfsActuelles.global.apports = parseFloat(oG); 
+        perfsActuelles.global.base_perf = perfsActuelles.global.apports - perfsActuelles.global.cash;
+    } else { 
+        perfsActuelles.global.apports = perfsActuelles.CTO.apports + perfsActuelles.PEA.apports + perfsActuelles.PEE.apports; 
+        perfsActuelles.global.base_perf = perfsActuelles.CTO.base_perf + perfsActuelles.PEA.base_perf + perfsActuelles.PEE.base_perf;
+    }
+    if (perfsActuelles.global.base_perf <= 0) perfsActuelles.global.base_perf = 1;
+    perfsActuelles.global.perf = perfsActuelles.global.actuel - perfsActuelles.global.apports;
+
+    const gPct = (perfsActuelles.global.perf / perfsActuelles.global.base_perf)*100;
+
+    // DASHBOARD GLOBAL
+    document.getElementById('global-actuel').textContent = W(fmtE0(perfsActuelles.global.actuel)); 
+    document.getElementById('global-apports').textContent = W(fmtE0(perfsActuelles.global.apports)); 
+    document.getElementById('global-cash').textContent = 'Dont cash : ' + W(fmtE0(perfsActuelles.global.cash));
+    updatePerfDisplay('box-global-perf', 'global-perf-val', 'global-perf-pct', perfsActuelles.global.perf, gPct);
+
+    // TABLE ACCUEIL
+    const tAccueil = document.getElementById('table-accueil-body');
+    if (tAccueil) {
+        tAccueil.innerHTML = `
+            <tr>
+                <td style="text-align:left; color:var(--cto); font-weight:700;">CTO</td>
+                <td>${W(fmtE0(perfsActuelles.CTO.apports))}</td>
+                <td>${W(fmtE0(perfsActuelles.CTO.actuel))}</td>
+                <td>${perfHtml(perfsActuelles.CTO.perf, perfsActuelles.CTO.base_perf > 0 ? (perfsActuelles.CTO.perf/perfsActuelles.CTO.base_perf)*100 : 0, 'right')}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left; color:var(--pea); font-weight:700;">PEA</td>
+                <td>${W(fmtE0(perfsActuelles.PEA.apports))}</td>
+                <td>${W(fmtE0(perfsActuelles.PEA.actuel))}</td>
+                <td>${perfHtml(perfsActuelles.PEA.perf, perfsActuelles.PEA.base_perf > 0 ? (perfsActuelles.PEA.perf/perfsActuelles.PEA.base_perf)*100 : 0, 'right')}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left; color:var(--pee); font-weight:700;">PEE</td>
+                <td>${W(fmtE0(perfsActuelles.PEE.apports))}</td>
+                <td>${W(fmtE0(perfsActuelles.PEE.actuel))}</td>
+                <td>${perfHtml(perfsActuelles.PEE.perf, perfsActuelles.PEE.base_perf > 0 ? (perfsActuelles.PEE.perf/perfsActuelles.PEE.base_perf)*100 : 0, 'right')}</td>
+            </tr>
+            <tr style="background:rgba(255,255,255,0.05);">
+                <td style="text-align:left; font-weight:800; color:var(--text);">TOTAL GLOBAL</td>
+                <td style="font-weight:800;">${W(fmtE0(perfsActuelles.global.apports))}</td>
+                <td style="font-weight:800;">${W(fmtE0(perfsActuelles.global.actuel))}</td>
+                <td>${perfHtml(perfsActuelles.global.perf, gPct, 'right')}</td>
+            </tr>
+        `;
+    }
+
+    // DASHBOARD ONGLET (CTO/PEA/PEE)
+    if (['CTO','PEA','PEE'].includes(ongletActif)) {
+        const tab = perfsActuelles[ongletActif]; 
+        const tabPct = (tab.perf / tab.base_perf)*100;
+        document.getElementById('onglet-actuel').textContent = W(fmtE0(tab.actuel)); 
+        document.getElementById('onglet-investi').textContent = W(fmtE0(tab.apports));
+        updatePerfDisplay('box-onglet-perf', 'onglet-perf-val', 'onglet-perf-pct', tab.perf, tabPct); 
+    }
+
+    if (['CTO','PEA'].includes(ongletActif)) renderTableBourse(); 
+    else if (ongletActif === 'PEE') renderTablePEE();
+    
+    mettreAJourGraphiqueSecteur(sectorDist); 
+    calculerPerformancesYTD_Mois(); 
+    localStorage.setItem('portefeuilleV42', JSON.stringify(appData));
+}
+
+function renderTableBourse() {
+    const tbody = document.getElementById('table-bourse-body'); tbody.innerHTML = ''; let totQte=0, totI=0, totV=0, totDiv=0, totP=0;
+    appData[ongletActif].forEach((a, idx) => {
+        const cout = (a.quantite * a.prixAchat) + a.frais; const pru = cout / a.quantite; const val = a.quantite * a.prixActuel; const pv = (val - cout) + a.dividendes; const pvPct = cout > 0 ? (pv/cout)*100 : 0;
+        totQte += a.quantite; totI += cout; totV += val; totDiv += a.dividendes; totP += pv; const nom = a.nom || a.ticker; const dateFr = new Date(a.dateAchat).toLocaleDateString('fr-FR');
+        const tr = document.createElement('tr'); 
+        tr.innerHTML = `
+            <td style="vertical-align: middle;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <input type="text" class="inline-edit text-left blur-text" value="${nom}" onchange="updateLigneBourse(${idx}, 'nom', this.value)">
+                    <span class="badge-sector">${a.secteur}</span>
+                </div>
+            </td>
+            <td style="vertical-align: middle;">${dateFr}</td>
+            <td style="vertical-align: middle;"><input type="number" class="inline-edit blur-text" value="${a.quantite}" step="0.0001" onchange="updateLigneBourse(${idx}, 'quantite', this.value)"></td>
+            <td style="vertical-align: middle;"><input type="number" class="inline-edit blur-text" value="${pru.toFixed(2)}" step="0.01" onchange="updateLigneBourse(${idx}, 'pru', this.value)"></td>
+            <td style="vertical-align: middle;">${W(fmtE2(cout))}</td>
+            <td style="vertical-align: middle;"><input type="number" class="inline-edit blur-text" value="${a.prixActuel.toFixed(2)}" step="0.01" onchange="updateLigneBourse(${idx}, 'prixActuel', this.value)"></td>
+            <td style="vertical-align: middle;">${W(fmtE2(val))}</td>
+            <td style="vertical-align: middle;"><input type="number" class="inline-edit blur-text" style="color:var(--success)" value="${a.dividendes}" step="0.01" onchange="updateLigneBourse(${idx}, 'dividendes', this.value)"></td>
+            <td style="vertical-align: middle;">${perfHtml(pv, pvPct, 'right')}</td>
+            <td style="vertical-align: middle; text-align: center;">
+                <button type="button" class="delete-btn" onclick="supprimerActionBourse(${idx})">❌</button>
+            </td>`; 
+        tbody.appendChild(tr);
+    });
+    const tfoot = document.getElementById('table-bourse-foot'); const totPct = totI > 0 ? (totP/totI)*100 : 0;
+    tfoot.innerHTML = `<tr><td colspan="2">TOTAL LATENT</td><td style="text-align:right">${fmt2(totQte)}</td><td></td><td style="text-align:right">${W(fmtE2(totI))}</td><td></td><td style="text-align:right">${W(fmtE2(totV))}</td><td style="text-align:right; color:var(--success)">${W(fmtE2(totDiv))}</td><td>${perfHtml(totP, totPct, 'right')}</td><td></td></tr>`;
+}
+
+function renderTablePEE() {
+    const tbody = document.getElementById('table-pee-body'); tbody.innerHTML = '';
+    appData.PEE.forEach((ev, idx) => {
+        const pv = ev.actuel - ev.investi; const pvPct = ev.investi > 0 ? (pv/ev.investi)*100 : 0; const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td style="vertical-align: middle;"><strong>${new Date(ev.date).toLocaleDateString('fr-FR')}</strong></td>
+            <td style="vertical-align: middle;"><input type="number" class="inline-edit blur-text" value="${ev.investi.toFixed(2)}" step="0.01" onchange="updateLignePEE(${idx},'investi',this.value)"></td>
+            <td style="vertical-align: middle;"><input type="number" class="inline-edit blur-text" value="${ev.actuel.toFixed(2)}" step="0.01" onchange="updateLignePEE(${idx},'actuel',this.value)"></td>
+            <td style="vertical-align: middle;">${perfHtml(pv, pvPct, 'right')}</td>
+            <td style="vertical-align: middle; text-align: center;"><button type="button" class="delete-btn" onclick="supprimerActionPEE(${idx})">❌</button></td>`; 
+        tbody.appendChild(tr);
+    });
+}
+
+window.updateLigneBourse = function(index, champ, val) { 
+    let action = appData[ongletActif][index]; 
+    if (champ === 'nom') {
+        action.nom = val;
+        action.ticker = val;
+    } else {
+        const v = parseFloat(val) || 0; 
+        if (champ === 'quantite') action.quantite = v; 
+        if (champ === 'dividendes') action.dividendes = v; 
+        if (champ === 'pru') { action.prixAchat = v; action.frais = 0; } 
+        if (champ === 'prixActuel') action.prixActuel = v; 
+    }
+    mettreAJourAffichage(); sauvegarderHistorique(); 
+};
+window.updateLignePEE = function(index, champ, val) { const v = parseFloat(val) || 0; if (champ === 'investi') appData.PEE[index].investi = v; if (champ === 'actuel') appData.PEE[index].actuel = v; mettreAJourAffichage(); sauvegarderHistorique(); };
+
+window.trierBourse = function(col) {
+    etatTri.asc = etatTri.colonne === col ? !etatTri.asc : true; etatTri.colonne = col;
+    appData[ongletActif].sort((a, b) => { let valA, valB; const coutA = (a.quantite * a.prixAchat) + a.frais; const coutB = (b.quantite * b.prixAchat) + b.frais; switch(col) { case 'ticker': valA = a.nom ? a.nom : a.ticker; valB = b.nom ? b.nom : b.ticker; break; case 'dateAchat': valA = new Date(a.dateAchat); valB = new Date(b.dateAchat); break; case 'quantite': valA = a.quantite; valB = b.quantite; break; case 'pru': valA = coutA/a.quantite; valB = coutB/b.quantite; break; case 'investi': valA = coutA; valB = coutB; break; case 'prixActuel': valA = a.prixActuel; valB = b.prixActuel; break; case 'valeur': valA = a.quantite * a.prixActuel; valB = b.quantite * b.prixActuel; break; case 'dividendes': valA = a.dividendes; valB = b.dividendes; break; case 'perfEuro': valA = (a.quantite * a.prixActuel) - coutA + a.dividendes; valB = (b.quantite * b.prixActuel) - coutB + b.dividendes; break; } if (valA < valB) return etatTri.asc ? -1 : 1; if (valA > valB) return etatTri.asc ? 1 : -1; return 0; }); mettreAJourAffichage();
+};
+
+// HELPER GRAPHIQUES : Dégradés
+const createGradient = (ctx, colorStart) => {
+    const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+    gradient.addColorStop(0, colorStart); 
+    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    return gradient;
+};
+
+const chartDefaults = () => { Chart.defaults.color = '#64748b'; Chart.defaults.font.family = "'DM Sans', sans-serif"; };
+
+// GESTION DU SUIVI JOURNALIER
+document.addEventListener('DOMContentLoaded', () => {
+    const inputDate = document.getElementById('suivi-date');
+    if(inputDate) inputDate.valueAsDate = new Date();
+});
+
+document.getElementById('form-suivi-journalier')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const date = document.getElementById('suivi-date').value;
+    const cto = parseFloat(document.getElementById('suivi-cto').value) || 0;
+    const pea = parseFloat(document.getElementById('suivi-pea').value) || 0;
+    const pee = parseFloat(document.getElementById('suivi-pee').value) || 0;
+    const cash = parseFloat(document.getElementById('suivi-cash').value) || 0;
+    const total = cto + pea + pee + cash;
+
+    const existingIndex = appData.suiviManuel.findIndex(s => s.date === date);
+    const entry = { date, cto, pea, pee, cash, total };
+    
+    if (existingIndex >= 0) appData.suiviManuel[existingIndex] = entry;
+    else appData.suiviManuel.push(entry);
+    
+    // Trier par ordre chronologique
+    appData.suiviManuel.sort((a,b) => new Date(a.date) - new Date(b.date));
+    localStorage.setItem('portefeuilleV42', JSON.stringify(appData));
+    
+    toast('Saisie journalière enregistrée !');
+    renderTableSuivi();
+    renderSuiviCharts();
+    if (ongletActif === 'ACCUEIL') mettreAJourGraphiqueLigne();
+});
+
+function renderTableSuivi() {
+    const tbody = document.getElementById('table-suivi-body');
+    if(!tbody) return;
+    tbody.innerHTML = '';
+    // Inverser pour avoir les plus récents en haut
+    [...appData.suiviManuel].reverse().forEach((s, idx) => {
+        const realIdx = appData.suiviManuel.length - 1 - idx;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${new Date(s.date).toLocaleDateString('fr-FR')}</td>
+            <td>${W(fmtE2(s.cto))}</td>
+            <td>${W(fmtE2(s.pea))}</td>
+            <td>${W(fmtE2(s.pee))}</td>
+            <td>${W(fmtE2(s.cash))}</td>
+            <td style="font-weight:bold; color:var(--accent)">${W(fmtE2(s.total))}</td>
+            <td style="text-align:center;"><button type="button" class="delete-btn" onclick="supprimerSuivi(${realIdx})">❌</button></td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+window.supprimerSuivi = function(index) {
+    if(confirm('Supprimer cette saisie ?')) {
+        appData.suiviManuel.splice(index, 1);
+        localStorage.setItem('portefeuilleV42', JSON.stringify(appData));
+        renderTableSuivi();
+        renderSuiviCharts();
+        if (ongletActif === 'ACCUEIL') mettreAJourGraphiqueLigne();
+        toast('Saisie supprimée');
+    }
+};
+
+let chartTotal = null, chartCTO = null, chartPEA = null, chartPEE = null;
+function renderSuiviCharts() {
+    if(ongletActif !== 'BILAN') return;
+    chartDefaults();
+    
+    // Sécurité au cas où le tableau est vide
+    const safeData = appData.suiviManuel || [];
+    const labels = safeData.map(s => new Date(s.date).toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'2-digit'}));
+    
+    const createLineChart = (id, chartInstance, label, data, color, gradientColor) => {
+        const canvas = document.getElementById(id);
+        if (!canvas) return chartInstance;
+        const ctx = canvas.getContext('2d');
+        if (chartInstance) chartInstance.destroy();
+        return new Chart(ctx, {
+            type: 'line',
+            data: { 
+                labels: labels, 
+                datasets: [{ 
+                    label: label, 
+                    data: data, 
+                    borderColor: color, 
+                    backgroundColor: createGradient(ctx, gradientColor), 
+                    borderWidth: 2.5, 
+                    pointRadius: safeData.length > 1 ? 0 : 4,
+                    pointHoverRadius: 6,
+                    tension: 0.4, 
+                    fill: true 
+                }] 
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { 
+                    legend: { display: false }, 
+                    tooltip: { backgroundColor: 'rgba(8, 14, 26, 0.95)', titleFont: {size: 13}, bodyFont: {size: 14, weight: 'bold'}, padding: 12, callbacks: { label: c => isIncognito ? '***' : fmtE2(c.parsed.y) } }, 
+                    datalabels: {display:false} 
+                },
+                scales: { 
+                    y: { grid: { color: 'rgba(255, 255, 255, 0.05)', borderDash: [5, 5] }, ticks: { callback: v => isIncognito ? '***' : fmt0(v), font: {size: 11} } }, 
+                    x: { grid: { display: false }, ticks: { maxTicksLimit: 6, font: {size: 10} } } 
+                }
+            }
+        });
+    };
+
+    chartTotal = createLineChart('chart-total', chartTotal, 'Total', safeData.map(s => s.total), '#00d4ff', 'rgba(0,212,255,0.4)');
+    chartCTO = createLineChart('chart-cto', chartCTO, 'CTO', safeData.map(s => s.cto), '#00d4ff', 'rgba(0,212,255,0.2)');
+    chartPEA = createLineChart('chart-pea', chartPEA, 'PEA', safeData.map(s => s.pea), '#00e5a0', 'rgba(0,229,160,0.2)');
+    chartPEE = createLineChart('chart-pee', chartPEE, 'PEE', safeData.map(s => s.pee), '#f59e0b', 'rgba(245,158,11,0.2)');
+}
+
+function mettreAJourGraphiqueLigne() {
+    const canvas = document.getElementById('historyChart');
+    if(!canvas) return; 
+    const ctx = canvas.getContext('2d'); 
+    if (historyChart) historyChart.destroy(); 
+    chartDefaults();
+    
+    const safeData = appData.suiviManuel || [];
+    const labels = safeData.map(s => new Date(s.date).toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'2-digit'}));
+    const dataTotal = safeData.map(s => s.total);
+
+    historyChart = new Chart(ctx, { 
+        type: 'line', 
+        data: { 
+            labels: labels, 
+            datasets: [ { 
+                label: 'Valeur Globale (Suivi)', 
+                data: dataTotal, 
+                borderColor: '#00d4ff', 
+                backgroundColor: createGradient(ctx, 'rgba(0,212,255,0.4)'), 
+                borderWidth: 3, 
+                pointRadius: safeData.length > 1 ? 0 : 4,
+                pointHoverRadius: 6,
+                tension: 0.4, 
+                fill: true 
+            } ] 
+        }, 
+        options: { 
+            responsive: true, maintainAspectRatio: false, 
+            layout: { padding: { left: 10, right: 20, top: 10, bottom: 10 } },
+            plugins: { 
+                datalabels:{display:false}, 
+                legend: { display: false }, 
+                tooltip: { backgroundColor: 'rgba(8, 14, 26, 0.9)', titleFont: {size: 13}, bodyFont: {size: 14, weight: 'bold'}, padding: 12, callbacks: { label: function(context) { return isIncognito ? context.dataset.label + ': ***' : context.dataset.label + ': ' + fmtE2(context.parsed.y); } } } 
+            }, 
+            scales: { 
+                y: { grid: { color: 'rgba(255, 255, 255, 0.05)', borderDash: [5, 5] }, ticks: { callback: function(value) { return isIncognito ? '***' : value; }, font: {size: 11} } }, 
+                x: { grid: { display: false }, ticks: { maxTicksLimit: 8, font: {size: 10} } } 
+            } 
+        } 
+    });
+}
+
+function mettreAJourGraphiqueSecteur(distribution) {
+    if(!document.getElementById('sectorChart')) return; const ctx = document.getElementById('sectorChart').getContext('2d'); if (sectorChart) sectorChart.destroy(); chartDefaults();
+    sectorChart = new Chart(ctx, { type: 'doughnut', plugins: [ChartDataLabels], data: { labels: Object.keys(distribution), datasets: [{ data: Object.values(distribution), backgroundColor: ['#00d4ff','#00e5a0','#f59e0b','#ff4d6d','#7c3aed','#ec4899','#06b6d4','#64748b','#10b981'], borderWidth: 2, borderColor: '#0f1c2e', hoverOffset: 5 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#64748b', font: {size: 11} } }, tooltip: { backgroundColor: 'rgba(8, 14, 26, 0.95)', padding: 10, callbacks: { label: function(context) { let total = context.dataset.data.reduce((sum, val) => sum + val, 0); let pct = total > 0 ? ((context.parsed / total) * 100).toFixed(1) + ' %' : '0 %'; let valStr = isIncognito ? '***' : fmtE2(context.parsed); return context.label + ': ' + valStr + ' (' + pct + ')'; } } }, datalabels: { color: '#ffffff', font: { weight: 'bold', size: 10 }, formatter: (value, context) => { let sum = context.dataset.data.reduce((a, b) => a + b, 0); let pct = (value * 100 / sum); if (pct < 4) return ''; return pct.toFixed(1) + '%'; } } }, cutout: '65%', animation: { animateScale: true, animateRotate: true } } });
+}
+
+async function actualiserIndices() {
+    const spinner = document.getElementById('indices-spinner'); 
+    if (spinner) spinner.style.display = 'inline-block';
+    
+    // API ULTRA RAPIDE : Range 1 jour uniquement
+    const tickers = [ 
+        { id: 'cac', sym: '^FCHI', elVal:'idx-cac-val', elYTD:'idx-cac-ytd', elAll:'idx-cac-all', refKey:'cac' }, 
+        { id: 'sp', sym: '^GSPC', elVal:'idx-sp-val', elYTD:'idx-sp-ytd', elAll:'idx-sp-all', refKey:'sp' }, 
+        { id: 'msci', sym: 'URTH', elVal:'idx-msci-val', elYTD:'idx-msci-ytd', elAll:'idx-msci-all', refKey:'msci' }, 
+        { id: 'ndx', sym: '^NDX', elVal:'idx-ndx-val', elYTD:'idx-ndx-ytd', elAll:'idx-ndx-all', refKey:'ndx' },
+        { id: 'dax', sym: '^GDAXI', elVal:'idx-dax-val', elYTD:'idx-dax-ytd', elAll:'idx-dax-all', refKey:'dax' },
+        { id: 'estx50', sym: '^STOXX50E', elVal:'idx-estx50-val', elYTD:'idx-estx50-ytd', elAll:'idx-estx50-all', refKey:'estx50' }
+    ];
+    
+    const indicesData = {};
+    
+    // FETCH EN PARALLÈLE
+    await Promise.all(tickers.map(async (t) => {
+        try {
+            const url = `https://query1.finance.yahoo.com/v8/finance/chart/${t.sym}?range=1d&interval=1d`; 
+            const r = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`); 
+            
+            if (!r.ok) throw new Error("Proxy fetch failed");
+            const d = await r.json(); 
+            const prix = d.chart.result[0].meta.regularMarketPrice; 
+            indicesData[t.id] = { current: prix };
+            
+            // On récupère les valeurs manuellement saisies dans l'onglet Réf.
+            const refOrig = appData.indicesRef[t.refKey]?.orig;
+            const refYTD = appData.indicesRef[t.refKey]?.ytd;
+
+            const elVal = document.getElementById(t.elVal); 
+            if (elVal) elVal.textContent = fmt0(prix);
+            
+            // Calcul YTD
+            const elYTD = document.getElementById(t.elYTD);
+            if (elYTD) { 
+                if (refYTD && refYTD > 0) { 
+                    const pctYTD = ((prix - refYTD) / refYTD) * 100; 
+                    indicesData[t.id].ytdPct = pctYTD;
+                    elYTD.className = 'idx-badge ' + (pctYTD >= 0 ? 'pos' : 'neg');
+                    elYTD.textContent = signe(pctYTD) + pctYTD.toFixed(2) + '%';
+                } else { 
+                    elYTD.textContent = 'Réf. manquante'; 
+                    elYTD.className = 'idx-badge neut'; 
+                } 
+            }
+            
+            // Calcul Origine
+            const elAll = document.getElementById(t.elAll);
+            if (elAll) { 
+                if (refOrig && refOrig > 0) { 
+                    const pctAll = ((prix - refOrig) / refOrig) * 100; 
+                    indicesData[t.id].allPct = pctAll;
+                    elAll.className = 'idx-badge ' + (pctAll >= 0 ? 'pos' : 'neg');
+                    elAll.textContent = signe(pctAll) + pctAll.toFixed(2) + '%';
+                } else { 
+                    elAll.textContent = 'Réf. manquante'; 
+                    elAll.className = 'idx-badge neut'; 
+                } 
+            }
+        } catch(e) {
+            console.error("Impossible de charger les données pour : " + t.sym, e);
+        }
+    }));
+    
+    // PORTFOLIO COMPARISON
+    const pVal = document.getElementById('idx-p-val'); 
+    const portCurrentValue = perfsActuelles.global.actuel;
+    if (pVal) pVal.innerHTML = W(fmtE0(portCurrentValue));
+    
+    // Récupération des Réf. Manuelles du Portefeuille
+    const portRefOrig = appData.indicesRef['port']?.orig;
+    const portRefYTD = appData.indicesRef['port']?.ytd;
+
+    const pYTD = document.getElementById('idx-p-ytd'); 
+    let portYTD = null;
+    if (pYTD) { 
+        if (portRefYTD && portRefYTD > 0) {
+            portYTD = ((portCurrentValue - portRefYTD) / portRefYTD) * 100;
+            pYTD.textContent = signe(portYTD) + portYTD.toFixed(2) + '%';
+            pYTD.className = 'idx-badge ' + (portYTD >= 0 ? 'pos' : 'neg');
+        } else {
+             pYTD.innerHTML = 'Réf. manquante';
+             pYTD.className = 'idx-badge neut';
+        }
+    }
+
+    const pAll = document.getElementById('idx-p-all'); 
+    let portAllPct = null;
+    if (pAll) { 
+        if (portRefOrig && portRefOrig > 0) {
+            portAllPct = ((portCurrentValue - portRefOrig) / portRefOrig) * 100;
+            pAll.textContent = signe(portAllPct) + portAllPct.toFixed(2) + '%'; 
+            pAll.className = 'idx-badge ' + (portAllPct >= 0 ? 'pos' : 'neg'); 
+        } else {
+            pAll.innerHTML = 'Réf. manquante';
+            pAll.className = 'idx-badge neut';
+        }
+    }
+    
+    renderIndicesChart(indicesData, portYTD); 
+    renderIndicesOrigineChart(indicesData, portAllPct);
+    if (spinner) spinner.style.display = 'none';
+}
+
+function renderIndicesChart(indicesData, portYTD) {
+    chartDefaults(); const ctx = document.getElementById('indicesChart'); if (!ctx) return; if (indicesChart) indicesChart.destroy();
+    const labels = []; const data = []; const colors = []; 
+    const maps = [ 
+        { key:'cac', label:'CAC 40' }, { key:'sp', label:'S&P 500' }, { key:'msci', label:'MSCI World' }, { key:'ndx', label:'Nasdaq 100' },
+        { key:'dax', label:'DAX' }, { key:'estx50', label:'Eurostoxx 50' }
+    ];
+    
+    if (portYTD !== null) { labels.push('Mon Portefeuille'); data.push(portYTD); colors.push(portYTD >= 0 ? 'rgba(0,212,255,0.8)' : 'rgba(255,77,109,0.7)'); }
+    else { labels.push('Mon Portefeuille (Réf manq.)'); data.push(0); colors.push('rgba(255,255,255,0.1)'); }
+    
+    maps.forEach(m => { 
+        const ytdPct = indicesData[m.key]?.ytdPct; 
+        if (ytdPct !== undefined) { 
+            labels.push(m.label); 
+            data.push(parseFloat(ytdPct.toFixed(2))); 
+            colors.push(ytdPct >= 0 ? 'rgba(0,229,160,0.7)' : 'rgba(255,77,109,0.7)'); 
+        } else {
+            labels.push(m.label + ' (Vide)'); 
+            data.push(0); 
+            colors.push('rgba(255,255,255,0.1)');
+        }
+    });
+    
+    indicesChart = new Chart(ctx.getContext('2d'), { 
+        type: 'bar', plugins: [ChartDataLabels], 
+        data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 6, borderSkipped: false }] }, 
+        options: { 
+            responsive: true, maintainAspectRatio: false, indexAxis: 'y', 
+            layout: { padding: { right: 80, left: 80 } }, // Padding généreux pour ne pas couper le texte
+            plugins: { 
+                legend: { display: false }, 
+                tooltip: { backgroundColor: 'rgba(8, 14, 26, 0.95)', padding: 10, callbacks: { label: ctx => ctx.parsed.x === 0 ? 'Erreur/Vide' : signe(ctx.parsed.x)+ctx.parsed.x.toFixed(2)+'%' } }, 
+                datalabels: { 
+                    color: '#e8f0fe', 
+                    font: {weight: 'bold', size: 12}, 
+                    formatter: v => v === 0 ? '' : signe(v)+v.toFixed(2)+'%', 
+                    anchor: 'end',
+                    align: ctx => ctx.dataset.data[ctx.dataIndex] >= 0 ? 'right' : 'left', // Pousse toujours à l'extérieur
+                    offset: 14 // <-- Décalage augmenté pour ne pas toucher le bord arrondi
+                } 
+            }, 
+            scales: { x: { grid:{color:'rgba(255,255,255,0.04)', borderDash: [5, 5]}, ticks:{callback:v=>v+'%', font: {size: 10}} }, y: { grid:{display:false}, ticks:{font: {size: 11}} } } 
+        } 
+    });
+}
+
+function renderIndicesOrigineChart(indicesData, portAllPct) {
+    chartDefaults(); const ctx = document.getElementById('indicesOrigineChart'); if (!ctx) return; if (indicesOrigineChart) indicesOrigineChart.destroy();
+    const labels = []; const data = []; const colors = []; 
+    const maps = [ 
+        { key:'cac', label:'CAC 40' }, { key:'sp', label:'S&P 500' }, { key:'msci', label:'MSCI World' }, { key:'ndx', label:'Nasdaq 100' },
+        { key:'dax', label:'DAX' }, { key:'estx50', label:'Eurostoxx 50' }
+    ];
+    
+    if (portAllPct !== null) { labels.push('Mon Portefeuille'); data.push(parseFloat(portAllPct.toFixed(2))); colors.push(portAllPct >= 0 ? 'rgba(0,212,255,0.8)' : 'rgba(255,77,109,0.7)'); }
+    else { labels.push('Mon Portefeuille (Réf manq.)'); data.push(0); colors.push('rgba(255,255,255,0.1)'); }
+    
+    maps.forEach(m => { 
+        const allPct = indicesData[m.key]?.allPct; 
+        if (allPct !== undefined) { 
+            labels.push(m.label); 
+            data.push(parseFloat(allPct.toFixed(2))); 
+            colors.push(allPct >= 0 ? 'rgba(0,229,160,0.7)' : 'rgba(255,77,109,0.7)'); 
+        } else {
+            labels.push(m.label + ' (Vide)'); 
+            data.push(0); 
+            colors.push('rgba(255,255,255,0.1)');
+        }
+    });
+    
+    indicesOrigineChart = new Chart(ctx.getContext('2d'), { 
+        type: 'bar', plugins: [ChartDataLabels], 
+        data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 6, borderSkipped: false }] }, 
+        options: { 
+            responsive: true, maintainAspectRatio: false, indexAxis: 'y', 
+            layout: { padding: { right: 80, left: 80 } }, // Padding généreux pour ne pas couper le texte
+            plugins: { 
+                legend: { display: false }, 
+                tooltip: { backgroundColor: 'rgba(8, 14, 26, 0.95)', padding: 10, callbacks: { label: ctx => ctx.parsed.x === 0 ? 'Erreur/Vide' : signe(ctx.parsed.x)+ctx.parsed.x.toFixed(2)+'%' } }, 
+                datalabels: { 
+                    color: '#e8f0fe', 
+                    font: {weight: 'bold', size: 12}, 
+                    formatter: v => v === 0 ? '' : signe(v)+v.toFixed(2)+'%', 
+                    anchor: 'end',
+                    align: ctx => ctx.dataset.data[ctx.dataIndex] >= 0 ? 'right' : 'left', // Pousse toujours à l'extérieur
+                    offset: 14 // <-- Décalage augmenté pour ne pas toucher le bord arrondi
+                } 
+            }, 
+            scales: { x: { grid:{color:'rgba(255,255,255,0.04)', borderDash: [5, 5]}, ticks:{callback:v=>v+'%', font: {size: 10}} }, y: { grid:{display:false}, ticks:{font: {size: 11}} } } 
+        } 
+    });
+}
+
+// ─── AUTO CALC REFERENCES ───
+window.autoCalcRef = function() {
+    const getV = id => { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; };
+    const origTotal = getV('ref-orig-cto-app') + getV('ref-orig-pea-app') + getV('ref-orig-pee-app');
+    const elOrigG = document.getElementById('ref-orig-g-app');
+    if (elOrigG) elOrigG.value = origTotal > 0 ? origTotal.toFixed(2) : '';
+    const ytdTotal = getV('ref-ytd-cto-val') + getV('ref-ytd-pea-val') + getV('ref-ytd-pee-val');
+    const elYtdG = document.getElementById('ref-ytd-g-val');
+    if (elYtdG) elYtdG.value = ytdTotal > 0 ? ytdTotal.toFixed(2) : '';
+    const moisTotal = getV('ref-mois-cto-val') + getV('ref-mois-pea-val') + getV('ref-mois-pee-val');
+    const elMoisG = document.getElementById('ref-mois-g-val');
+    if (elMoisG) elMoisG.value = moisTotal > 0 ? moisTotal.toFixed(2) : '';
+};
+
+function chargerFormulaireReferences() {
+    const setV = (id, val) => { const el = document.getElementById(id); if (el) el.value = (val !== null && val !== undefined && val !== '') ? val : ''; };
+    setV('ref-orig-g-app', appData.references.origine.global);
+    setV('ref-orig-cto-app', appData.references.origine.CTO);
+    setV('ref-orig-pea-app', appData.references.origine.PEA);
+    setV('ref-orig-pee-app', appData.references.origine.PEE);
+    ['global', 'CTO', 'PEA', 'PEE'].forEach(k => {
+        const sk = k === 'global' ? 'g' : k.toLowerCase();
+        setV(`ref-ytd-${sk}-val`, appData.references.ytd[k]?.v);
+        setV(`ref-mois-${sk}-val`, appData.references.mois[k]?.v);
+    });
+    autoCalcRef();
+}
+function chargerFormulaireReferencesIndices() { 
+    const r = appData.indicesRef; 
+    ['port','cac','sp','msci','ndx','dax','estx50'].forEach(k => { 
+        const origEl = document.getElementById(`ref-${k}-orig`); 
+        if (origEl) origEl.value = r[k]?.orig ?? ''; 
+        const ytdEl = document.getElementById(`ref-${k}-ytd`); 
+        if (ytdEl) ytdEl.value = r[k]?.ytd ?? '';
+    }); 
+}
+
+window.sauvegarderReferences = function() {
+    const getV = id => { const el = document.getElementById(id); const v = el?.value; return (v === '' || v === null || v === undefined) ? null : parseFloat(v); };
+    appData.references.origine.global = getV('ref-orig-g-app');
+    appData.references.origine.CTO    = getV('ref-orig-cto-app');
+    appData.references.origine.PEA    = getV('ref-orig-pea-app');
+    appData.references.origine.PEE    = getV('ref-orig-pee-app');
+    ['global', 'CTO', 'PEA', 'PEE'].forEach(k => {
+        const sk = k === 'global' ? 'g' : k.toLowerCase();
+        appData.references.ytd[k]  = { v: getV(`ref-ytd-${sk}-val`),  a: null };
+        appData.references.mois[k] = { v: getV(`ref-mois-${sk}-val`), a: null };
+    });
+    localStorage.setItem('portefeuilleV42', JSON.stringify(appData));
+    toast('Références enregistrées.');
+    mettreAJourAffichage();
+    sauvegarderHistorique();
+};
+
+window.sauvegarderReferencesIndices = function() { 
+    ['port','cac','sp','msci','ndx','dax','estx50'].forEach(k => { 
+        const orig = parseFloat(document.getElementById(`ref-${k}-orig`)?.value) || null; 
+        const ytd = parseFloat(document.getElementById(`ref-${k}-ytd`)?.value) || null; 
+        if(!appData.indicesRef[k]) appData.indicesRef[k] = {};
+        appData.indicesRef[k].orig = orig; 
+        appData.indicesRef[k].ytd = ytd; 
+    }); 
+    localStorage.setItem('portefeuilleV42', JSON.stringify(appData)); 
+    toast('Références indices enregistrées !'); 
+    actualiserIndices(); 
+};
+
+function sauvegarderHistorique() {
+    const todayStr = new Date().toLocaleDateString('fr-FR'); 
+    const newEntry = { date: todayStr, global: { valeur: perfsActuelles.global.actuel, apports: perfsActuelles.global.apports, investi: perfsActuelles.global.investi, perf: perfsActuelles.global.perf }, CTO: { valeur: perfsActuelles.CTO.actuel + perfsActuelles.CTO.cash, investi: perfsActuelles.CTO.investi, perf: perfsActuelles.CTO.perf, apports: perfsActuelles.CTO.apports }, PEA: { valeur: perfsActuelles.PEA.actuel + perfsActuelles.PEA.cash, investi: perfsActuelles.PEA.investi, perf: perfsActuelles.PEA.perf, apports: perfsActuelles.PEA.apports }, PEE: { valeur: perfsActuelles.PEE.actuel, investi: perfsActuelles.PEE.investi, perf: perfsActuelles.PEE.perf, apports: perfsActuelles.PEE.apports } };
+    if (historiqueData.length > 0 && historiqueData[historiqueData.length - 1].date === todayStr) historiqueData[historiqueData.length - 1] = newEntry; 
+    else historiqueData.push(newEntry);
+    if (historiqueData.length > 365) historiqueData.shift();
+    localStorage.setItem('historiqueV42', JSON.stringify(historiqueData));
+
+    const mKey = new Date().getFullYear() + '-' + ('0' + (new Date().getMonth() + 1)).slice(-2);
+    appData.archives[mKey] = newEntry; localStorage.setItem('portefeuilleV42', JSON.stringify(appData));
+    
+    mettreAJourGraphiqueLigne(); 
+    calculerPerformancesYTD_Mois(); 
+    if(ongletActif === 'BILAN') { renderTableSuivi(); renderSuiviCharts(); }
+}
+
+function calculerPerformancesYTD_Mois() {
+    const today = new Date();
+    const currentYearStr = '/' + today.getFullYear();
+    const currentMonthStr = ('0' + (today.getMonth() + 1)).slice(-2) + '/' + today.getFullYear();
+    const snapHistoYTD = historiqueData.find(d => d.date.endsWith(currentYearStr));
+    const snapHistoMois = historiqueData.find(d => d.date.endsWith(currentMonthStr));
+
+    function applyPerfUI(boxId, valId, pctId, typeRef, dataKey) {
+        const box = document.getElementById(boxId); if (!box) return;
+        const elVal = document.getElementById(valId);
+        const elPct = document.getElementById(pctId);
+
+        const refManuelle = appData.references[typeRef][dataKey];
+        let refValeur = null;
+
+        if (refManuelle && refManuelle.v !== null && refManuelle.v !== '' && !isNaN(refManuelle.v)) {
+            refValeur = parseFloat(refManuelle.v);
+        }
+        else {
+            const snap = typeRef === 'ytd' ? snapHistoYTD : snapHistoMois;
+            if (snap && snap[dataKey]) refValeur = snap[dataKey].valeur;
+        }
+
+        if (refValeur === null || isNaN(refValeur) || refValeur === 0) {
+            updatePerfDisplay(boxId, valId, pctId, null, 0); return;
+        }
+
+        const valActuelle = dataKey === 'global' ? perfsActuelles.global.actuel : (perfsActuelles[dataKey].actuel + (perfsActuelles[dataKey].cash || 0));
+        const gainPeriode = valActuelle - refValeur;
+        const deltaPct = (gainPeriode / refValeur) * 100;
+
+        updatePerfDisplay(boxId, valId, pctId, gainPeriode, deltaPct);
+    }
+
+    applyPerfUI('box-global-ytd', 'global-ytd-val', 'global-ytd-pct', 'ytd', 'global');
+    applyPerfUI('box-global-month', 'global-month-val', 'global-month-pct', 'mois', 'global');
+    if (ongletActif !== 'ACCUEIL') {
+        applyPerfUI('box-onglet-ytd', 'onglet-ytd-val', 'onglet-ytd-pct', 'ytd', ongletActif);
+        applyPerfUI('box-onglet-month', 'onglet-month-val', 'onglet-month-pct', 'mois', ongletActif);
+    }
+}
+
+document.getElementById('form-bourse').addEventListener('submit', function(e) {
+    e.preventDefault(); 
+    const ticker = document.getElementById('ticker').value; 
+    const quantite = parseFloat(document.getElementById('quantite').value); 
+    const mode = document.querySelector('input[name="modeSaisie"]:checked').value; 
+    const dateAchat = document.getElementById('dateAchat').value; 
+    const secteur = document.getElementById('secteur').value; 
+    const dividendes = parseFloat(document.getElementById('dividendes').value) || 0;
+    
+    let prixAchatFinal = 0; let fraisAbsoluFinal = 0;
+    if (mode === 'detail') { 
+        const prixAchat = parseFloat(document.getElementById('prixAchat').value); 
+        prixAchatFinal = prixAchat; 
+        fraisAbsoluFinal = (quantite * prixAchat) * ((parseFloat(document.getElementById('fraisPourcent').value) || 0) / 100); 
+    } else { 
+        prixAchatFinal = parseFloat(document.getElementById('pruDirect').value); 
+        fraisAbsoluFinal = 0; 
+    }
+    
+    appData[ongletActif].push({ ticker: ticker, nom: ticker, quantite: quantite, prixAchat: prixAchatFinal, frais: fraisAbsoluFinal, prixActuel: prixAchatFinal, dateAchat: dateAchat, secteur: secteur, dividendes: dividendes }); 
+    mettreAJourAffichage(); sauvegarderHistorique();
+    
+    document.getElementById('ticker').value = ''; document.getElementById('quantite').value = ''; document.getElementById('dividendes').value = '0'; document.getElementById('ticker').focus(); 
+    toast(`Position ajoutée !`);
+});
+
+document.querySelectorAll('input[name="modeSaisie"]').forEach(radio => { radio.addEventListener('change', (e) => { const gPrix = document.getElementById('group-prixAchat'); const gFrais = document.getElementById('group-frais'); const gPru = document.getElementById('group-pru'); if(e.target.value === 'pru') { gPrix.style.display = 'none'; gFrais.style.display = 'none'; gPru.style.display = 'flex'; document.getElementById('prixAchat').required = false; document.getElementById('pruDirect').required = true; } else { gPrix.style.display = 'flex'; gFrais.style.display = 'flex'; gPru.style.display = 'none'; document.getElementById('prixAchat').required = true; document.getElementById('pruDirect').required = false; } }); });
+
+window.supprimerActionBourse = function(index) { if(confirm(`Supprimer cette ligne ?`)) { appData[ongletActif].splice(index, 1); mettreAJourAffichage(); sauvegarderHistorique(); toast("Ligne supprimée"); } };
+window.supprimerActionPEE = function(index) { if(confirm(`Supprimer cette évaluation ?`)) { appData.PEE.splice(index, 1); mettreAJourAffichage(); sauvegarderHistorique(); toast("Évaluation supprimée");} };
+
+changerOnglet('ACCUEIL'); sauvegarderHistorique(); 
+</script>
+</body>
+</html>
