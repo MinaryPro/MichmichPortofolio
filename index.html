@@ -206,6 +206,96 @@
         .toast.show { transform: translateY(0); opacity: 1; }
         .toast.success { border-color: var(--success); }
         .toast.error { border-color: var(--danger); }
+
+        /* ══════════════════════════════════════════
+           RESPONSIVE MOBILE (≤ 640px)
+        ══════════════════════════════════════════ */
+        @media (max-width: 640px) {
+            body { padding: 12px 10px; }
+
+            /* Header */
+            .header-container { gap: 10px; margin-bottom: 16px; }
+            .brand-icon { width: 38px; height: 38px; border-radius: 10px; }
+            h1 { font-size: 1.3em; }
+            .version-badge { font-size: 0.6em; padding: 2px 6px; }
+            .header-buttons { gap: 6px; }
+            .btn { height: 36px; padding: 0 12px; font-size: 0.82em; }
+            .btn-incognito { width: 100px; font-size: 0.78em; }
+            #api-status { font-size: 0.75em; }
+
+            /* Tabs — scroll horizontal compact */
+            .tabs { padding: 4px; gap: 2px; border-radius: 10px; margin-bottom: 14px; }
+            .tab-btn { padding: 8px 12px; font-size: 0.78em; border-radius: 8px; }
+
+            /* Dashboard global — 2 colonnes sur mobile */
+            .dashboard-global { grid-template-columns: repeat(2, 1fr) !important; gap: 1px; border-radius: 14px; }
+            .dashboard-tab { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+            .stat-box-g, .stat-box { padding: 14px 12px; }
+            .main-val { font-size: 1.15em; }
+            .stat-label { font-size: 0.7em; height: 22px; }
+            .sub-val { font-size: 0.75em; }
+
+            /* Cash input */
+            .cash-input-wrapper { gap: 6px; }
+            .cash-input-wrapper input { width: 80px; font-size: 0.95em; }
+
+            /* Cards */
+            .card { padding: 16px 14px; border-radius: 12px; margin-bottom: 14px; }
+            .card h3 { font-size: 0.95em; margin-bottom: 14px; padding-bottom: 10px; }
+
+            /* Forms — tout en colonne sur mobile */
+            .form-grid { gap: 10px; }
+            .input-group { flex: 1 1 100% !important; }
+            .input-group label { font-size: 0.72em; height: 22px; }
+            input[type="text"], input[type="number"], input[type="date"],
+            input[type="month"], select { padding: 9px 12px; font-size: 0.9em; border-radius: 8px; }
+            button[type="submit"] { height: 44px; font-size: 0.9em; }
+            .radio-group { flex-direction: column; gap: 10px; padding: 10px 12px; }
+
+            /* Tables — scroll horizontal */
+            .table-bilan th, .table-bilan td { padding: 8px 6px; font-size: 0.78em; }
+            th, td { padding: 8px 6px; font-size: 0.8em; height: 42px; }
+            .inline-edit { width: 70px; font-size: 0.88em; padding: 5px 6px; }
+            .inline-edit.text-left { width: 110px; }
+
+            /* Charts */
+            .charts-grid { gap: 14px; }
+            .chart-container { height: 220px !important; }
+            .grid-2x2 { grid-template-columns: 1fr !important; gap: 14px; }
+
+            /* Indices cards */
+            .indices-wrapper { gap: 10px; }
+            .idx-card { flex: 1 1 140px; padding: 14px 12px; border-radius: 10px; }
+            .idx-val { font-size: 1.3em; }
+            .idx-title { font-size: 0.78em; }
+            .idx-badge { font-size: 0.78em; padding: 3px 6px; }
+
+            /* Ref tables */
+            .ref-table th, .ref-table td { padding: 8px 6px; font-size: 0.82em; }
+            .ref-table td input { max-width: 120px; }
+
+            /* Toast */
+            .toast { bottom: 12px; right: 12px; left: 12px; font-size: 0.85em; padding: 12px 16px; }
+
+            /* Saisie journalière toggle */
+            #saisie-toggle-icon { font-size: 0.78em; padding: 3px 9px; }
+
+            /* Bilan bar charts */
+            #indicesChart, #indicesOrigineChart { height: 260px !important; }
+        }
+
+        /* ═══════════════════════════════════════
+           TABLETTE (641px – 900px)
+        ═══════════════════════════════════════ */
+        @media (min-width: 641px) and (max-width: 900px) {
+            body { padding: 16px 14px; }
+            .dashboard-global { grid-template-columns: repeat(3, 1fr) !important; gap: 1px; }
+            .dashboard-tab { grid-template-columns: repeat(3, 1fr) !important; }
+            .form-grid { gap: 12px; }
+            .input-group { flex: 1 1 160px; }
+            .chart-container { height: 240px !important; }
+            h1 { font-size: 1.5em; }
+        }
     </style>
 </head>
 <body>
@@ -225,10 +315,7 @@
                 <path d="M22 75 V35 L50 55 L78 35 V75" fill="none" stroke="url(#gLogo)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </div>
-        <div>
-            <h1>Minary<span> Finance</span> <span class="version-badge">V42</span></h1>
-            <div style="font-size:0.78em; color:var(--muted); margin-top:2px;">Portefeuille boursier</div>
-        </div>
+        <h1>Minary<span> Finance</span></h1>
     </div>
     <div class="header-buttons">
         <button type="button" class="btn btn-success" onclick="exporterDonnees()">
@@ -476,12 +563,7 @@
                 <div class="idx-row"><span class="idx-label">YTD</span><span class="idx-badge neut" id="idx-ndx-ytd">—</span></div>
                 <div class="idx-row"><span class="idx-label">Depuis Origine</span><span class="idx-badge neut" id="idx-ndx-all">—</span></div>
             </div>
-            <div class="idx-card">
-                <div class="idx-title">DAX</div>
-                <div class="idx-val" id="idx-dax-val">—</div>
-                <div class="idx-row"><span class="idx-label">YTD</span><span class="idx-badge neut" id="idx-dax-ytd">—</span></div>
-                <div class="idx-row"><span class="idx-label">Depuis Origine</span><span class="idx-badge neut" id="idx-dax-all">—</span></div>
-            </div>
+
             <div class="idx-card">
                 <div class="idx-title">Eurostoxx 50</div>
                 <div class="idx-val" id="idx-estx50-val">—</div>
@@ -514,7 +596,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card" id="card-saisie-journaliere">
         <h3>📝 Saisie Journalière</h3>
         <form id="form-suivi-journalier" class="form-grid" style="align-items:flex-end;">
             <div class="input-group"><label>Date</label><input type="date" id="suivi-date" required></div>
@@ -527,19 +609,25 @@
             </div>
         </form>
 
-        <div style="overflow-x:auto; margin-top:20px;">
-            <table class="table-bilan">
-                <thead><tr>
-                    <th>Date</th>
-                    <th>CTO</th>
-                    <th>PEA</th>
-                    <th>PEE</th>
-                    <th>Cash Total</th>
-                    <th style="color:var(--accent);">Total Global</th>
-                    <th style="text-align:center;">Action</th>
-                </tr></thead>
-                <tbody id="table-suivi-body"></tbody>
-            </table>
+        <div style="margin-top:20px; border-top:1px solid var(--border); padding-top:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; cursor:pointer; user-select:none;" onclick="toggleSaisieJournaliere()" id="saisie-toggle-header">
+                <span style="font-size:0.85em; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">📋 Historique</span>
+                <span id="saisie-toggle-icon" style="font-size:0.82em; color:var(--muted); background:var(--surface3); border:1px solid var(--border); padding:4px 12px; border-radius:8px; font-weight:700; transition:0.2s;">▼ Afficher</span>
+            </div>
+            <div id="saisie-journaliere-body" style="display:none; overflow-x:auto;">
+                <table class="table-bilan">
+                    <thead><tr>
+                        <th>Date</th>
+                        <th>CTO</th>
+                        <th>PEA</th>
+                        <th>PEE</th>
+                        <th>Cash Total</th>
+                        <th style="color:var(--accent);">Total Global</th>
+                        <th style="text-align:center;">Action</th>
+                    </tr></thead>
+                    <tbody id="table-suivi-body"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -595,7 +683,6 @@
                         <tr><td>S&P 500</td><td><input type="number" id="ref-sp-orig" step="0.01"></td><td><input type="number" id="ref-sp-ytd" step="0.01"></td></tr>
                         <tr><td>MSCI World</td><td><input type="number" id="ref-msci-orig" step="0.01"></td><td><input type="number" id="ref-msci-ytd" step="0.01"></td></tr>
                         <tr><td>Nasdaq 100</td><td><input type="number" id="ref-ndx-orig" step="0.01"></td><td><input type="number" id="ref-ndx-ytd" step="0.01"></td></tr>
-                        <tr><td>DAX</td><td><input type="number" id="ref-dax-orig" step="0.01"></td><td><input type="number" id="ref-dax-ytd" step="0.01"></td></tr>
                         <tr><td>Eurostoxx 50</td><td><input type="number" id="ref-estx50-orig" step="0.01"></td><td><input type="number" id="ref-estx50-ytd" step="0.01"></td></tr>
                     </tbody>
                 </table>
@@ -616,12 +703,12 @@ if (history.scrollRestoration) {
 window.scrollTo(0, 0);
 
 // ─── STATE ────────────────────────────────────────────────────────
-let isIncognito = localStorage.getItem('incognitoV42') === 'true';
-let appData = JSON.parse(localStorage.getItem('portefeuilleV42'))
+let isIncognito = localStorage.getItem('incognitoV43') === 'true';
+let appData = JSON.parse(localStorage.getItem('portefeuilleV43'))
     || JSON.parse(localStorage.getItem('portefeuilleV41'))
     || JSON.parse(localStorage.getItem('portefeuilleV40'))
-    || { CTO: [], PEA: [], PEE: [], cashCTO: 0, cashPEA: 0 };
-let historiqueData = JSON.parse(localStorage.getItem('historiqueV42'))
+    || { CTO: [], PEA: [], PEE: [], cashCTO: 0, cashPEA: 0, cashPEE: 0 };
+let historiqueData = JSON.parse(localStorage.getItem('historiqueV43'))
     || JSON.parse(localStorage.getItem('historiqueV41'))
     || JSON.parse(localStorage.getItem('historiqueV40'))
     || [];
@@ -638,13 +725,14 @@ if (!appData.archives) appData.archives = {};
 
 // Mise à niveau sécurisée pour les nouveaux indices et le nouveau système (Origine + YTD manuels)
 if (!appData.indicesRef) appData.indicesRef = {};
-['port','cac','sp','msci','ndx','dax','estx50'].forEach(k => { 
+['port','cac','sp','msci','ndx','estx50'].forEach(k => { 
     if(!appData.indicesRef[k]) appData.indicesRef[k] = {orig: null, ytd: null};
     if(appData.indicesRef[k].ytd === undefined) appData.indicesRef[k].ytd = null;
     if(appData.indicesRef[k].orig === undefined) appData.indicesRef[k].orig = null;
 });
 
 if (!appData.suiviManuel) appData.suiviManuel = [];
+if (appData.cashPEE === undefined) appData.cashPEE = 0;
 ['CTO','PEA'].forEach(c => appData[c].forEach(a => { if(!a.nom) a.nom=""; }));
 
 let ongletActif = 'ACCUEIL'; 
@@ -678,7 +766,7 @@ function initIncognito() {
     }
 }
 function toggleIncognito() {
-    isIncognito = !isIncognito; localStorage.setItem('incognitoV42', isIncognito);
+    isIncognito = !isIncognito; localStorage.setItem('incognitoV43', isIncognito);
     initIncognito(); mettreAJourAffichage(); 
     if(ongletActif === 'ACCUEIL') mettreAJourGraphiqueLigne();
     if(ongletActif === 'BILAN') { renderTableSuivi(); renderSuiviCharts(); }
@@ -725,7 +813,7 @@ function perfHtml(montant, pct, align='right') {
 function exporterDonnees() {
     const blob = new Blob([JSON.stringify({appData, historiqueData}, null, 2)], {type:'application/json'});
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = `MinaryFinance_V42_${new Date().toISOString().split('T')[0]}.json`; a.click();
+    a.download = `MinaryFinance_V43_${new Date().toISOString().split('T')[0]}.json`; a.click();
     toast('Données sauvegardées !');
 }
 function importerDonnees(event) {
@@ -738,11 +826,11 @@ function importerDonnees(event) {
                 if(!appData.archives) appData.archives = {};
                 if(!appData.suiviManuel) appData.suiviManuel = [];
                 if(!appData.indicesRef) appData.indicesRef = {};
-                ['port','cac','sp','msci','ndx','dax','estx50'].forEach(k => { 
+                ['port','cac','sp','msci','ndx','estx50'].forEach(k => { 
                     if(!appData.indicesRef[k]) appData.indicesRef[k] = {orig: null, ytd: null};
                 });
                 if(!appData.references.origine) appData.references.origine = { global:null, CTO:null, PEA:null, PEE:null };
-                localStorage.setItem('portefeuilleV42', JSON.stringify(appData)); localStorage.setItem('historiqueV42', JSON.stringify(historiqueData));
+                localStorage.setItem('portefeuilleV43', JSON.stringify(appData)); localStorage.setItem('historiqueV43', JSON.stringify(historiqueData));
                 chargerFormulaireReferences(); chargerFormulaireReferencesIndices(); changerOnglet('ACCUEIL'); toast('Données restaurées avec succès !');
             } else toast('Fichier invalide.', 'error');
         } catch(err) { toast('Erreur lecture JSON.', 'error'); }
@@ -760,7 +848,7 @@ function changerOnglet(nom) {
     document.getElementById('dashboard-onglet').style.display = ['REF','BILAN','INDICES','ACCUEIL'].includes(nom) ? 'none' : 'grid'; 
     
     const boxLiq = document.getElementById('box-liquidites');
-    if (nom === 'CTO' || nom === 'PEA') {
+    if (nom === 'CTO' || nom === 'PEA' || nom === 'PEE') {
         boxLiq.style.display = 'flex';
         document.getElementById('cash-label').textContent = 'Cash ' + nom;
         document.getElementById('input-cash').value = appData['cash'+nom] || 0;
@@ -795,7 +883,7 @@ function changerOnglet(nom) {
 }
 
 function majCash() { 
-    if (!['CTO','PEA'].includes(ongletActif)) return; 
+    if (!['CTO','PEA','PEE'].includes(ongletActif)) return; 
     appData['cash'+ongletActif] = parseFloat(document.getElementById('input-cash').value) || 0; 
     mettreAJourAffichage(); sauvegarderHistorique(); 
 }
@@ -862,10 +950,11 @@ function mettreAJourAffichage() {
         perfsActuelles.PEE.base_perf = perfsActuelles.PEE.investi;
     }
     if (perfsActuelles.PEE.base_perf <= 0) perfsActuelles.PEE.base_perf = 1;
+    perfsActuelles.PEE.cash = appData.cashPEE || 0;
     perfsActuelles.PEE.perf = perfsActuelles.PEE.actuel - perfsActuelles.PEE.apports; 
 
     perfsActuelles.global.actuel = perfsActuelles.CTO.actuel + perfsActuelles.PEA.actuel + perfsActuelles.PEE.actuel;
-    perfsActuelles.global.cash = perfsActuelles.CTO.cash + perfsActuelles.PEA.cash;
+    perfsActuelles.global.cash = perfsActuelles.CTO.cash + perfsActuelles.PEA.cash + perfsActuelles.PEE.cash;
     
     if (oG !== null && oG !== '') { 
         perfsActuelles.global.apports = parseFloat(oG); 
@@ -930,7 +1019,7 @@ function mettreAJourAffichage() {
     
     mettreAJourGraphiqueSecteur(sectorDist); 
     calculerPerformancesYTD_Mois(); 
-    localStorage.setItem('portefeuilleV42', JSON.stringify(appData));
+    localStorage.setItem('portefeuilleV43', JSON.stringify(appData));
 }
 
 function renderTableBourse() {
@@ -1031,7 +1120,7 @@ document.getElementById('form-suivi-journalier')?.addEventListener('submit', fun
     
     // Trier par ordre chronologique
     appData.suiviManuel.sort((a,b) => new Date(a.date) - new Date(b.date));
-    localStorage.setItem('portefeuilleV42', JSON.stringify(appData));
+    localStorage.setItem('portefeuilleV43', JSON.stringify(appData));
     
     toast('Saisie journalière enregistrée !');
     renderTableSuivi();
@@ -1063,7 +1152,7 @@ function renderTableSuivi() {
 window.supprimerSuivi = function(index) {
     if(confirm('Supprimer cette saisie ?')) {
         appData.suiviManuel.splice(index, 1);
-        localStorage.setItem('portefeuilleV42', JSON.stringify(appData));
+        localStorage.setItem('portefeuilleV43', JSON.stringify(appData));
         renderTableSuivi();
         renderSuiviCharts();
         if (ongletActif === 'ACCUEIL') mettreAJourGraphiqueLigne();
@@ -1180,21 +1269,36 @@ async function actualiserIndices() {
         { id: 'sp', sym: '^GSPC', elVal:'idx-sp-val', elYTD:'idx-sp-ytd', elAll:'idx-sp-all', refKey:'sp' }, 
         { id: 'msci', sym: 'URTH', elVal:'idx-msci-val', elYTD:'idx-msci-ytd', elAll:'idx-msci-all', refKey:'msci' }, 
         { id: 'ndx', sym: '^NDX', elVal:'idx-ndx-val', elYTD:'idx-ndx-ytd', elAll:'idx-ndx-all', refKey:'ndx' },
-        { id: 'dax', sym: '^GDAXI', elVal:'idx-dax-val', elYTD:'idx-dax-ytd', elAll:'idx-dax-all', refKey:'dax' },
         { id: 'estx50', sym: '^STOXX50E', elVal:'idx-estx50-val', elYTD:'idx-estx50-ytd', elAll:'idx-estx50-all', refKey:'estx50' }
     ];
     
     const indicesData = {};
     
-    // FETCH EN PARALLÈLE
+    // FETCH EN PARALLÈLE avec proxy de fallback
+    const PROXIES = [
+        url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+        url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+        url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
+    ];
+
+    async function fetchWithFallback(yahooUrl) {
+        for (const proxy of PROXIES) {
+            try {
+                const r = await fetch(proxy(yahooUrl), { signal: AbortSignal.timeout(6000) });
+                if (!r.ok) continue;
+                const d = await r.json();
+                const prix = d?.chart?.result?.[0]?.meta?.regularMarketPrice;
+                if (prix && prix > 0) return prix;
+            } catch(e) { /* try next proxy */ }
+        }
+        return null;
+    }
+
     await Promise.all(tickers.map(async (t) => {
         try {
             const url = `https://query1.finance.yahoo.com/v8/finance/chart/${t.sym}?range=1d&interval=1d`; 
-            const r = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`); 
-            
-            if (!r.ok) throw new Error("Proxy fetch failed");
-            const d = await r.json(); 
-            const prix = d.chart.result[0].meta.regularMarketPrice; 
+            const prix = await fetchWithFallback(url);
+            if (prix === null) throw new Error('Tous les proxies ont échoué');
             indicesData[t.id] = { current: prix };
             
             // On récupère les valeurs manuellement saisies dans l'onglet Réf.
@@ -1276,98 +1380,163 @@ async function actualiserIndices() {
     if (spinner) spinner.style.display = 'none';
 }
 
+function buildBarChartOptions(data, colors) {
+    const maxAbs = Math.max(...data.map(Math.abs), 0.01);
+    // Label color: dark if bar is light (cyan), white otherwise
+    const labelColors = data.map((v, i) => colors[i].includes('0,212,255') ? '#000d1a' : '#ffffff');
+
+    return {
+        type: 'bar',
+        plugins: [ChartDataLabels],
+        data: { labels: [], datasets: [{ data, backgroundColor: colors, borderRadius: 6, borderSkipped: false }] },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            layout: { padding: { top: 4, bottom: 4, left: 0, right: 55 } },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(8,14,26,0.95)',
+                    padding: 10,
+                    callbacks: { label: c => c.parsed.x === 0 ? 'Réf. manquante' : signe(c.parsed.x) + c.parsed.x.toFixed(2) + '%' }
+                },
+                datalabels: {
+                    font: { weight: 'bold', size: 12 },
+                    formatter: v => v === 0 ? '' : signe(v) + Math.abs(v).toFixed(2) + '%',
+                    // Pour les positifs : après la barre à droite
+                    // Pour les négatifs : après le zéro à droite (anchor end du côté positif = start de la barre négative inversée)
+                    anchor: 'end',
+                    align: ctx => {
+                        const v = ctx.dataset.data[ctx.dataIndex];
+                        return v >= 0 ? 'right' : 'left'; // négatif: 'left' = côté zéro sur axe horizontal inversé
+                    },
+                    offset: ctx => {
+                        const v = ctx.dataset.data[ctx.dataIndex];
+                        // Pour les négatifs, on pousse le label au-delà du zéro
+                        if (v < 0) {
+                            const chart = ctx.chart;
+                            const xScale = chart.scales.x;
+                            const zeroX = xScale.getPixelForValue(0);
+                            const barEnd = xScale.getPixelForValue(v);
+                            return zeroX - barEnd + 6; // distance de la fin de barre jusqu'au zéro + marge
+                        }
+                        return 6;
+                    },
+                    clamp: false,
+                    color: ctx => {
+                        const v = ctx.dataset.data[ctx.dataIndex];
+                        if (v === 0) return 'rgba(255,255,255,0.2)';
+                        if (colors[ctx.dataIndex].includes('0,212,255')) return '#00d4ff';
+                        return v >= 0 ? '#00e5a0' : '#ff4d6d';
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: 'rgba(255,255,255,0.04)', borderDash: [4, 4] },
+                    ticks: { callback: v => v + '%', font: { size: 10 }, color: '#64748b' },
+                    // Force x-axis max/min to leave room for labels
+                    afterDataLimits: axis => {
+                        const extra = maxAbs * 0.32;
+                        if (axis.max > 0) axis.max += extra;
+                        if (axis.min < 0) axis.min -= extra;
+                    }
+                },
+                y: {
+                    grid: { display: false },
+                    ticks: {
+                        font: { size: 11 },
+                        color: '#94a3b8',
+                        // Add padding so label text is away from bar
+                        padding: 8
+                    }
+                }
+            }
+        }
+    };
+}
+
 function renderIndicesChart(indicesData, portYTD) {
-    chartDefaults(); const ctx = document.getElementById('indicesChart'); if (!ctx) return; if (indicesChart) indicesChart.destroy();
-    const labels = []; const data = []; const colors = []; 
-    const maps = [ 
-        { key:'cac', label:'CAC 40' }, { key:'sp', label:'S&P 500' }, { key:'msci', label:'MSCI World' }, { key:'ndx', label:'Nasdaq 100' },
-        { key:'dax', label:'DAX' }, { key:'estx50', label:'Eurostoxx 50' }
+    chartDefaults();
+    const ctx = document.getElementById('indicesChart');
+    if (!ctx) return;
+    if (indicesChart) indicesChart.destroy();
+
+    const labels = [], data = [], colors = [];
+    const maps = [
+        { key:'cac', label:'CAC 40' }, { key:'sp', label:'S&P 500' },
+        { key:'msci', label:'MSCI World' }, { key:'ndx', label:'Nasdaq 100' },
+        { key:'estx50', label:'Eurostoxx 50' }
     ];
-    
-    if (portYTD !== null) { labels.push('Mon Portefeuille'); data.push(portYTD); colors.push(portYTD >= 0 ? 'rgba(0,212,255,0.8)' : 'rgba(255,77,109,0.7)'); }
-    else { labels.push('Mon Portefeuille (Réf manq.)'); data.push(0); colors.push('rgba(255,255,255,0.1)'); }
-    
-    maps.forEach(m => { 
-        const ytdPct = indicesData[m.key]?.ytdPct; 
-        if (ytdPct !== undefined) { 
-            labels.push(m.label); 
-            data.push(parseFloat(ytdPct.toFixed(2))); 
-            colors.push(ytdPct >= 0 ? 'rgba(0,229,160,0.7)' : 'rgba(255,77,109,0.7)'); 
+
+    if (portYTD !== null) {
+        labels.push('Mon Portefeuille');
+        data.push(parseFloat(portYTD.toFixed(2)));
+        colors.push(portYTD >= 0 ? 'rgba(0,212,255,0.85)' : 'rgba(255,77,109,0.75)');
+    } else {
+        labels.push('Mon Portefeuille');
+        data.push(0);
+        colors.push('rgba(255,255,255,0.06)');
+    }
+
+    maps.forEach(m => {
+        const v = indicesData[m.key]?.ytdPct;
+        if (v !== undefined) {
+            labels.push(m.label);
+            data.push(parseFloat(v.toFixed(2)));
+            colors.push(v >= 0 ? 'rgba(0,229,160,0.75)' : 'rgba(255,77,109,0.75)');
         } else {
-            labels.push(m.label + ' (Vide)'); 
-            data.push(0); 
-            colors.push('rgba(255,255,255,0.1)');
+            labels.push(m.label);
+            data.push(0);
+            colors.push('rgba(255,255,255,0.06)');
         }
     });
-    
-    indicesChart = new Chart(ctx.getContext('2d'), { 
-        type: 'bar', plugins: [ChartDataLabels], 
-        data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 6, borderSkipped: false }] }, 
-        options: { 
-            responsive: true, maintainAspectRatio: false, indexAxis: 'y', 
-            layout: { padding: { right: 80, left: 80 } }, // Padding généreux pour ne pas couper le texte
-            plugins: { 
-                legend: { display: false }, 
-                tooltip: { backgroundColor: 'rgba(8, 14, 26, 0.95)', padding: 10, callbacks: { label: ctx => ctx.parsed.x === 0 ? 'Erreur/Vide' : signe(ctx.parsed.x)+ctx.parsed.x.toFixed(2)+'%' } }, 
-                datalabels: { 
-                    color: '#e8f0fe', 
-                    font: {weight: 'bold', size: 12}, 
-                    formatter: v => v === 0 ? '' : signe(v)+v.toFixed(2)+'%', 
-                    anchor: 'end',
-                    align: ctx => ctx.dataset.data[ctx.dataIndex] >= 0 ? 'right' : 'left', // Pousse toujours à l'extérieur
-                    offset: 14 // <-- Décalage augmenté pour ne pas toucher le bord arrondi
-                } 
-            }, 
-            scales: { x: { grid:{color:'rgba(255,255,255,0.04)', borderDash: [5, 5]}, ticks:{callback:v=>v+'%', font: {size: 10}} }, y: { grid:{display:false}, ticks:{font: {size: 11}} } } 
-        } 
-    });
+
+    const opts = buildBarChartOptions(data, colors);
+    opts.data.labels = labels;
+    indicesChart = new Chart(ctx.getContext('2d'), opts);
 }
 
 function renderIndicesOrigineChart(indicesData, portAllPct) {
-    chartDefaults(); const ctx = document.getElementById('indicesOrigineChart'); if (!ctx) return; if (indicesOrigineChart) indicesOrigineChart.destroy();
-    const labels = []; const data = []; const colors = []; 
-    const maps = [ 
-        { key:'cac', label:'CAC 40' }, { key:'sp', label:'S&P 500' }, { key:'msci', label:'MSCI World' }, { key:'ndx', label:'Nasdaq 100' },
-        { key:'dax', label:'DAX' }, { key:'estx50', label:'Eurostoxx 50' }
+    chartDefaults();
+    const ctx = document.getElementById('indicesOrigineChart');
+    if (!ctx) return;
+    if (indicesOrigineChart) indicesOrigineChart.destroy();
+
+    const labels = [], data = [], colors = [];
+    const maps = [
+        { key:'cac', label:'CAC 40' }, { key:'sp', label:'S&P 500' },
+        { key:'msci', label:'MSCI World' }, { key:'ndx', label:'Nasdaq 100' },
+        { key:'estx50', label:'Eurostoxx 50' }
     ];
-    
-    if (portAllPct !== null) { labels.push('Mon Portefeuille'); data.push(parseFloat(portAllPct.toFixed(2))); colors.push(portAllPct >= 0 ? 'rgba(0,212,255,0.8)' : 'rgba(255,77,109,0.7)'); }
-    else { labels.push('Mon Portefeuille (Réf manq.)'); data.push(0); colors.push('rgba(255,255,255,0.1)'); }
-    
-    maps.forEach(m => { 
-        const allPct = indicesData[m.key]?.allPct; 
-        if (allPct !== undefined) { 
-            labels.push(m.label); 
-            data.push(parseFloat(allPct.toFixed(2))); 
-            colors.push(allPct >= 0 ? 'rgba(0,229,160,0.7)' : 'rgba(255,77,109,0.7)'); 
+
+    if (portAllPct !== null) {
+        labels.push('Mon Portefeuille');
+        data.push(parseFloat(portAllPct.toFixed(2)));
+        colors.push(portAllPct >= 0 ? 'rgba(0,212,255,0.85)' : 'rgba(255,77,109,0.75)');
+    } else {
+        labels.push('Mon Portefeuille');
+        data.push(0);
+        colors.push('rgba(255,255,255,0.06)');
+    }
+
+    maps.forEach(m => {
+        const v = indicesData[m.key]?.allPct;
+        if (v !== undefined) {
+            labels.push(m.label);
+            data.push(parseFloat(v.toFixed(2)));
+            colors.push(v >= 0 ? 'rgba(0,229,160,0.75)' : 'rgba(255,77,109,0.75)');
         } else {
-            labels.push(m.label + ' (Vide)'); 
-            data.push(0); 
-            colors.push('rgba(255,255,255,0.1)');
+            labels.push(m.label);
+            data.push(0);
+            colors.push('rgba(255,255,255,0.06)');
         }
     });
-    
-    indicesOrigineChart = new Chart(ctx.getContext('2d'), { 
-        type: 'bar', plugins: [ChartDataLabels], 
-        data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 6, borderSkipped: false }] }, 
-        options: { 
-            responsive: true, maintainAspectRatio: false, indexAxis: 'y', 
-            layout: { padding: { right: 80, left: 80 } }, // Padding généreux pour ne pas couper le texte
-            plugins: { 
-                legend: { display: false }, 
-                tooltip: { backgroundColor: 'rgba(8, 14, 26, 0.95)', padding: 10, callbacks: { label: ctx => ctx.parsed.x === 0 ? 'Erreur/Vide' : signe(ctx.parsed.x)+ctx.parsed.x.toFixed(2)+'%' } }, 
-                datalabels: { 
-                    color: '#e8f0fe', 
-                    font: {weight: 'bold', size: 12}, 
-                    formatter: v => v === 0 ? '' : signe(v)+v.toFixed(2)+'%', 
-                    anchor: 'end',
-                    align: ctx => ctx.dataset.data[ctx.dataIndex] >= 0 ? 'right' : 'left', // Pousse toujours à l'extérieur
-                    offset: 14 // <-- Décalage augmenté pour ne pas toucher le bord arrondi
-                } 
-            }, 
-            scales: { x: { grid:{color:'rgba(255,255,255,0.04)', borderDash: [5, 5]}, ticks:{callback:v=>v+'%', font: {size: 10}} }, y: { grid:{display:false}, ticks:{font: {size: 11}} } } 
-        } 
-    });
+
+    const opts = buildBarChartOptions(data, colors);
+    opts.data.labels = labels;
+    indicesOrigineChart = new Chart(ctx.getContext('2d'), opts);
 }
 
 // ─── AUTO CALC REFERENCES ───
@@ -1399,7 +1568,7 @@ function chargerFormulaireReferences() {
 }
 function chargerFormulaireReferencesIndices() { 
     const r = appData.indicesRef; 
-    ['port','cac','sp','msci','ndx','dax','estx50'].forEach(k => { 
+    ['port','cac','sp','msci','ndx','estx50'].forEach(k => { 
         const origEl = document.getElementById(`ref-${k}-orig`); 
         if (origEl) origEl.value = r[k]?.orig ?? ''; 
         const ytdEl = document.getElementById(`ref-${k}-ytd`); 
@@ -1418,21 +1587,21 @@ window.sauvegarderReferences = function() {
         appData.references.ytd[k]  = { v: getV(`ref-ytd-${sk}-val`),  a: null };
         appData.references.mois[k] = { v: getV(`ref-mois-${sk}-val`), a: null };
     });
-    localStorage.setItem('portefeuilleV42', JSON.stringify(appData));
+    localStorage.setItem('portefeuilleV43', JSON.stringify(appData));
     toast('Références enregistrées.');
     mettreAJourAffichage();
     sauvegarderHistorique();
 };
 
 window.sauvegarderReferencesIndices = function() { 
-    ['port','cac','sp','msci','ndx','dax','estx50'].forEach(k => { 
+    ['port','cac','sp','msci','ndx','estx50'].forEach(k => { 
         const orig = parseFloat(document.getElementById(`ref-${k}-orig`)?.value) || null; 
         const ytd = parseFloat(document.getElementById(`ref-${k}-ytd`)?.value) || null; 
         if(!appData.indicesRef[k]) appData.indicesRef[k] = {};
         appData.indicesRef[k].orig = orig; 
         appData.indicesRef[k].ytd = ytd; 
     }); 
-    localStorage.setItem('portefeuilleV42', JSON.stringify(appData)); 
+    localStorage.setItem('portefeuilleV43', JSON.stringify(appData)); 
     toast('Références indices enregistrées !'); 
     actualiserIndices(); 
 };
@@ -1443,10 +1612,10 @@ function sauvegarderHistorique() {
     if (historiqueData.length > 0 && historiqueData[historiqueData.length - 1].date === todayStr) historiqueData[historiqueData.length - 1] = newEntry; 
     else historiqueData.push(newEntry);
     if (historiqueData.length > 365) historiqueData.shift();
-    localStorage.setItem('historiqueV42', JSON.stringify(historiqueData));
+    localStorage.setItem('historiqueV43', JSON.stringify(historiqueData));
 
     const mKey = new Date().getFullYear() + '-' + ('0' + (new Date().getMonth() + 1)).slice(-2);
-    appData.archives[mKey] = newEntry; localStorage.setItem('portefeuilleV42', JSON.stringify(appData));
+    appData.archives[mKey] = newEntry; localStorage.setItem('portefeuilleV43', JSON.stringify(appData));
     
     mettreAJourGraphiqueLigne(); 
     calculerPerformancesYTD_Mois(); 
@@ -1525,6 +1694,34 @@ document.querySelectorAll('input[name="modeSaisie"]').forEach(radio => { radio.a
 
 window.supprimerActionBourse = function(index) { if(confirm(`Supprimer cette ligne ?`)) { appData[ongletActif].splice(index, 1); mettreAJourAffichage(); sauvegarderHistorique(); toast("Ligne supprimée"); } };
 window.supprimerActionPEE = function(index) { if(confirm(`Supprimer cette évaluation ?`)) { appData.PEE.splice(index, 1); mettreAJourAffichage(); sauvegarderHistorique(); toast("Évaluation supprimée");} };
+
+// ─── FORM PEE SUBMIT (fix: était manquant) ───
+document.getElementById('form-pee').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const date = document.getElementById('pee-date').value;
+    const investi = parseFloat(document.getElementById('pee-investi').value);
+    const actuel = parseFloat(document.getElementById('pee-actuel').value);
+    if (!date || isNaN(investi) || isNaN(actuel)) { toast('Veuillez remplir tous les champs', 'error'); return; }
+    appData.PEE.push({ date, investi, actuel });
+    mettreAJourAffichage(); sauvegarderHistorique();
+    document.getElementById('pee-investi').value = '';
+    document.getElementById('pee-actuel').value = '';
+    document.getElementById('pee-date').valueAsDate = new Date();
+    toast('Évaluation PEE enregistrée !');
+});
+
+// ─── TOGGLE HISTORIQUE SAISIE JOURNALIÈRE ───
+window.toggleSaisieJournaliere = function() {
+    const body = document.getElementById('saisie-journaliere-body');
+    const icon = document.getElementById('saisie-toggle-icon');
+    const header = document.getElementById('saisie-toggle-header');
+    const isHidden = body.style.display === 'none';
+    body.style.display = isHidden ? 'block' : 'none';
+    icon.textContent = isHidden ? '▲ Masquer' : '▼ Afficher';
+    icon.style.color = isHidden ? 'var(--accent)' : 'var(--muted)';
+    icon.style.background = isHidden ? 'rgba(0,212,255,0.08)' : 'var(--surface3)';
+    icon.style.borderColor = isHidden ? 'rgba(0,212,255,0.25)' : 'var(--border)';
+};
 
 changerOnglet('ACCUEIL'); sauvegarderHistorique(); 
 </script>
