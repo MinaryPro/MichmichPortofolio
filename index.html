@@ -21,7 +21,6 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        /* SCROLLBAR TRANSPARENTE ET INTERACTIVE */
         ::-webkit-scrollbar { width: 14px; height: 14px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; border: 4px solid var(--bg); transition: 0.2s; }
@@ -38,50 +37,33 @@
         .header-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; animation: fadeUp 0.5s ease; }
         .brand { display: flex; align-items: center; gap: 14px; }
         
-        /* STYLE LOGO : Boite sombre avec lueur autour */
         .brand-icon { 
-            width: 48px; 
-            height: 48px; 
-            background: var(--surface);
-            border: 1px solid rgba(0, 212, 255, 0.25);
-            border-radius: 14px;
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            box-shadow: 0 0 16px rgba(0, 212, 255, 0.4); /* Le halo lumineux */
-            transition: all 0.3s ease;
+            width: 48px; height: 48px; background: var(--surface); border: 1px solid rgba(0, 212, 255, 0.25); border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 0 16px rgba(0, 212, 255, 0.4); transition: all 0.3s ease;
         }
-        .brand-icon:hover {
-            border-color: rgba(124, 58, 237, 0.4);
-            box-shadow: 0 0 24px rgba(124, 58, 237, 0.6);
-            transform: scale(1.05);
-        }
+        .brand-icon:hover { border-color: rgba(124, 58, 237, 0.4); box-shadow: 0 0 24px rgba(124, 58, 237, 0.6); transform: scale(1.05); }
 
         h1 { font-size: 1.8em; font-weight: 800; letter-spacing: -0.03em; }
         h1 span { color: var(--accent); }
-        .version-badge { font-size: 0.65em; font-weight: 700; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); color: var(--accent); padding: 3px 8px; border-radius: 6px; vertical-align: middle; margin-left: 6px; }
 
-        /* ── BOUTONS ── */
+        /* ── BOUTONS (SOBRES) ── */
         .header-buttons { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
         .btn { height: 42px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9em; font-weight: 700; border-radius: 10px; border: none; cursor: pointer; transition: 0.2s; font-family: 'DM Sans', sans-serif; white-space: nowrap; text-transform: none; }
         .btn:active { transform: scale(0.96); }
+        .btn.icon-only { width: 42px; padding: 0; justify-content: center; }
         
-        .btn-primary { background: var(--accent); color: #000; box-shadow: 0 4px 16px rgba(0,212,255,0.3); }
-        .btn-primary:hover { background: #33dcff; transform: translateY(-1px); }
+        .btn-primary { background: var(--surface3); color: var(--text); border: 1px solid var(--border); }
+        .btn-primary:hover { background: var(--surface2); border-color: var(--accent); transform: translateY(-1px); }
         .btn-secondary { background: var(--surface3); color: var(--text); border: 1px solid var(--border); }
         .btn-secondary:hover { background: var(--surface2); border-color: var(--accent); transform: translateY(-1px); }
-        .btn-success { background: var(--success); color: #000; box-shadow: 0 4px 16px rgba(0,229,160,0.25); }
-        .btn-success:hover { background: #33ebb5; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,229,160,0.4); }
-        .btn-warning { background: #fbbf24 !important; color: #000 !important; box-shadow: 0 4px 16px rgba(251, 191, 36, 0.4); opacity: 1 !important; }
-        .btn-warning:hover { background: #fcd34d !important; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(251, 191, 36, 0.6); }
-        .btn-danger { background: rgba(255,77,109,0.15); color: var(--danger); border: 1px solid rgba(255,77,109,0.3); }
-        .btn-danger:hover { background: var(--danger); color: white; }
-        .btn-incognito { background: var(--surface3); color: var(--text); border: 1px solid var(--border); width: 130px; justify-content: center; }
+        .btn-success { background: rgba(0,229,160,0.15); color: var(--success); border: 1px solid rgba(0,229,160,0.3); }
+        .btn-success:hover { background: rgba(0,229,160,0.25); transform: translateY(-1px); }
+        .btn-incognito { background: var(--surface3); color: var(--text); border: 1px solid var(--border); justify-content: center; }
         .btn-incognito.active { background: rgba(0,229,160,0.15); color: var(--success); border-color: var(--success); }
 
+        .svg-icon { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
         #api-status { font-size: 0.82em; color: var(--muted); width: 100%; text-align: right; margin-top:-10px; }
-        .spinner { width: 16px; height: 16px; border: 2px solid rgba(0,0,0,0.2); border-top-color: #000; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; vertical-align: middle; margin-right: 5px; }
-        @keyframes spin { to { transform: rotate(360deg); } }
 
         /* ── DASHBOARD ── */
         .dashboard-global, .dashboard-tab { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; animation: fadeUp 0.5s ease 0.1s both; }
@@ -102,15 +84,15 @@
         .negatif .main-val, .negatif .sub-val { color: var(--danger); }
 
         /* ── TABS ── */
-        .tabs { display: flex; gap: 4px; margin-bottom: 20px; background: var(--surface); border-radius: 14px; padding: 5px; border: 1px solid var(--border); overflow-x: auto; animation: fadeUp 0.5s ease 0.15s both; }
-        .tab-btn { background: transparent; border: none; padding: 10px 20px; font-size: 0.9em; font-weight: 600; color: var(--muted); cursor: pointer; border-radius: 10px; transition: all 0.25s; font-family: 'DM Sans', sans-serif; white-space: nowrap; text-transform: none; display: flex; align-items: center;}
+        .tabs { display: flex; gap: 4px; margin-bottom: 20px; background: var(--surface); border-radius: 14px; padding: 5px; border: 1px solid var(--border); overflow-x: auto; animation: fadeUp 0.5s ease 0.15s both; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .tab-btn { background: transparent; border: none; padding: 10px 20px; font-size: 0.9em; font-weight: 600; color: var(--muted); cursor: pointer; border-radius: 10px; transition: all 0.25s; font-family: 'DM Sans', sans-serif; white-space: nowrap; text-transform: none; display: flex; align-items: center; gap: 8px;}
         .tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.04); }
         .tab-btn.active { color: #000; background: var(--accent); box-shadow: 0 2px 12px rgba(0,212,255,0.4); }
 
         /* ── FORM ── */
         .card { background: var(--surface); border-radius: var(--r); border: 1px solid var(--border); padding: 24px; margin-bottom: 20px; transition: border-color 0.2s; }
         .card:hover { border-color: rgba(0,212,255,0.15); }
-        .card h3 { font-size: 1.05em; font-weight: 700; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); color: var(--text); display: flex; justify-content: space-between; align-items: center; }
+        .card h3 { font-size: 1.05em; font-weight: 700; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); color: var(--text); display: flex; justify-content: flex-start; align-items: center; gap: 8px;}
 
         .form-grid { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
         .input-group { display: flex; flex-direction: column; justify-content: flex-end; flex: 1 1 180px; }
@@ -125,8 +107,8 @@
         .radio-group label { display: flex; align-items: center; gap: 8px; font-size: 0.85em; cursor: pointer; color: var(--text); margin: 0; min-height: auto; padding: 0; font-family: 'DM Sans', sans-serif; text-transform: none; letter-spacing: normal;}
         .radio-group input[type="radio"] { accent-color: var(--accent); width: 16px; height: 16px; margin: 0; }
         
-        button[type="submit"] { padding: 12px 20px; border: none; border-radius: 10px; background: var(--accent); color: #000; cursor: pointer; font-weight: 700; font-size: 0.95em; transition: all 0.2s; flex: 1 1 100%; font-family: 'DM Sans', sans-serif; margin-top: 10px; height: 48px; width: 100%;}
-        button[type="submit"]:hover { background: #33dcff; transform: translateY(-1px); }
+        button[type="submit"] { padding: 12px 20px; border: none; border-radius: 10px; background: var(--surface3); color: var(--text); border: 1px solid var(--border); cursor: pointer; font-weight: 700; font-size: 0.95em; transition: all 0.2s; flex: 1 1 100%; font-family: 'DM Sans', sans-serif; margin-top: 10px; height: 48px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;}
+        button[type="submit"]:hover { background: var(--surface2); border-color: var(--accent); transform: translateY(-1px); }
 
         /* ── TABLE ── */
         table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
@@ -137,6 +119,55 @@
         tbody tr:hover { background: rgba(0,212,255,0.03); }
         tfoot { background: rgba(0,12,30,0.6); font-weight: 700; border-top: 2px solid var(--accent); }
         tfoot td { padding: 16px 10px; }
+        .table-wrap { border-radius: var(--r2); overflow: hidden; border: 1px solid var(--border); }
+        .table-wrap table { border: none; }
+        .table-wrap tfoot tr td:first-child { border-bottom-left-radius: var(--r2); }
+        .table-wrap tfoot tr td:last-child  { border-bottom-right-radius: var(--r2); }
+        .chart-btn-group { display:flex; gap:3px; background:var(--surface2); border-radius:9px; padding:4px; border:1px solid var(--border); }
+        .cwb { background:transparent; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.8em; font-weight:700; color:var(--muted); padding:5px 13px; border-radius:6px; transition:all 0.2s; white-space:nowrap; }
+        .cwb:hover { color:var(--text); background:rgba(255,255,255,0.06); }
+        .cwb.active { background:var(--accent); color:#000; box-shadow:0 2px 8px rgba(0,212,255,0.35); }
+        .cwb.active-pct { background:var(--accent2); color:#fff; box-shadow:0 2px 8px rgba(124,58,237,0.35); }
+        .ref-section-title { font-size:0.72em; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); padding:14px 0 6px; border-top:1px solid var(--border); margin-top:24px; display:block; }
+        
+        /* Immo comparateur */
+        .immo-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+        @media(max-width:900px){.immo-grid{grid-template-columns:1fr;}}
+        /* Indices responsive */
+        @media(max-width:900px){
+            #idx-charts-grid { grid-template-columns:1fr !important; }
+        }
+        /* Indices cards responsive */
+        @media(max-width:640px){
+            .indices-wrapper { gap:8px; }
+            .idx-card { flex:1 1 140px; padding:12px 10px; }
+            .idx-val { font-size:1.2em; }
+        }
+        .immo-section-title { font-size:0.7em; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); padding:10px 0 6px; border-top:1px solid var(--border); margin-top:14px; display:block; }
+        .immo-section-title:first-of-type { border-top:none; margin-top:0; padding-top:0; }
+        .immo-kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:16px; }
+        .immo-kpi { background:var(--surface3); border:1px solid var(--border); border-radius:10px; padding:14px; text-align:center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .immo-kpi-val { font-size:1.25em; font-weight:800; font-family:'DM Mono',monospace; margin-bottom:2px; }
+        .immo-kpi-lbl { font-size:0.7em; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+        .immo-verdict { border-radius:var(--r2); padding:20px 24px; margin-top:16px; border:1px solid; }
+        .immo-verdict-acheter { background:rgba(0,229,160,0.06); border-color:rgba(0,229,160,0.3); }
+        .immo-verdict-louer   { background:rgba(0,212,255,0.06); border-color:rgba(0,212,255,0.3); }
+        .immo-verdict-neutre  { background:rgba(245,158,11,0.06); border-color:rgba(245,158,11,0.3); }
+        
+        /* Calculatrice */
+        .ret-box { background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(0,212,255,0.04)); border:1px solid rgba(124,58,237,0.25); border-radius:var(--r2); padding:20px; margin-top:20px; }
+        .ret-val-main { font-size:1.8em; font-weight:800; font-family:'DM Mono',monospace; color:#a78bfa; letter-spacing:-0.02em; }
+        .ret-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+        .ret-card { background:var(--surface3); border:1px solid var(--border); border-radius:10px; padding:14px; text-align:center; }
+        .ret-card-val { font-size:1.2em; font-weight:800; font-family:'DM Mono',monospace; color:var(--success); margin-bottom:2px; }
+        .ret-card-lbl { font-size:0.72em; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+        @media(max-width:900px){#section-calc .card>div[style*='grid-template-columns:220px']{grid-template-columns:1fr!important;}}
+        .calc-result-box { background:var(--surface2); border:1px solid var(--border); border-radius:var(--r2); padding:20px; }
+        .calc-result-val { font-size:2em; font-weight:800; font-family:'DM Mono',monospace; color:var(--accent); letter-spacing:-0.02em; }
+        .calc-stat { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(30,58,95,0.4); font-size:0.88em; }
+        .calc-stat:last-child { border-bottom:none; }
+        .calc-stat-label { color:var(--muted); font-weight:600; }
+        .calc-stat-val { font-family:'DM Mono',monospace; font-weight:700; }
 
         .badge-sector { font-size: 0.75em; padding: 3px 8px; border-radius: 6px; background: rgba(148, 163, 184, 0.15); color: var(--muted); display: inline-block; font-weight: 600; font-family: 'DM Sans', sans-serif; margin-left: 8px;}
 
@@ -146,12 +177,19 @@
         .perf-amount { font-size: 0.95em; white-space: nowrap; font-weight: 600;}
         .perf-pct { font-size: 0.75em; font-weight: 700; background: rgba(255,255,255,0.06); padding: 2px 5px; border-radius: 4px; white-space: nowrap; align-self: flex-end; font-family: 'DM Mono', monospace;}
 
-        .inline-edit { background: rgba(255,255,255,0.03); border: 1px dashed var(--border); color: inherit; font-size: 0.95em; font-weight: 600; text-align: right; width: 85px; padding: 6px 8px; border-radius: 7px; transition: all 0.2s; font-family: 'DM Mono', monospace; margin: 0; }
+        /* ── INLINE EDIT ── */
+        .inline-edit { background: transparent; border: 1px solid transparent; color: inherit; font-size: 0.95em; font-weight: 600; text-align: right; width: 85px; padding: 6px 8px; border-radius: 7px; transition: all 0.2s; font-family: 'DM Mono', monospace; margin: 0; cursor: default; pointer-events: none; user-select: none; }
         .inline-edit.text-left { text-align: left; font-family: 'DM Sans', sans-serif; width: 140px; }
-        .inline-edit:focus { outline: none; border-style: solid; border-color: var(--accent); background: var(--surface3); transform: scale(1.04); }
+        .inline-edit.editable { background: rgba(255,255,255,0.03); border: 1px dashed var(--border); cursor: text; pointer-events: all; user-select: auto; }
+        .inline-edit.editable:focus { outline: none; border-style: solid; border-color: var(--accent); background: var(--surface3); transform: scale(1.04); }
         
-        button.delete-btn { background: rgba(255,77,109,0.08); color: var(--danger); padding: 7px 10px; border: none; cursor: pointer; border-radius: 7px; transition: 0.2s; font-size: 0.9em; margin-left: 4px;}
-        button.delete-btn:hover { background: var(--danger); color: white; transform: scale(1.1); }
+        /* Boutons action ligne (sobres) */
+        .action-btn { background: transparent; border: 1px solid transparent; padding: 6px; cursor: pointer; border-radius: 6px; transition: 0.2s; color: var(--muted); margin-left: 2px; display: inline-flex; align-items: center; justify-content: center;}
+        .action-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
+        .action-btn:hover { background: var(--surface3); color: var(--text); border-color: var(--border); }
+        .action-btn.delete:hover { background: rgba(255,77,109,0.1); color: var(--danger); border-color: rgba(255,77,109,0.3); }
+        .action-btn.edit:hover { background: rgba(0,212,255,0.1); color: var(--accent); border-color: rgba(0,212,255,0.3); }
+        .action-btn.edit.editing { background: rgba(0,229,160,0.15); color: var(--success); border-color: var(--success); }
 
         .cash-input-wrapper { display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom: 6px; }
         .cash-input-wrapper input { width: 90px; padding: 6px 10px; font-size: 1.05em; font-weight: 700; background: rgba(0,212,255,0.05); border: 1px solid rgba(0,212,255,0.3); color: var(--accent); border-radius: 8px; text-align: right; transition: 0.2s; font-family: 'DM Mono', monospace; }
@@ -159,6 +197,63 @@
         /* ── CHARTS ── */
         .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px; animation: fadeUp 0.5s ease 0.2s both; }
         .chart-container { position: relative; height: 300px; width: 100%; }
+
+        /* ── DELTA TOOLTIP (clic 2 points) ── */
+        .delta-tooltip {
+            position: absolute; z-index: 200; pointer-events: none;
+            background: rgba(8,14,26,0.96); border: 1px solid rgba(0,212,255,0.35);
+            border-radius: 10px; padding: 10px 14px; font-family: 'DM Mono', monospace;
+            font-size: 0.82em; white-space: nowrap; box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+            transition: opacity 0.15s;
+        }
+        .delta-tooltip .dt-row { display:flex; justify-content:space-between; gap:16px; margin-bottom:3px; }
+        .delta-tooltip .dt-lbl { color: #64748b; font-family:'DM Sans',sans-serif; font-weight:600; }
+        .delta-tooltip .dt-val { font-weight:700; }
+        .delta-tooltip .dt-header { font-size:0.78em; color:#64748b; margin-bottom:6px; padding-bottom:6px; border-bottom:1px solid rgba(255,255,255,0.07); font-family:'DM Sans',sans-serif; }
+        .delta-marker { position:absolute; width:10px; height:10px; border-radius:50%; border:2px solid #fff; transform:translate(-50%,-50%); pointer-events:none; z-index:150; transition:all 0.1s; }
+
+        /* ── RESPONSIVE PROJECTION & IMMO ── */
+        @media (max-width: 1100px) {
+            /* Projection : empiler gauche/droite */
+            #section-calc .card > div[style*='grid-template-columns:1fr 1.6fr'] {
+                grid-template-columns: 1fr !important;
+            }
+            #section-calc .card > div[style*='grid-template-columns:1fr 1.6fr'] > div:first-child {
+                flex-direction: row !important;
+                flex-wrap: wrap !important;
+                gap: 16px !important;
+            }
+            #section-calc .card > div[style*='grid-template-columns:1fr 1.6fr'] > div:first-child > div {
+                flex: 1 1 300px !important;
+                border-radius: var(--r2) !important;
+                border: 1px solid var(--border) !important;
+                border-bottom: 1px solid var(--border) !important;
+            }
+            /* Immo : résultats + graphique empilés */
+            #section-immo .card > div[style*='grid-template-columns:1fr 1.6fr'] {
+                grid-template-columns: 1fr !important;
+            }
+            /* Graphiques projection : hauteur fixe raisonnables */
+            #calcChart { height: 260px !important; }
+            #retChart  { height: 200px !important; }
+            #immoChart { height: 280px !important; }
+        }
+        @media (max-width: 700px) {
+            /* Projection colonnes internes */
+            #section-calc div[style*='grid-template-columns:1fr 1fr'] { grid-template-columns: 1fr !important; }
+            #section-immo div[style*='grid-template-columns:1fr 1fr'] { grid-template-columns: 1fr !important; }
+            /* Immo 2 col params */
+            .immo-grid { grid-template-columns: 1fr !important; }
+            /* Graphiques encore plus petits sur mobile */
+            #calcChart { height: 200px !important; }
+            #retChart  { height: 160px !important; }
+            #immoChart { height: 220px !important; }
+            #immoChart, #calcChart, #retChart { min-height: unset !important; }
+            /* Conteneurs flex graphiques */
+            #section-calc div[style*='min-height:260px'],
+            #section-immo div[style*='min-height:320px'],
+            #section-calc div[style*='min-height:220px'] { min-height: 180px !important; }
+        }
         @media (max-width: 900px) { .charts-grid { grid-template-columns: 1fr; } }
 
         .grid-2x2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
@@ -208,99 +303,45 @@
         .toast.error { border-color: var(--danger); }
 
         /* ══════════════════════════════════════════
-           RESPONSIVE MOBILE (≤ 640px)
+           RESPONSIVE MOBILE
         ══════════════════════════════════════════ */
         @media (max-width: 640px) {
             body { padding: 12px 10px; }
-
-            /* Header */
             .header-container { gap: 10px; margin-bottom: 16px; }
             .brand-icon { width: 38px; height: 38px; border-radius: 10px; }
             h1 { font-size: 1.3em; }
-            .version-badge { font-size: 0.6em; padding: 2px 6px; }
             .header-buttons { gap: 6px; }
             .btn { height: 36px; padding: 0 12px; font-size: 0.82em; }
-            .btn-incognito { width: 100px; font-size: 0.78em; }
-            #api-status { font-size: 0.75em; }
-
-            /* Tabs — scroll horizontal compact */
-            .tabs { padding: 4px; gap: 2px; border-radius: 10px; margin-bottom: 14px; }
-            .tab-btn { padding: 8px 12px; font-size: 0.78em; border-radius: 8px; }
-
-            /* Dashboard global — 2 colonnes sur mobile */
-            .dashboard-global { grid-template-columns: repeat(2, 1fr) !important; gap: 1px; border-radius: 14px; }
-            .dashboard-tab { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+            .tabs { padding: 4px; gap: 2px; border-radius: 10px; margin-bottom: 14px; overflow-x: auto; flex-wrap: nowrap;}
+            .tab-btn { padding: 8px 12px; font-size: 0.78em; border-radius: 8px; flex-shrink: 0;}
+            .dashboard-global, .dashboard-tab { grid-template-columns: repeat(2, 1fr) !important; gap: 1px; border-radius: 14px; }
             .stat-box-g, .stat-box { padding: 14px 12px; }
             .main-val { font-size: 1.15em; }
-            .stat-label { font-size: 0.7em; height: 22px; }
-            .sub-val { font-size: 0.75em; }
-
-            /* Cash input */
-            .cash-input-wrapper { gap: 6px; }
-            .cash-input-wrapper input { width: 80px; font-size: 0.95em; }
-
-            /* Cards */
             .card { padding: 16px 14px; border-radius: 12px; margin-bottom: 14px; }
-            .card h3 { font-size: 0.95em; margin-bottom: 14px; padding-bottom: 10px; }
-
-            /* Forms — tout en colonne sur mobile */
             .form-grid { gap: 10px; }
             .input-group { flex: 1 1 100% !important; }
-            .input-group label { font-size: 0.72em; height: 22px; }
-            input[type="text"], input[type="number"], input[type="date"],
-            input[type="month"], select { padding: 9px 12px; font-size: 0.9em; border-radius: 8px; }
-            button[type="submit"] { height: 44px; font-size: 0.9em; }
-            .radio-group { flex-direction: column; gap: 10px; padding: 10px 12px; }
-
-            /* Tables — scroll horizontal */
-            .table-bilan th, .table-bilan td { padding: 8px 6px; font-size: 0.78em; }
-            th, td { padding: 8px 6px; font-size: 0.8em; height: 42px; }
-            .inline-edit { width: 70px; font-size: 0.88em; padding: 5px 6px; }
-            .inline-edit.text-left { width: 110px; }
-
-            /* Charts */
-            .charts-grid { gap: 14px; }
+            .charts-grid, .grid-2x2, .immo-grid { grid-template-columns: 1fr !important; gap: 14px; }
             .chart-container { height: 220px !important; }
-            .grid-2x2 { grid-template-columns: 1fr !important; gap: 14px; }
-
-            /* Indices cards */
             .indices-wrapper { gap: 10px; }
             .idx-card { flex: 1 1 140px; padding: 14px 12px; border-radius: 10px; }
-            .idx-val { font-size: 1.3em; }
-            .idx-title { font-size: 0.78em; }
-            .idx-badge { font-size: 0.78em; padding: 3px 6px; }
-
-            /* Ref tables */
-            .ref-table th, .ref-table td { padding: 8px 6px; font-size: 0.82em; }
-            .ref-table td input { max-width: 120px; }
-
-            /* Toast */
-            .toast { bottom: 12px; right: 12px; left: 12px; font-size: 0.85em; padding: 12px 16px; }
-
-            /* Saisie journalière toggle */
-            #saisie-toggle-icon { font-size: 0.78em; padding: 3px 9px; }
-
-            /* Bilan bar charts */
-            #indicesChart, #indicesOrigineChart { height: 260px !important; }
+            #section-calc .card > div[style*="grid-template-columns:1fr 1.6fr"] { grid-template-columns: 1fr !important; }
         }
-
-        /* ═══════════════════════════════════════
-           TABLETTE (641px – 900px)
-        ═══════════════════════════════════════ */
         @media (min-width: 641px) and (max-width: 900px) {
             body { padding: 16px 14px; }
-            .dashboard-global { grid-template-columns: repeat(3, 1fr) !important; gap: 1px; }
-            .dashboard-tab { grid-template-columns: repeat(3, 1fr) !important; }
-            .form-grid { gap: 12px; }
-            .input-group { flex: 1 1 160px; }
+            .dashboard-global, .dashboard-tab { grid-template-columns: repeat(3, 1fr) !important; gap: 1px; }
             .chart-container { height: 240px !important; }
             h1 { font-size: 1.5em; }
+            #section-calc .card > div[style*="grid-template-columns:1fr 1.6fr"] { grid-template-columns: 1fr !important; }
+            .immo-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (min-width: 1201px) {
+            .dashboard-global { grid-template-columns: repeat(5, 1fr) !important; }
         }
     </style>
 </head>
 <body>
 
-<div id="toast" class="toast"><span id="toast-icon">✅</span><span id="toast-msg">Message</span></div>
+<div id="toast" class="toast"><span id="toast-icon"></span><span id="toast-msg">Message</span></div>
 
 <div class="header-container">
     <div class="brand">
@@ -318,24 +359,45 @@
         <h1>Minary<span> Finance</span></h1>
     </div>
     <div class="header-buttons">
-        <button type="button" class="btn btn-success" onclick="exporterDonnees()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-            Sauvegarder
+        <button type="button" id="btn-incognito" class="btn btn-incognito icon-only" onclick="toggleIncognito()" title="Masquer / Afficher les montants">
+            <svg id="icon-incognito" class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
         </button>
-        <label class="btn btn-warning" style="cursor:pointer" title="Charger un fichier de sauvegarde">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2-2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-            Restaurer <input type="file" id="import-file" style="display:none" accept=".json" onchange="importerDonnees(event)">
+        <label class="btn btn-secondary icon-only" style="cursor:pointer" title="Restaurer une sauvegarde">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2-2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <input type="file" id="import-file" style="display:none" accept=".json" onchange="importerDonnees(event)">
         </label>
-        <button type="button" id="btn-incognito" class="btn btn-incognito" onclick="toggleIncognito()">
-            <svg id="icon-incognito" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"></svg> 
-            <span id="text-incognito">Masquer</span>
-        </button>
-        <button type="button" id="btn-actualiser" class="btn btn-primary" onclick="actualiserTousLesPrix()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:4px;"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/></svg>
-            Actualiser
+        <button type="button" class="btn btn-secondary icon-only" onclick="exporterDonnees()" title="Sauvegarder">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
         </button>
     </div>
     <div id="api-status"></div>
+</div>
+
+<div class="tabs">
+    <button type="button" class="tab-btn active" onclick="changerOnglet('ACCUEIL')" id="tab-ACCUEIL">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Accueil
+    </button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('CTO')" id="tab-CTO">CTO</button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('PEA')" id="tab-PEA">PEA</button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('PEE')" id="tab-PEE">PEE</button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('INDICES')" id="tab-INDICES">
+        <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg> Indices
+    </button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('BILAN')" id="tab-BILAN">
+        <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> Bilan
+    </button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('STATS')" id="tab-STATS">
+        <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Statistiques
+    </button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('CALC')" id="tab-CALC">
+        <svg class="svg-icon" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg> Projection
+    </button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('IMMO')" id="tab-IMMO">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Immo
+    </button>
+    <button type="button" class="tab-btn" onclick="changerOnglet('REF')" id="tab-REF">
+        <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg> Réf.
+    </button>
 </div>
 
 <div class="dashboard-global" id="dashboard-global-wrapper">
@@ -366,34 +428,24 @@
     </div>
 </div>
 
-<div class="tabs">
-    <button type="button" class="tab-btn active" onclick="changerOnglet('ACCUEIL')" id="tab-ACCUEIL">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Accueil
-    </button>
-    <button type="button" class="tab-btn" onclick="changerOnglet('CTO')" id="tab-CTO">CTO</button>
-    <button type="button" class="tab-btn" onclick="changerOnglet('PEA')" id="tab-PEA">PEA</button>
-    <button type="button" class="tab-btn" onclick="changerOnglet('PEE')" id="tab-PEE">PEE</button>
-    <button type="button" class="tab-btn" onclick="changerOnglet('INDICES')" id="tab-INDICES">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg> Indices
-    </button>
-    <button type="button" class="tab-btn" onclick="changerOnglet('BILAN')" id="tab-BILAN">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> Bilan
-    </button>
-    <button type="button" class="tab-btn" onclick="changerOnglet('REF')" id="tab-REF">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg> Réf.
-    </button>
-</div>
-
 <div id="section-accueil" class="section-content active">
     <div class="card">
-        <h3>Synthèse des Portefeuilles</h3>
-        <div style="overflow-x:auto">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+            <h3 style="margin:0;padding:0;border:none;font-size:1.05em;">
+                <svg class="svg-icon" style="color:var(--accent);" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                Synthèse des Portefeuilles
+            </h3>
+            <div class="chart-btn-group">
+                <button type="button" id="syn-month" class="cwb"        onclick="setSynWindow('month')">Mois</button>
+                <button type="button" id="syn-ytd"   class="cwb"        onclick="setSynWindow('ytd')">YTD</button>
+                <button type="button" id="syn-all"   class="cwb active" onclick="setSynWindow('all')">Total</button>
+            </div>
+        </div>
+        <div class="table-wrap" style="overflow-x:auto">
             <table>
                 <thead><tr>
-                    <th>Enveloppe</th>
-                    <th>Apports Nets</th>
-                    <th>Valeur (avec Cash)</th>
-                    <th style="text-align: right;">Plus-Value</th>
+                    <th>Enveloppe</th><th>Apports Nets</th><th>Valeur (avec Cash)</th>
+                    <th style="text-align:right;" id="syn-perf-header">Plus-Value</th>
                 </tr></thead>
                 <tbody id="table-accueil-body"></tbody>
             </table>
@@ -401,8 +453,24 @@
     </div>
     <div class="charts-grid">
         <div class="card" style="margin-bottom:0">
-            <h3>Évolution Globale du Portefeuille (Suivi)</h3>
-            <div class="chart-container"><canvas id="historyChart"></canvas></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+                <h3 style="margin:0;padding:0;border:none;font-size:1.05em;">Évolution Globale du Portefeuille</h3>
+                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                    <div class="chart-btn-group">
+                        <button type="button" id="hc-month" class="cwb active" onclick="setHcWindow('month')">Mois</button>
+                        <button type="button" id="hc-ytd"   class="cwb"        onclick="setHcWindow('ytd')">YTD</button>
+                        <button type="button" id="hc-all"   class="cwb"        onclick="setHcWindow('all')">Total</button>
+                    </div>
+                    <div class="chart-btn-group">
+                        <button type="button" id="hc-eur" class="cwb active" onclick="setHcMode('eur')">€</button>
+                        <button type="button" id="hc-pct" class="cwb"        onclick="setHcMode('pct')">%</button>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-container" style="position:relative;" id="hc-wrap">
+                <canvas id="historyChart"></canvas>
+                <div class="delta-tooltip" id="hc-delta" style="display:none;top:10px;left:50%;transform:translateX(-50%);"></div>
+            </div>
         </div>
         <div class="card" style="margin-bottom:0">
             <h3>Répartition Globale par Secteur</h3>
@@ -451,7 +519,31 @@
 
 <div id="section-bourse" class="section-content">
     <div class="card">
-        <h3>Ajouter une position (Manuel)</h3>
+        <h3>Positions <span style="color:var(--muted);font-size:0.78em;font-weight:500;font-family:'DM Sans',sans-serif;margin-left:8px;">Cliquez sur les en-têtes pour trier</span></h3>
+        <div class="table-wrap" style="overflow-x:auto">
+            <table>
+                <thead><tr>
+                    <th onclick="trierBourse('ticker')">Entreprise ↕</th>
+                    <th onclick="trierBourse('dateAchat')">Date ↕</th>
+                    <th onclick="trierBourse('quantite')">Qté ↕</th>
+                    <th onclick="trierBourse('pru')">PRU ↕</th>
+                    <th onclick="trierBourse('investi')">Investi ↕</th>
+                    <th onclick="trierBourse('prixActuel')">Cours Actuel ↕</th>
+                    <th onclick="trierBourse('valeur')">Valeur ↕</th>
+                    <th onclick="trierBourse('dividendes')">Dividendes ↕</th>
+                    <th onclick="trierBourse('perfEuro')" style="text-align:right;">Plus-Value Latente ↕</th>
+                    <th style="text-align:center">Action</th>
+                </tr></thead>
+                <tbody id="table-bourse-body"></tbody>
+                <tfoot id="table-bourse-foot"></tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <h3>
+            <svg class="svg-icon" style="color:var(--accent);" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Ajouter une position
+        </h3>
         <form id="form-bourse" class="form-grid">
             <div class="radio-group">
                 <label><input type="radio" name="modeSaisie" value="detail" checked> Prix d'achat + Frais</label>
@@ -473,34 +565,21 @@
             <div class="input-group" id="group-frais"><label>Frais Courtage (%)</label><input type="number" id="fraisPourcent" min="0" step="0.01" value="0.5"></div>
             <div class="input-group" id="group-pru" style="display:none"><label>PRU Direct</label><input type="number" id="pruDirect" min="0.01" step="0.01"></div>
             <div class="input-group"><label>Dividendes perçus</label><input type="number" id="dividendes" min="0" step="0.01" value="0"></div>
-            <button type="submit" id="btn-ajouter-bourse">➕ Ajouter au portefeuille</button>
+            <button type="submit" id="btn-ajouter-bourse">Ajouter au portefeuille</button>
         </form>
-    </div>
-
-    <div class="card">
-        <h3>Positions <span style="color:var(--muted); font-size:0.8em; font-weight:500; font-family:'DM Sans', sans-serif;">Cliquez sur les en-têtes pour trier (Modifiez Nom et Prix)</span></h3>
-        <div style="overflow-x:auto">
-            <table>
-                <thead><tr>
-                    <th onclick="trierBourse('ticker')">Entreprise (Édit) ↕</th>
-                    <th onclick="trierBourse('dateAchat')">Date ↕</th>
-                    <th onclick="trierBourse('quantite')">Qté ↕</th>
-                    <th onclick="trierBourse('pru')">PRU ↕</th>
-                    <th onclick="trierBourse('investi')">Investi ↕</th>
-                    <th onclick="trierBourse('prixActuel')">Cours Actuel ↕</th>
-                    <th onclick="trierBourse('valeur')">Valeur ↕</th>
-                    <th onclick="trierBourse('dividendes')">Dividendes ↕</th>
-                    <th onclick="trierBourse('perfEuro')" style="text-align:right;">Plus-Value Latente ↕</th>
-                    <th style="text-align:center">Action</th>
-                </tr></thead>
-                <tbody id="table-bourse-body"></tbody>
-                <tfoot id="table-bourse-foot"></tfoot>
-            </table>
-        </div>
     </div>
 </div>
 
 <div id="section-pee" class="section-content">
+    <div class="card">
+        <h3>Historique PEE</h3>
+        <div class="table-wrap" style="overflow-x:auto">
+            <table>
+                <thead><tr><th>Date</th><th>Apports (Édit)</th><th>Valeur (Édit)</th><th style="text-align:right;">Performance</th><th style="text-align:center;">Action</th></tr></thead>
+                <tbody id="table-pee-body"></tbody>
+            </table>
+        </div>
+    </div>
     <div class="card">
         <h3>Nouvelle évaluation PEE</h3>
         <form id="form-pee" class="form-grid" style="align-items:flex-end;">
@@ -508,25 +587,21 @@
             <div class="input-group"><label>Montant Investi (€)</label><input type="number" id="pee-investi" min="0" step="0.01" required></div>
             <div class="input-group"><label>Valeur Totale (€)</label><input type="number" id="pee-actuel" min="0" step="0.01" required></div>
             <div class="input-group">
-                <button type="submit" class="btn btn-success" style="height:48px; font-size:0.95em; border-radius:10px; width: 100%;">✔ Enregistrer</button>
+                <button type="submit" class="btn-success" style="height:48px;border-radius:10px;width:100%;">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Enregistrer
+                </button>
             </div>
         </form>
-    </div>
-    <div class="card">
-        <h3>Historique PEE</h3>
-        <div style="overflow-x:auto">
-            <table>
-                <thead><tr><th>Date</th><th>Apports (Édit)</th><th>Valeur (Édit)</th><th style="text-align:right;">Performance</th><th style="text-align:center;">Action</th></tr></thead>
-                <tbody id="table-pee-body"></tbody>
-            </table>
-        </div>
     </div>
 </div>
 
 <div id="section-indices" class="section-content">
     <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:15px; margin-bottom:15px;">
-            <h3 style="border:none; margin:0; padding:0;">📊 Comparaison avec les Indices</h3>
+            <h3 style="border:none; margin:0; padding:0;">
+                <svg class="svg-icon" style="color:var(--accent);" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                Comparaison avec les Indices
+            </h3>
             <button type="button" class="btn btn-primary" onclick="actualiserIndices()" style="font-size:0.85em; height:36px; padding:0 16px">
                 <span class="spinner" id="indices-spinner" style="display:none"></span> Actualiser Auto
             </button>
@@ -563,7 +638,6 @@
                 <div class="idx-row"><span class="idx-label">YTD</span><span class="idx-badge neut" id="idx-ndx-ytd">—</span></div>
                 <div class="idx-row"><span class="idx-label">Depuis Origine</span><span class="idx-badge neut" id="idx-ndx-all">—</span></div>
             </div>
-
             <div class="idx-card">
                 <div class="idx-title">Eurostoxx 50</div>
                 <div class="idx-val" id="idx-estx50-val">—</div>
@@ -572,14 +646,35 @@
             </div>
         </div>
 
-        <div style="margin-top:35px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+        <div id="idx-charts-grid" style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+            <!-- Colonne 1 : Mois en cours -->
             <div>
-                <h3 style="font-size:1em; border-bottom:none; padding-bottom:0; margin-bottom:15px">Comparaison (Perf. % YTD)</h3>
-                <div class="chart-container" style="height:350px"><canvas id="indicesChart"></canvas></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <div style="font-size:0.78em;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);">Perf. % Mois en cours</div>
+                    <div id="idx-monthly-delta-badge" style="display:none;font-size:0.75em;font-family:'DM Mono',monospace;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:var(--accent);"></div>
+                </div>
+                <div style="position:relative;" id="idx-monthly-wrap">
+                    <canvas id="indicesMonthlyChart" style="width:100%;"></canvas>
+                    <div class="delta-tooltip" id="idx-monthly-delta" style="display:none;top:6px;right:0;left:auto;transform:none;"></div>
+                </div>
             </div>
+            <!-- Colonne 2 : YTD / Origine -->
             <div>
-                <h3 style="font-size:1em; border-bottom:none; padding-bottom:0; margin-bottom:15px">Comparaison (Perf. % Depuis Origine)</h3>
-                <div class="chart-container" style="height:350px"><canvas id="indicesOrigineChart"></canvas></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:6px;">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <div style="font-size:0.78em;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);" id="idx-col2-label">Perf. % YTD</div>
+                        <div id="idx-ytd-delta-badge" style="display:none;font-size:0.75em;font-family:'DM Mono',monospace;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:var(--accent);"></div>
+                    </div>
+                    <div class="chart-btn-group">
+                        <button type="button" id="idx-btn-ytd"  class="cwb active" onclick="setIdxView('ytd')">YTD</button>
+                        <button type="button" id="idx-btn-orig" class="cwb"        onclick="setIdxView('orig')">Depuis l'origine</button>
+                    </div>
+                </div>
+                <div style="position:relative;" id="idx-ytd-wrap">
+                    <canvas id="indicesChart"       style="width:100%;"></canvas>
+                    <canvas id="indicesOrigineChart" style="width:100%;display:none;position:absolute;top:0;left:0;"></canvas>
+                    <div class="delta-tooltip" id="idx-ytd-delta" style="display:none;top:6px;right:0;left:auto;transform:none;"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -587,17 +682,40 @@
 
 <div id="section-bilan" class="section-content">
     <div class="card">
-        <h3>📈 Évolution des Portefeuilles</h3>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+            <h3 style="margin:0;padding:0;border:none;font-size:1.05em;">
+                <svg class="svg-icon" style="color:var(--accent);" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                Évolution des Portefeuilles
+            </h3>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                <div class="chart-btn-group">
+                    <button type="button" id="bc-all"   class="cwb active" onclick="setBcWindow('all')">Origine</button>
+                    <button type="button" id="bc-ytd"   class="cwb"        onclick="setBcWindow('ytd')">YTD</button>
+                    <button type="button" id="bc-month" class="cwb"        onclick="setBcWindow('month')">Mois</button>
+                </div>
+                <div class="chart-btn-group">
+                    <button type="button" id="bc-eur" class="cwb active" onclick="setBcMode('eur')">€</button>
+                    <button type="button" id="bc-pct" class="cwb"        onclick="setBcMode('pct')">%</button>
+                </div>
+            </div>
+        </div>
         <div class="grid-2x2">
-            <div><h4 style="margin-bottom:10px;">Total Portefeuille</h4><div class="chart-container" style="height:250px"><canvas id="chart-total"></canvas></div></div>
-            <div><h4 style="margin-bottom:10px; color:var(--cto);">CTO</h4><div class="chart-container" style="height:250px"><canvas id="chart-cto"></canvas></div></div>
-            <div><h4 style="margin-bottom:10px; color:var(--pea);">PEA</h4><div class="chart-container" style="height:250px"><canvas id="chart-pea"></canvas></div></div>
-            <div><h4 style="margin-bottom:10px; color:var(--pee);">PEE</h4><div class="chart-container" style="height:250px"><canvas id="chart-pee"></canvas></div></div>
+            <div><h4 style="margin-bottom:10px;">Total Portefeuille</h4>
+                <div class="chart-container" style="height:250px;position:relative;" id="bc-total-wrap">
+                    <canvas id="chart-total"></canvas>
+                    <div class="delta-tooltip" id="bc-total-delta" style="display:none;top:6px;left:50%;transform:translateX(-50%);"></div>
+                </div></div>
+            <div><h4 style="margin-bottom:10px;color:var(--cto);">CTO</h4><div class="chart-container" style="height:250px"><canvas id="chart-cto"></canvas></div></div>
+            <div><h4 style="margin-bottom:10px;color:var(--pea);">PEA</h4><div class="chart-container" style="height:250px"><canvas id="chart-pea"></canvas></div></div>
+            <div><h4 style="margin-bottom:10px;color:var(--pee);">PEE</h4><div class="chart-container" style="height:250px"><canvas id="chart-pee"></canvas></div></div>
         </div>
     </div>
 
     <div class="card" id="card-saisie-journaliere">
-        <h3>📝 Saisie Journalière</h3>
+        <h3>
+            <svg class="svg-icon" style="color:var(--accent);" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            Saisie Journalière
+        </h3>
         <form id="form-suivi-journalier" class="form-grid" style="align-items:flex-end;">
             <div class="input-group"><label>Date</label><input type="date" id="suivi-date" required></div>
             <div class="input-group"><label>Valeur CTO (€)</label><input type="number" id="suivi-cto" step="0.01" value="0" required></div>
@@ -605,22 +723,19 @@
             <div class="input-group"><label>Valeur PEE (€)</label><input type="number" id="suivi-pee" step="0.01" value="0" required></div>
             <div class="input-group"><label>Cash Total (€)</label><input type="number" id="suivi-cash" step="0.01" value="0" required></div>
             <div class="input-group">
-                <button type="submit" class="btn btn-success" style="height:48px; margin-bottom:0; width:100%; border-radius:10px;">➕ Ajouter</button>
+                <button type="submit" class="btn-success" style="height:48px;margin-bottom:0;width:100%;border-radius:10px;">Ajouter</button>
             </div>
         </form>
 
-        <div style="margin-top:20px; border-top:1px solid var(--border); padding-top:16px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; cursor:pointer; user-select:none;" onclick="toggleSaisieJournaliere()" id="saisie-toggle-header">
-                <span style="font-size:0.85em; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">📋 Historique</span>
-                <span id="saisie-toggle-icon" style="font-size:0.82em; color:var(--muted); background:var(--surface3); border:1px solid var(--border); padding:4px 12px; border-radius:8px; font-weight:700; transition:0.2s;">▼ Afficher</span>
+        <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;cursor:pointer;user-select:none;" onclick="toggleSaisieJournaliere()" id="saisie-toggle-header">
+                <span style="font-size:0.85em;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;">Historique</span>
+                <span id="saisie-toggle-icon" style="font-size:0.78em;color:var(--muted);background:var(--surface3);border:1px solid var(--border);padding:3px 9px;border-radius:8px;font-weight:700;transition:0.2s;">Afficher</span>
             </div>
-            <div id="saisie-journaliere-body" style="display:none; overflow-x:auto;">
+            <div id="saisie-journaliere-body" style="display:none;overflow-x:auto;">
                 <table class="table-bilan">
                     <thead><tr>
-                        <th>Date</th>
-                        <th>CTO</th>
-                        <th>PEA</th>
-                        <th>PEE</th>
+                        <th>Date</th><th>CTO</th><th>PEA</th><th>PEE</th>
                         <th>Cash Total</th>
                         <th style="color:var(--accent);">Total Global</th>
                         <th style="text-align:center;">Action</th>
@@ -632,9 +747,147 @@
     </div>
 </div>
 
+<div id="section-stats" class="section-content">
+
+    <!-- ══ LIGNE 1 : KPIs globaux ══ -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px;">
+        <div class="immo-kpi" style="background:var(--surface);border:1px solid var(--border);">
+            <div class="immo-kpi-lbl" style="margin-bottom:8px;">Valeur actuelle</div>
+            <div class="immo-kpi-val" style="color:var(--accent);font-size:1.4em;" id="st-val-total">—</div>
+        </div>
+        <div class="immo-kpi" style="background:var(--surface);border:1px solid var(--border);">
+            <div class="immo-kpi-lbl" style="margin-bottom:8px;">Plus-Value nette</div>
+            <div class="immo-kpi-val" style="font-size:1.4em;" id="st-pv-total">—</div>
+        </div>
+        <div class="immo-kpi" style="background:var(--surface);border:1px solid var(--border);">
+            <div class="immo-kpi-lbl" style="margin-bottom:8px;">Perf. globale</div>
+            <div class="immo-kpi-val" style="font-size:1.4em;" id="st-perf-pct">—</div>
+        </div>
+        <div class="immo-kpi" style="background:var(--surface);border:1px solid var(--border);">
+            <div class="immo-kpi-lbl" style="margin-bottom:8px;">Total investi</div>
+            <div class="immo-kpi-val" style="font-size:1.4em;" id="st-investi">—</div>
+        </div>
+        <div class="immo-kpi" style="background:var(--surface);border:1px solid var(--border);">
+            <div class="immo-kpi-lbl" style="margin-bottom:8px;">Total dividendes</div>
+            <div class="immo-kpi-val" style="color:var(--success);font-size:1.4em;" id="st-div-total">—</div>
+        </div>
+        <div class="immo-kpi" style="background:var(--surface);border:1px solid var(--border);">
+            <div class="immo-kpi-lbl" style="margin-bottom:8px;">Durée de détention</div>
+            <div class="immo-kpi-val" style="font-size:1.4em;" id="st-duree">—</div>
+        </div>
+    </div>
+
+    <!-- ══ LIGNE 2 : Risque + Croissance ══ -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+
+        <!-- Risque & Volatilité -->
+        <div class="card" style="margin-bottom:0;">
+            <h3 style="font-size:0.9em;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;">
+                <svg class="svg-icon" style="color:var(--danger);" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                Risque & Volatilité
+            </h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;">
+                <div class="immo-kpi">
+                    <div class="immo-kpi-val" id="st-g-dd" style="color:var(--danger);">—</div>
+                    <div class="immo-kpi-lbl">Max Drawdown</div>
+                </div>
+                <div class="immo-kpi">
+                    <div class="immo-kpi-val" id="st-g-vol">—</div>
+                    <div class="immo-kpi-lbl">Volatilité ann.</div>
+                </div>
+                <div class="immo-kpi">
+                    <div class="immo-kpi-val" id="st-g-sharpe">—</div>
+                    <div class="immo-kpi-lbl">Ratio Sharpe</div>
+                </div>
+                <div class="immo-kpi">
+                    <div class="immo-kpi-val" id="st-g-best" style="color:var(--success);">—</div>
+                    <div class="immo-kpi-lbl">Meilleur jour</div>
+                </div>
+                <div class="immo-kpi">
+                    <div class="immo-kpi-val" id="st-g-worst" style="color:var(--danger);">—</div>
+                    <div class="immo-kpi-lbl">Pire jour</div>
+                </div>
+                <div class="immo-kpi">
+                    <div class="immo-kpi-val" id="st-g-calmar">—</div>
+                    <div class="immo-kpi-lbl">Ratio Calmar</div>
+                </div>
+            </div>
+            <!-- Par enveloppe -->
+            <div style="font-size:0.7em;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:8px;">Par enveloppe</div>
+            <div style="display:flex;flex-direction:column;gap:5px;" id="st-env-risk-rows"></div>
+        </div>
+
+        <!-- Croissance & Rendement -->
+        <div class="card" style="margin-bottom:0;">
+            <h3 style="font-size:0.9em;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;">
+                <svg class="svg-icon" style="color:var(--success);" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                Croissance & Rendement
+            </h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;">
+                <div class="immo-kpi">
+                    <div class="immo-kpi-val" id="st-cagr">—</div>
+                    <div class="immo-kpi-lbl">CAGR</div>
+                </div>
+                <div class="immo-kpi">
+                    <div class="immo-kpi-val" id="st-twrr" style="color:var(--success);">—</div>
+                    <div class="immo-kpi-lbl">TWRR approx.</div>
+                </div>
+                <div class="immo-kpi">
+                    <div class="immo-kpi-val" id="st-rdt-div">—</div>
+                    <div class="immo-kpi-lbl">Yield dividendes</div>
+                </div>
+                <div class="immo-kpi">
+                    <div class="immo-kpi-val" id="st-perf-ytd">—</div>
+                    <div class="immo-kpi-lbl">Perf. YTD</div>
+                </div>
+                <div class="immo-kpi">
+                    <div class="immo-kpi-val" id="st-perf-mois">—</div>
+                    <div class="immo-kpi-lbl">Perf. Mois</div>
+                </div>
+                <div class="immo-kpi">
+                    <div class="immo-kpi-val" id="st-streak">—</div>
+                    <div class="immo-kpi-lbl">Streak positif</div>
+                </div>
+            </div>
+            <!-- Répartition capital -->
+            <div style="font-size:0.7em;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:8px;">Répartition du capital</div>
+            <div style="display:flex;flex-direction:column;gap:5px;" id="st-alloc-rows"></div>
+        </div>
+    </div>
+
+    <!-- ══ LIGNE 3 : Graphiques ══ -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+
+        <!-- Distribution journalière -->
+        <div class="card" style="margin-bottom:0;">
+            <h3 style="font-size:0.9em;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;">Distribution des variations journalières</h3>
+            <div class="chart-container" style="height:220px;"><canvas id="statDistChart"></canvas></div>
+        </div>
+
+        <!-- Évolution performance glissante 30j -->
+        <div class="card" style="margin-bottom:0;">
+            <h3 style="font-size:0.9em;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;">Performance glissante 30 jours</h3>
+            <div class="chart-container" style="height:220px;"><canvas id="statRollingChart"></canvas></div>
+        </div>
+
+        <!-- Contribution par enveloppe -->
+        <div class="card" style="margin-bottom:0;">
+            <h3 style="font-size:0.9em;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;">Contribution à la plus-value par enveloppe</h3>
+            <div class="chart-container" style="height:220px;"><canvas id="statContribChart"></canvas></div>
+        </div>
+
+        <!-- Évolution drawdown -->
+        <div class="card" style="margin-bottom:0;">
+            <h3 style="font-size:0.9em;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;">Drawdown historique</h3>
+            <div class="chart-container" style="height:220px;"><canvas id="statDDChart"></canvas></div>
+        </div>
+    </div>
+
+</div>
+
 <div id="section-ref" class="section-content">
     <div class="card">
-        <h3>① Apports nets depuis l'origine</h3>
+        <div class="ref-section-title" style="border-top:none;margin-top:0;padding-top:0;">Apports nets depuis l'origine</div>
         <table class="ref-table">
             <thead><tr><th style="width:30%">Compte</th><th>Apports Nets Totaux (€)</th></tr></thead>
             <tbody>
@@ -645,7 +898,7 @@
             </tbody>
         </table>
 
-        <h3 style="margin-top:32px">② Valeur au 1er janvier <span id="ref-ytd-year" style="color:var(--accent)"></span></h3>
+        <div class="ref-section-title">Valeur au 1er janvier <span id="ref-ytd-year" style="color:var(--accent)"></span></div>
         <table class="ref-table">
             <thead><tr><th style="width:30%">Compte</th><th>Valeur totale au 1er Janvier (€)</th></tr></thead>
             <tbody>
@@ -656,7 +909,7 @@
             </tbody>
         </table>
 
-        <h3 style="margin-top:32px">③ Valeur au 1er <span id="ref-mois-label" style="color:var(--success)"></span></h3>
+        <div class="ref-section-title">Valeur au 1er <span id="ref-mois-label" style="color:var(--success)"></span></div>
         <table class="ref-table">
             <thead><tr><th style="width:30%">Compte</th><th>Valeur totale au 1er du Mois (€)</th></tr></thead>
             <tbody>
@@ -667,53 +920,262 @@
             </tbody>
         </table>
 
-        <button type="button" class="btn btn-primary" style="width:100%; margin-top:24px; height:48px; font-size:1em; justify-content:center;" onclick="sauvegarderReferences()">💾 Enregistrer les références</button>
+        <button type="button" class="btn btn-primary" style="width:100%; margin-top:24px; height:48px; font-size:1em; justify-content:center;" onclick="sauvegarderReferences()">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            Enregistrer les références
+        </button>
         
         <details class="custom-details">
-            <summary>📊 Données des Indices (Références Manuelles)</summary>
+            <summary>Données des Indices (Références Manuelles)</summary>
             <div style="margin-top: 20px;">
-                <p style="font-size:0.85em; color:var(--muted); margin-bottom:15px;">
-                    Renseignez les valeurs de référence pour calculer les performances dans l'onglet Indices.
-                </p>
                 <table class="ref-table">
-                    <thead><tr><th style="width:25%">Indice</th><th>Valeur Origine (01/10/2024)</th><th>Valeur YTD (01/01/2026)</th></tr></thead>
+                    <thead><tr><th style="width:18%">Indice</th><th>Valeur Origine</th><th>Valeur YTD (1er janv.)</th><th>Valeur Mois (1er avril)</th></tr></thead>
                     <tbody>
-                        <tr><td>Mon Portefeuille</td><td><input type="number" id="ref-port-orig" step="0.01"></td><td><input type="number" id="ref-port-ytd" step="0.01"></td></tr>
-                        <tr><td>CAC 40</td><td><input type="number" id="ref-cac-orig" step="0.01"></td><td><input type="number" id="ref-cac-ytd" step="0.01"></td></tr>
-                        <tr><td>S&P 500</td><td><input type="number" id="ref-sp-orig" step="0.01"></td><td><input type="number" id="ref-sp-ytd" step="0.01"></td></tr>
-                        <tr><td>MSCI World</td><td><input type="number" id="ref-msci-orig" step="0.01"></td><td><input type="number" id="ref-msci-ytd" step="0.01"></td></tr>
-                        <tr><td>Nasdaq 100</td><td><input type="number" id="ref-ndx-orig" step="0.01"></td><td><input type="number" id="ref-ndx-ytd" step="0.01"></td></tr>
-                        <tr><td>Eurostoxx 50</td><td><input type="number" id="ref-estx50-orig" step="0.01"></td><td><input type="number" id="ref-estx50-ytd" step="0.01"></td></tr>
+                        <tr><td>Mon Portefeuille</td><td><input type="number" id="ref-port-orig" step="0.01"></td><td><input type="number" id="ref-port-ytd" step="0.01"></td><td><input type="number" id="ref-port-mois" step="0.01" placeholder="Votre valeur"></td></tr>
+                        <tr><td>CAC 40</td><td><input type="number" id="ref-cac-orig" step="0.01"></td><td><input type="number" id="ref-cac-ytd" step="0.01"></td><td><input type="number" id="ref-cac-mois" step="0.01" placeholder="7826"></td></tr>
+                        <tr><td>S&P 500</td><td><input type="number" id="ref-sp-orig" step="0.01"></td><td><input type="number" id="ref-sp-ytd" step="0.01"></td><td><input type="number" id="ref-sp-mois" step="0.01" placeholder="5611"></td></tr>
+                        <tr><td>MSCI World</td><td><input type="number" id="ref-msci-orig" step="0.01"></td><td><input type="number" id="ref-msci-ytd" step="0.01"></td><td><input type="number" id="ref-msci-mois" step="0.01" placeholder="201.5"></td></tr>
+                        <tr><td>Nasdaq 100</td><td><input type="number" id="ref-ndx-orig" step="0.01"></td><td><input type="number" id="ref-ndx-ytd" step="0.01"></td><td><input type="number" id="ref-ndx-mois" step="0.01" placeholder="19282"></td></tr>
+                        <tr><td>Eurostoxx 50</td><td><input type="number" id="ref-estx50-orig" step="0.01"></td><td><input type="number" id="ref-estx50-ytd" step="0.01"></td><td><input type="number" id="ref-estx50-mois" step="0.01" placeholder="5153"></td></tr>
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-primary" style="width:100%; margin-top:20px; height:48px; font-size:1em; justify-content:center; background:rgba(245,158,11,0.15); color:var(--accent3); border:1px solid rgba(245,158,11,0.3); box-shadow:none;" onclick="sauvegarderReferencesIndices()">💾 Enregistrer les indices</button>
+                <button type="button" class="btn btn-primary" style="width:100%; margin-top:20px; height:48px; font-size:1em; justify-content:center; background:rgba(245,158,11,0.15); color:var(--accent3); border:1px solid rgba(245,158,11,0.3); box-shadow:none;" onclick="sauvegarderReferencesIndices()">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                    Enregistrer les indices
+                </button>
             </div>
         </details>
     </div>
 </div>
 
-<script>
-// ─── CONFIG ───────────────────────────────────────────────────────
-const FINNHUB_KEY = ""; // Clé supprimée par sécurité
+<div id="section-immo" class="section-content">
+    <div class="card">
+        <h3>
+            <svg class="svg-icon" style="color:var(--accent);" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Comparateur Achat vs Location
+        </h3>
 
-// Empêcher le navigateur de restaurer la position de défilement au rafraîchissement
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px;padding:16px;background:var(--surface2);border-radius:var(--r2);border:1px solid var(--border);">
+            <div class="input-group">
+                <label>Durée de simulation (ans)</label>
+                <input type="number" id="im-duree" value="20" min="1" max="40" step="1" oninput="calcImmo()">
+            </div>
+            <div class="input-group">
+                <label>Rendement épargne (%/an)</label>
+                <input type="number" id="im-rdt-place" value="7" min="0" max="20" step="0.5" oninput="calcImmo()">
+            </div>
+            <div class="input-group">
+                <label>Inflation annuelle (%)</label>
+                <input type="number" id="im-inflation" value="2" min="0" max="10" step="0.5" oninput="calcImmo()">
+            </div>
+            <div class="input-group">
+                <label>Revalorisation loyer (%/an)</label>
+                <input type="number" id="im-revalo-loyer" value="1.5" min="0" max="10" step="0.5" oninput="calcImmo()">
+            </div>
+            <div class="input-group">
+                <label>Revalorisation immo (%/an)</label>
+                <input type="number" id="im-revalo-immo" value="2" min="-5" max="15" step="0.5" oninput="calcImmo()">
+            </div>
+        </div>
+
+        <div class="immo-grid">
+
+            <div style="background:var(--surface2);border-radius:var(--r2);border:1px solid var(--border);padding:20px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
+                    <svg class="svg-icon" style="color:var(--success);" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span style="font-size:1em;font-weight:700;color:var(--success);">Achat Immobilier</span>
+                </div>
+
+                <span class="immo-section-title">Le bien</span>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;">
+                    <div class="input-group"><label>Prix d'achat (€)</label><input type="number" id="im-prix" value="300000" step="5000" oninput="calcImmo()"></div>
+                    <div class="input-group"><label>Apport personnel (€)</label><input type="number" id="im-apport" value="60000" step="1000" oninput="calcImmo()"></div>
+                    <div class="input-group"><label>Surface (m²)</label><input type="number" id="im-surface" value="70" step="1" oninput="calcImmo()"></div>
+                    <div class="input-group"><label>Frais de notaire (€)</label><input type="number" id="im-notaire" value="21000" step="500" oninput="calcImmo()"></div>
+                </div>
+
+                <span class="immo-section-title">Crédit immobilier</span>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;">
+                    <div class="input-group"><label>Taux crédit (%/an)</label><input type="number" id="im-taux-credit" value="3.5" step="0.05" min="0" max="15" oninput="calcImmo()"></div>
+                    <div class="input-group"><label>Durée crédit (ans)</label><input type="number" id="im-duree-credit" value="20" step="1" min="5" max="30" oninput="calcImmo()"></div>
+                    <div class="input-group"><label>Assurance emprunteur (%)</label><input type="number" id="im-assurance" value="0.3" step="0.05" min="0" oninput="calcImmo()"></div>
+                    <div class="input-group"><label>Frais dossier banque (€)</label><input type="number" id="im-frais-dossier" value="1000" step="100" oninput="calcImmo()"></div>
+                </div>
+
+                <span class="immo-section-title">Charges propriétaire / an</span>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;">
+                    <div class="input-group"><label>Taxe foncière (€/an)</label><input type="number" id="im-tf" value="1200" step="50" oninput="calcImmo()"></div>
+                    <div class="input-group"><label>Charges copropriété (€/an)</label><input type="number" id="im-charges-copro" value="1800" step="100" oninput="calcImmo()"></div>
+                    <div class="input-group"><label>Travaux / entretien (€/an)</label><input type="number" id="im-travaux" value="1500" step="100" oninput="calcImmo()"></div>
+                    <div class="input-group"><label>Assurance habitation (€/an)</label><input type="number" id="im-assur-hab" value="600" step="50" oninput="calcImmo()"></div>
+                </div>
+
+                <div style="margin-top:16px;padding:14px;background:rgba(0,229,160,0.06);border-radius:10px;border:1px solid rgba(0,229,160,0.2);">
+                    <div style="font-size:0.7em;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--success);margin-bottom:8px;">Coût mensuel total achat</div>
+                    <div style="font-size:1.6em;font-weight:800;font-family:'DM Mono',monospace;color:var(--success);" id="im-cout-mensuel-achat">—</div>
+                    <div style="font-size:0.78em;color:var(--muted);margin-top:4px;">Mensualité crédit + charges / 12</div>
+                    <div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,229,160,0.15);">
+                        <span style="font-size:0.82em;color:var(--muted);">Mensualité crédit</span>
+                        <span style="font-size:0.82em;font-family:'DM Mono',monospace;font-weight:700;" id="im-mensualite">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background:var(--surface2);border-radius:var(--r2);border:1px solid var(--border);padding:20px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
+                    <svg class="svg-icon" style="color:var(--accent);" viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                    <span style="font-size:1em;font-weight:700;color:var(--accent);">Location</span>
+                </div>
+
+                <span class="immo-section-title">Loyer & charges locataire</span>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;">
+                    <div class="input-group"><label>Loyer mensuel (€/mois)</label><input type="number" id="im-loyer" value="1000" step="50" oninput="calcImmo()"></div>
+                    <div class="input-group"><label>Charges locataires (€/mois)</label><input type="number" id="im-charges-loc" value="150" step="10" oninput="calcImmo()"></div>
+                    <div class="input-group"><label>Assurance habitation (€/an)</label><input type="number" id="im-assur-loc" value="200" step="20" oninput="calcImmo()"></div>
+                    <div class="input-group"><label>Dépôt de garantie (€)</label><input type="number" id="im-depot" value="2000" step="100" oninput="calcImmo()"></div>
+                </div>
+
+                <span class="immo-section-title">Capital disponible (non immobilisé)</span>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;">
+                    <div class="input-group">
+                        <label>Apport non utilisé investi (€)</label>
+                        <input type="number" id="im-apport-place" value="60000" step="1000" oninput="calcImmo()" style="color:var(--accent);">
+                    </div>
+                    <div class="input-group"><label>Frais de notaire économisés (€)</label><input type="number" id="im-notaire-place" value="21000" step="500" oninput="calcImmo()" style="color:var(--accent);"></div>
+                </div>
+
+                <div style="margin-top:16px;padding:14px;background:rgba(0,212,255,0.06);border-radius:10px;border:1px solid rgba(0,212,255,0.2);">
+                    <div style="font-size:0.7em;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:8px;">Coût mensuel total location</div>
+                    <div style="font-size:1.6em;font-weight:800;font-family:'DM Mono',monospace;color:var(--accent);" id="im-cout-mensuel-loc">—</div>
+                    <div style="font-size:0.78em;color:var(--muted);margin-top:4px;">Loyer + charges + assurance / 12</div>
+                    <div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,212,255,0.15);">
+                        <span style="font-size:0.82em;color:var(--muted);">Différence mensuelle vs Achat</span>
+                        <span style="font-size:0.82em;font-family:'DM Mono',monospace;font-weight:700;color:var(--success);" id="im-diff-mensuelle">—</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1.6fr;gap:20px;align-items:stretch;">
+
+            <div style="display:flex;flex-direction:column;gap:12px;">
+                <div class="immo-kpi-grid">
+                    <div class="immo-kpi">
+                        <div class="immo-kpi-val" style="color:var(--success);" id="im-patrimoine-achat">—</div>
+                        <div class="immo-kpi-lbl">Patrimoine acheteur</div>
+                    </div>
+                    <div class="immo-kpi">
+                        <div class="immo-kpi-val" style="color:var(--accent);" id="im-patrimoine-loc">—</div>
+                        <div class="immo-kpi-lbl">Patrimoine locataire</div>
+                    </div>
+                </div>
+
+                <div style="background:var(--surface2);border-radius:var(--r2);border:1px solid var(--border);padding:16px;flex:1;">
+                    <div style="font-size:0.7em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Bilan à la fin de la simulation</div>
+                    <div id="im-bilan-table" style="display:flex;flex-direction:column;gap:6px;"></div>
+                </div>
+
+                <div id="im-verdict" class="immo-verdict immo-verdict-neutre">
+                    <div style="font-size:1em;font-weight:800;" id="im-verdict-titre">—</div>
+                    <div style="font-size:0.85em;color:var(--muted);margin-top:6px;line-height:1.6;" id="im-verdict-detail">Renseignez les paramètres pour obtenir une analyse.</div>
+                </div>
+            </div>
+
+            <div style="background:var(--surface2);border-radius:var(--r2);border:1px solid var(--border);padding:20px;display:flex;flex-direction:column;">
+                <div style="font-size:0.7em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Évolution du patrimoine net au fil des ans</div>
+                <div style="flex:1;min-height:320px;position:relative;" id="immo-wrap">
+                    <canvas id="immoChart"></canvas>
+                    <div class="delta-tooltip" id="immo-delta" style="display:none;top:10px;left:50%;transform:translateX(-50%);"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="section-calc" class="section-content">
+    <div class="card">
+        <h3>
+            <svg class="svg-icon" style="color:var(--accent);" viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"></path><polyline points="16 6 23 6 23 13"></polyline></svg>
+            Projection du Portefeuille — Intérêts Composés
+        </h3>
+
+        <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:24px;align-items:stretch;">
+
+            <div style="display:flex;flex-direction:column;gap:0;">
+
+                <div style="flex:1;display:flex;flex-direction:column;padding:20px;background:var(--surface2);border-radius:var(--r2) var(--r2) 0 0;border:1px solid var(--border);border-bottom:none;">
+                    <div style="font-size:0.68em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Paramètres</div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;">
+                        <div class="input-group"><label>Capital initial (€)</label><input type="number" id="calc-capital" step="100" min="0" oninput="calcProjection()"></div>
+                        <div class="input-group"><label>Épargne mensuelle (€)</label><input type="number" id="calc-mensuel" step="50" min="0" value="0" oninput="calcProjection()"></div>
+                        <div class="input-group"><label>Rendement annuel (%)</label><input type="number" id="calc-taux" step="0.5" min="0" max="50" value="7" oninput="calcProjection()"></div>
+                        <div class="input-group"><label>Durée (années)</label><input type="number" id="calc-duree" step="1" min="1" max="50" value="10" oninput="calcProjection()"></div>
+                    </div>
+                    <div style="font-size:0.68em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:8px;">Résultat projection</div>
+                    <div style="font-size:2em;font-weight:800;font-family:'DM Mono',monospace;color:var(--accent);letter-spacing:-0.02em;line-height:1.1;margin-bottom:4px;" id="calc-final">—</div>
+                    <div style="font-size:0.75em;color:var(--muted);margin-bottom:14px;" id="calc-final-label">Valeur projetée</div>
+                    <div class="calc-stat"><span class="calc-stat-label">Capital initial</span><span class="calc-stat-val" id="calc-stat-capital">—</span></div>
+                    <div class="calc-stat"><span class="calc-stat-label">Versements</span><span class="calc-stat-val" id="calc-stat-versements">—</span></div>
+                    <div class="calc-stat"><span class="calc-stat-label">Intérêts</span><span class="calc-stat-val positif" id="calc-stat-interets">—</span></div>
+                    <div class="calc-stat" style="font-weight:800;margin-bottom:18px;"><span class="calc-stat-label" style="color:var(--text);">Total</span><span class="calc-stat-val" style="color:var(--accent);" id="calc-stat-total">—</span></div>
+                    <div style="font-size:0.68em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:8px;">Jalons — clic pour simuler la rente</div>
+                    <div id="calc-jalons" style="display:flex;flex-direction:column;gap:5px;flex:1;overflow-y:auto;"></div>
+                </div>
+
+                <div style="flex:1;display:flex;flex-direction:column;padding:20px;background:var(--surface2);border-radius:0 0 var(--r2) var(--r2);border:1px solid var(--border);border-top:1px solid rgba(124,58,237,0.2);">
+                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+                        <div style="font-size:0.68em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#a78bfa; display:flex; align-items:center; gap:6px;">
+                            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            Simulateur de Rente Passive
+                        </div>
+                        <div class="chart-btn-group" id="ret-btns-container" style="flex-wrap:wrap;"></div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+                        <div class="input-group"><label>Capital de référence (€)</label><input type="number" id="ret-capital" step="1000" min="0" oninput="calcRetraite()" style="font-weight:700;color:var(--accent);"></div>
+                        <div class="input-group"><label>Taux rente annuel (%)</label><input type="number" id="ret-taux" step="0.5" min="0" max="30" value="4" oninput="calcRetraite()"></div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;">
+                        <div class="ret-box" style="margin-top:0;display:flex;flex-direction:column;justify-content:center;">
+                            <div style="font-size:0.68em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#a78bfa;margin-bottom:8px;">Rente mensuelle</div>
+                            <div class="ret-val-main" id="ret-mensuel">—</div>
+                            <div style="font-size:0.75em;color:var(--muted);margin-top:4px;margin-bottom:14px;">par mois · sans toucher au capital</div>
+                        </div>
+                        <div style="display:flex;flex-direction:column;">
+                            <div style="font-size:0.68em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:8px;">Rentes par taux</div>
+                            <div id="ret-table" style="display:flex;flex-direction:column;gap:5px;flex:1;overflow-y:auto;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:16px;">
+                <div style="flex:1;padding:20px;background:var(--surface2);border-radius:var(--r2);border:1px solid var(--border);display:flex;flex-direction:column;">
+                    <div style="font-size:0.68em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Courbe de projection</div>
+                    <div style="flex:1;min-height:260px;position:relative;" id="calc-wrap">
+                        <canvas id="calcChart"></canvas>
+                        <div class="delta-tooltip" id="calc-delta" style="display:none;top:10px;left:50%;transform:translateX(-50%);"></div>
+                    </div>
+                </div>
+                <div style="flex:1;padding:20px;background:var(--surface2);border-radius:var(--r2);border:1px solid rgba(124,58,237,0.25);display:flex;flex-direction:column;">
+                    <div style="font-size:0.68em;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#a78bfa;margin-bottom:12px;">Rente mensuelle selon le capital projeté</div>
+                    <div id="ret-chart-wrapper" style="flex:1;min-height:220px;"><canvas id="retChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
 if (history.scrollRestoration) {
     history.scrollRestoration = 'manual';
 }
 window.scrollTo(0, 0);
 
-// ─── STATE ────────────────────────────────────────────────────────
 let isIncognito = localStorage.getItem('incognitoV43') === 'true';
 let appData = JSON.parse(localStorage.getItem('portefeuilleV43'))
-    || JSON.parse(localStorage.getItem('portefeuilleV41'))
-    || JSON.parse(localStorage.getItem('portefeuilleV40'))
     || { CTO: [], PEA: [], PEE: [], cashCTO: 0, cashPEA: 0, cashPEE: 0 };
-let historiqueData = JSON.parse(localStorage.getItem('historiqueV43'))
-    || JSON.parse(localStorage.getItem('historiqueV41'))
-    || JSON.parse(localStorage.getItem('historiqueV40'))
-    || [];
+let historiqueData = JSON.parse(localStorage.getItem('historiqueV43')) || [];
 
-// Valeurs par defaut si le fichier est vierge
 if (!appData.references || !appData.references.ytd || !appData.references.ytd.global || appData.references.ytd.global.v === null) {
     appData.references = {
         origine: { global: null, CTO: null, PEA: null, PEE: null },
@@ -723,12 +1185,12 @@ if (!appData.references || !appData.references.ytd || !appData.references.ytd.gl
 }
 if (!appData.archives) appData.archives = {};
 
-// Mise à niveau sécurisée pour les nouveaux indices et le nouveau système (Origine + YTD manuels)
 if (!appData.indicesRef) appData.indicesRef = {};
 ['port','cac','sp','msci','ndx','estx50'].forEach(k => { 
-    if(!appData.indicesRef[k]) appData.indicesRef[k] = {orig: null, ytd: null};
-    if(appData.indicesRef[k].ytd === undefined) appData.indicesRef[k].ytd = null;
-    if(appData.indicesRef[k].orig === undefined) appData.indicesRef[k].orig = null;
+    if(!appData.indicesRef[k]) appData.indicesRef[k]={orig:null,ytd:null,mois:null};
+    if(appData.indicesRef[k].ytd===undefined)  appData.indicesRef[k].ytd=null;
+    if(appData.indicesRef[k].orig===undefined) appData.indicesRef[k].orig=null;
+    if(appData.indicesRef[k].mois===undefined) appData.indicesRef[k].mois=null;
 });
 
 if (!appData.suiviManuel) appData.suiviManuel = [];
@@ -736,7 +1198,7 @@ if (appData.cashPEE === undefined) appData.cashPEE = 0;
 ['CTO','PEA'].forEach(c => appData[c].forEach(a => { if(!a.nom) a.nom=""; }));
 
 let ongletActif = 'ACCUEIL'; 
-let historyChart = null, sectorChart = null, indicesChart = null, indicesOrigineChart = null;
+let historyChart=null,sectorChart=null,indicesChart=null,indicesOrigineChart=null,indicesMonthlyChart=null, statDistChart=null;
 let etatTri = { colonne: null, asc: true };
 let perfsActuelles = { global:{investi:0,actuel:0,perf:0,cash:0,apports:0,base_perf:0}, CTO:{investi:0,actuel:0,perf:0,cash:0,unrealizedPerf:0,apports:0,base_perf:0}, PEA:{investi:0,actuel:0,perf:0,cash:0,unrealizedPerf:0,apports:0,base_perf:0}, PEE:{investi:0,actuel:0,perf:0,cash:0,apports:0,base_perf:0} };
 
@@ -745,32 +1207,39 @@ document.getElementById('dateAchat').valueAsDate = new Date();
 function toast(msg, type='success') {
     const t = document.getElementById('toast'), m = document.getElementById('toast-msg'), i = document.getElementById('toast-icon');
     t.className = 'toast ' + type;
-    i.textContent = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+    i.innerHTML = type === 'success' 
+        ? '<svg class="svg-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>' 
+        : type === 'error' 
+            ? '<svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>' 
+            : '<svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
     m.textContent = msg; t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 3200);
 }
 
-// ─── INCOGNITO ────────────────────────────────────────────────────
 function initIncognito() {
     const btn = document.getElementById('btn-incognito');
     const icon = document.getElementById('icon-incognito');
-    const txt = document.getElementById('text-incognito');
     document.body.classList.toggle('incognito-mode', isIncognito);
     btn.classList.toggle('active', isIncognito);
     if(isIncognito) {
         icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
-        txt.textContent = 'Afficher';
+        btn.title = "Afficher les montants";
     } else {
         icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
-        txt.textContent = 'Masquer';
+        btn.title = "Masquer les montants";
     }
 }
 function toggleIncognito() {
     isIncognito = !isIncognito; localStorage.setItem('incognitoV43', isIncognito);
-    initIncognito(); mettreAJourAffichage(); 
+    initIncognito();
+    mettreAJourAffichage(); 
+    calculerPerformancesYTD_Mois(); 
     if(ongletActif === 'ACCUEIL') mettreAJourGraphiqueLigne();
+    if(['CTO','PEA'].includes(ongletActif)) renderTableBourse();
+    if(ongletActif === 'PEE') renderTablePEE();
     if(ongletActif === 'BILAN') { renderTableSuivi(); renderSuiviCharts(); }
     if(ongletActif === 'INDICES') actualiserIndices();
+    if(ongletActif === 'STATS') calculerStats();
 }
 initIncognito();
 
@@ -837,15 +1306,524 @@ function importerDonnees(event) {
     }; reader.readAsText(file);
 }
 
+
+// ─── COMPARATEUR IMMO ────────────────────────────────────────────
+let immoChart = null;
+
+function calcImmo() {
+    const g  = id => document.getElementById(id);
+    const gv = id => parseFloat(g(id)?.value) || 0;
+    const fmtK = v => new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(v);
+    const fmtM = v => new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(v) + '/mois';
+
+    const duree         = Math.max(1, gv('im-duree'));
+    const rdtPlace      = gv('im-rdt-place') / 100;
+    const inflation     = gv('im-inflation') / 100;
+    const revaloLoyer   = gv('im-revalo-loyer') / 100;
+    const revaloImmo    = gv('im-revalo-immo') / 100;
+
+    const prix          = gv('im-prix');
+    const apport        = gv('im-apport');
+    const notaire       = gv('im-notaire');
+    const fraisDossier  = gv('im-frais-dossier');
+    const tauxCredit    = gv('im-taux-credit') / 100;
+    const dureeCredit   = gv('im-duree-credit');
+    const tauxAssurEmpr = gv('im-assurance') / 100;
+    const tf            = gv('im-tf');
+    const chargesCopro  = gv('im-charges-copro');
+    const travaux       = gv('im-travaux');
+    const assurHab      = gv('im-assur-hab');
+
+    const loyer         = gv('im-loyer');
+    const chargesLoc    = gv('im-charges-loc');
+    const assurLoc      = gv('im-assur-loc');
+    const depot         = gv('im-depot');
+    const apportPlace   = gv('im-apport-place');
+    const notairePlace  = gv('im-notaire-place');
+
+    const capitalEmprunte = prix - apport;
+    const tauxM = tauxCredit / 12;
+    const nMois = dureeCredit * 12;
+    let mensualiteCredit = 0;
+    if (capitalEmprunte > 0 && tauxM > 0 && nMois > 0) {
+        mensualiteCredit = capitalEmprunte * tauxM * Math.pow(1+tauxM,nMois) / (Math.pow(1+tauxM,nMois)-1);
+    } else if (capitalEmprunte > 0) {
+        mensualiteCredit = capitalEmprunte / nMois;
+    }
+    const assurMensuelle = capitalEmprunte * tauxAssurEmpr / 12;
+    const mensualiteTotale = mensualiteCredit + assurMensuelle;
+
+    const chargesAnnuellesP = tf + chargesCopro + travaux + assurHab;
+    const coutMensuelAchat  = mensualiteTotale + chargesAnnuellesP / 12;
+    const coutMensuelLoc    = loyer + chargesLoc + assurLoc / 12;
+    const diffMensuelle     = coutMensuelAchat - coutMensuelLoc; 
+
+    if(g('im-mensualite'))         g('im-mensualite').textContent       = fmtM(mensualiteTotale);
+    if(g('im-cout-mensuel-achat')) g('im-cout-mensuel-achat').textContent = fmtM(coutMensuelAchat);
+    if(g('im-cout-mensuel-loc'))   g('im-cout-mensuel-loc').textContent   = fmtM(coutMensuelLoc);
+    if(g('im-diff-mensuelle')) {
+        g('im-diff-mensuelle').textContent = (diffMensuelle>=0?'+':'')+fmtM(diffMensuelle);
+        g('im-diff-mensuelle').style.color = diffMensuelle>=0?'var(--success)':'var(--danger)';
+    }
+
+    let patrimoineAcheteur   = 0; 
+    let patrimoineLocataire  = apportPlace + notairePlace - depot; 
+    let totalDebourseAchat   = apport + notaire + fraisDossier;
+    let totalDebourseLoc     = depot;
+    let valeurBien           = prix;
+    let capitalDu            = capitalEmprunte;
+    let loyerCourant         = loyer;
+
+    const dataAcheteur = [], dataLocataire = [], labelsAns = ['Début'];
+    dataAcheteur.push(-(apport + notaire + fraisDossier));
+    dataLocataire.push(patrimoineLocataire);
+
+    for (let an = 1; an <= duree; an++) {
+        labelsAns.push('An ' + an);
+        valeurBien *= (1 + revaloImmo);
+
+        let totalIntérêts = 0;
+        if (an <= dureeCredit) {
+            for (let m = 0; m < 12; m++) {
+                const interetM = capitalDu * tauxM;
+                const amortM   = mensualiteCredit - interetM;
+                totalIntérêts += interetM;
+                capitalDu = Math.max(0, capitalDu - amortM);
+            }
+        }
+        const chargesAnnInflation = chargesAnnuellesP * Math.pow(1+inflation, an-1);
+        totalDebourseAchat += (mensualiteTotale * 12) * Math.min(1, an/dureeCredit) + chargesAnnInflation;
+        patrimoineAcheteur = valeurBien - capitalDu;
+
+        loyerCourant *= (1 + revaloLoyer);
+        const coutLocAn = (loyerCourant + chargesLoc + assurLoc/12) * 12;
+        totalDebourseLoc += coutLocAn;
+        const diffAn = (coutMensuelAchat - (loyerCourant + chargesLoc + assurLoc/12)) * 12;
+        const surplusPlace = Math.max(0, diffAn);
+        patrimoineLocataire = patrimoineLocataire * (1 + rdtPlace) + surplusPlace;
+
+        dataAcheteur.push(Math.round(patrimoineAcheteur));
+        dataLocataire.push(Math.round(patrimoineLocataire));
+    }
+
+    const ecart = patrimoineAcheteur - patrimoineLocataire;
+    if(g('im-patrimoine-achat'))   g('im-patrimoine-achat').textContent   = fmtK(patrimoineAcheteur);
+    if(g('im-patrimoine-loc'))     g('im-patrimoine-loc').textContent     = fmtK(patrimoineLocataire);
+
+    const bilanEl = g('im-bilan-table');
+    if (bilanEl) {
+        const rows = [
+            { lbl: 'Valeur du bien (revalorisé)',    ach: fmtK(valeurBien),           loc: '—',                 info: 'achat' },
+            { lbl: 'Capital restant dû',             ach: '-' + fmtK(capitalDu),      loc: '—',                 info: 'achat' },
+            { lbl: 'Patrimoine net',                 ach: fmtK(patrimoineAcheteur),   loc: fmtK(patrimoineLocataire), info: 'both' },
+            { lbl: 'Total déboursé',                 ach: fmtK(totalDebourseAchat),   loc: fmtK(totalDebourseLoc),   info: 'both' },
+            { lbl: 'Écart patrimoine (achat - loc)', ach: (ecart>=0?'+':'')+fmtK(ecart), loc: '',              info: ecart>=0?'achat':'loc' },
+        ];
+        bilanEl.innerHTML = rows.map(r => `
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;padding:6px 8px;background:var(--surface3);border-radius:7px;font-size:0.82em;align-items:center;">
+                <span style="color:var(--muted);font-weight:600;">${r.lbl}</span>
+                <span style="font-family:'DM Mono',monospace;text-align:center;font-weight:700;color:${r.info==='achat'||r.info==='both'?'var(--success)':'var(--muted)'};">${r.ach}</span>
+                <span style="font-family:'DM Mono',monospace;text-align:center;font-weight:700;color:${r.info==='loc'||r.info==='both'?'var(--accent)':'var(--muted)'};">${r.loc}</span>
+            </div>`).join('');
+    }
+
+    const verdictEl = g('im-verdict');
+    const vTitre = g('im-verdict-titre');
+    const vDetail = g('im-verdict-detail');
+    if (verdictEl && vTitre && vDetail) {
+        verdictEl.className = 'immo-verdict ';
+        if (Math.abs(ecart) < 0.05 * Math.max(patrimoineAcheteur, patrimoineLocataire)) {
+            verdictEl.classList.add('immo-verdict-neutre');
+            vTitre.innerHTML = 'Équilibre — Les deux options sont comparables';
+            vTitre.style.color = 'var(--accent3)';
+            vDetail.textContent = `Sur ${duree} ans, l'écart de patrimoine est de ${fmtK(Math.abs(ecart))}, soit moins de 5% — les deux stratégies sont équivalentes.`;
+        } else if (ecart > 0) {
+            verdictEl.classList.add('immo-verdict-acheter');
+            vTitre.innerHTML = 'Avantage Achat — ' + fmtK(ecart) + ' de patrimoine supplémentaire';
+            vTitre.style.color = 'var(--success)';
+            vDetail.textContent = `En achetant, vous accumulez ${fmtK(ecart)} de patrimoine net de plus qu'en louant et plaçant la différence sur ${duree} ans, grâce à la revalorisation du bien à ${gv('im-revalo-immo')}%/an.`;
+        } else {
+            verdictEl.classList.add('immo-verdict-louer');
+            vTitre.innerHTML = 'Avantage Location — ' + fmtK(-ecart) + ' de patrimoine supplémentaire';
+            vTitre.style.color = 'var(--accent)';
+            vDetail.textContent = `En louant et plaçant la différence de mensualités au taux de ${gv('im-rdt-place')}%/an, vous accumulez ${fmtK(-ecart)} de patrimoine net de plus qu'en achetant sur ${duree} ans.`;
+        }
+    }
+
+    const canvas = g('immoChart');
+    if (!canvas) return;
+    chartDefaults();
+    if (immoChart) immoChart.destroy();
+    const ctx = canvas.getContext('2d');
+    immoChart = new Chart(ctx, {
+        type: 'line',
+        data: { labels: labelsAns, datasets: [
+            { label: 'Acheteur', data: dataAcheteur, borderColor: '#00e5a0', backgroundColor: createGradient(ctx,'rgba(0,229,160,0.15)'), borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5, pointHitRadius: 20, tension: 0.4, fill: true },
+            { label: 'Locataire', data: dataLocataire, borderColor: '#00d4ff', backgroundColor: createGradient(ctx,'rgba(0,212,255,0.1)'), borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5, pointHitRadius: 20, tension: 0.4, fill: true }
+        ]},
+        options: { responsive: true, maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+                legend: { display: true, labels: { color: '#94a3b8', font: { size: 12 }, boxWidth: 12 } },
+                datalabels: { display: false },
+                tooltip: { backgroundColor: 'rgba(8,14,26,0.95)', titleFont:{size:12}, bodyFont:{size:13,weight:'bold'}, padding:12,
+                    callbacks: { label: c => c.dataset.label + ' : ' + fmtK(c.parsed.y) }
+                }
+            },
+            scales: {
+                y: { grid: { color: 'rgba(255,255,255,0.05)', borderDash:[5,5] }, ticks: { callback: v => fmtK(v), color:'#64748b', font:{size:10} } },
+                x: { grid: { display: false }, ticks: { color:'#64748b', font:{size:10}, maxTicksLimit: duree+1 } }
+            }
+        }
+    });
+    setTimeout(()=>enableDeltaClick(()=>immoChart,'immoChart','immo-delta','currency'),50);
+}
+
+
+// ─── ÉDITION PROTÉGÉE ─────────────────────────────────────────────
+const _editingBourse = {}; 
+const _editingPEE    = {}; 
+
+const iconEdit = `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>`;
+const iconSave = `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+const iconDelete = `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`;
+
+window.toggleEditBourse = function(idx) {
+    const isEditing = _editingBourse[idx];
+    if (isEditing) {
+        _editingBourse[idx] = false;
+        ['b-nom-'+idx,'b-qte-'+idx,'b-pru-'+idx,'b-cours-'+idx,'b-div-'+idx].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.setAttribute('readonly', true);
+            el.classList.remove('editable');
+            el.dispatchEvent(new Event('change'));
+        });
+        const btn = document.getElementById('b-edit-btn-'+idx);
+        if (btn) { btn.innerHTML = iconEdit; btn.classList.remove('editing'); btn.title = 'Modifier'; }
+        mettreAJourAffichage();
+        toast('Modifications sauvegardées');
+    } else {
+        _editingBourse[idx] = true;
+        ['b-nom-'+idx,'b-qte-'+idx,'b-pru-'+idx,'b-cours-'+idx,'b-div-'+idx].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.removeAttribute('readonly');
+            el.classList.add('editable');
+        });
+        const btn = document.getElementById('b-edit-btn-'+idx);
+        if (btn) { btn.innerHTML = iconSave; btn.classList.add('editing'); btn.title = 'Valider'; }
+        const first = document.getElementById('b-cours-'+idx);
+        if (first) { first.focus(); first.select(); }
+    }
+};
+
+window.toggleEditPEE = function(idx) {
+    const isEditing = _editingPEE[idx];
+    if (isEditing) {
+        _editingPEE[idx] = false;
+        ['p-inv-'+idx,'p-act-'+idx].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.setAttribute('readonly', true);
+            el.classList.remove('editable');
+            el.dispatchEvent(new Event('change'));
+        });
+        const btn = document.getElementById('p-edit-btn-'+idx);
+        if (btn) { btn.innerHTML = iconEdit; btn.classList.remove('editing'); btn.title = 'Modifier'; }
+        mettreAJourAffichage();
+        toast('Modifications PEE sauvegardées');
+    } else {
+        _editingPEE[idx] = true;
+        ['p-inv-'+idx,'p-act-'+idx].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.removeAttribute('readonly');
+            el.classList.add('editable');
+        });
+        const btn = document.getElementById('p-edit-btn-'+idx);
+        if (btn) { btn.innerHTML = iconSave; btn.classList.add('editing'); btn.title = 'Valider'; }
+        const first = document.getElementById('p-act-'+idx);
+        if (first) { first.focus(); first.select(); }
+    }
+};
+
+window.modifierSuivi = function(index) {
+    const s = appData.suiviManuel[index];
+    if (!s) return;
+    const dateFr = new Date(s.date).toLocaleDateString('fr-FR');
+    const newCTO  = parseFloat(prompt(`Modifier saisie du ${dateFr}\n\nValeur CTO (actuel: ${s.cto}) :`, s.cto));
+    if (isNaN(newCTO)) return;
+    const newPEA  = parseFloat(prompt(`Valeur PEA (actuel: ${s.pea}) :`, s.pea));
+    if (isNaN(newPEA)) return;
+    const newPEE  = parseFloat(prompt(`Valeur PEE (actuel: ${s.pee}) :`, s.pee));
+    if (isNaN(newPEE)) return;
+    const newCash = parseFloat(prompt(`Cash Total (actuel: ${s.cash}) :`, s.cash));
+    if (isNaN(newCash)) return;
+    appData.suiviManuel[index] = {
+        date: s.date,
+        cto:  newCTO,
+        pea:  newPEA,
+        pee:  newPEE,
+        cash: newCash,
+        total: newCTO + newPEA + newPEE + newCash
+    };
+    localStorage.setItem('portefeuilleV43', JSON.stringify(appData));
+    renderTableSuivi();
+    renderSuiviCharts();
+    toast('Saisie modifiée');
+};
+
+
+// ─── DELTA CLICK SUR GRAPHIQUES ─────────────────────────────────
+// enableBarDeltaClick : comparaison 2 barres d'un graphique horizontal (indices)
+// tooltipId : id du div delta-tooltip
+// badgeId   : id du badge résumé en haut
+function enableBarDeltaClick(getChart, canvasId, tooltipId, badgeId) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    if (canvas._barDeltaHandler) canvas.removeEventListener('click', canvas._barDeltaHandler);
+
+    const state = { p1: null, p2: null };
+    canvas._barDeltaState = state;
+    canvas.style.cursor = 'crosshair';
+
+    canvas._barDeltaHandler = function(e) {
+        const chart = getChart();
+        if (!chart) return;
+        const pts = chart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, false);
+        if (!pts || pts.length === 0) {
+            // Clic hors barre = reset
+            state.p1 = null; state.p2 = null;
+            hideBarDelta(tooltipId, badgeId);
+            return;
+        }
+        const idx   = pts[0].index;
+        const label = chart.data.labels[idx];
+        const val   = chart.data.datasets[0].data[idx];
+
+        if (!state.p1) {
+            state.p1 = { idx, label, val };
+            state.p2 = null;
+            showBarDelta(tooltipId, badgeId, state);
+        } else if (state.p2 || idx === state.p1.idx) {
+            // Reset si recliqué sur p1 ou déjà 2 points
+            state.p1 = null; state.p2 = null;
+            hideBarDelta(tooltipId, badgeId);
+        } else {
+            state.p2 = { idx, label, val };
+            showBarDelta(tooltipId, badgeId, state);
+        }
+    };
+    canvas.addEventListener('click', canvas._barDeltaHandler);
+}
+
+function showBarDelta(tooltipId, badgeId, state) {
+    const el = document.getElementById(tooltipId);
+    const badge = document.getElementById(badgeId);
+    const fmtP = v => (v >= 0 ? '+' : '') + v.toFixed(2) + ' %';
+    const col1 = '#00d4ff', col2 = '#f59e0b';
+
+    if (!state.p1) { if(el) el.style.display='none'; if(badge) badge.style.display='none'; return; }
+
+    if (!state.p2) {
+        if (el) {
+            el.innerHTML = `<div class="dt-header">Sélectionner une 2ᵉ barre pour comparer</div>
+                <div class="dt-row"><span class="dt-lbl">Barre A</span><span class="dt-val" style="color:${col1};">${state.p1.label}</span></div>
+                <div class="dt-row"><span class="dt-lbl">Valeur</span><span class="dt-val">${fmtP(state.p1.val)}</span></div>`;
+            el.style.display = 'block';
+        }
+        if (badge) { badge.textContent = state.p1.label + ' → ?'; badge.style.display = 'block'; }
+        return;
+    }
+
+    const delta = state.p2.val - state.p1.val;
+    const col = delta >= 0 ? '#00e5a0' : '#ff4d6d';
+    if (el) {
+        el.innerHTML = `<div class="dt-header">Écart entre 2 barres — cliquer pour réinitialiser</div>
+            <div class="dt-row"><span class="dt-lbl">Barre A</span><span class="dt-val" style="color:${col1};">${state.p1.label}</span></div>
+            <div class="dt-row"><span class="dt-lbl">Barre B</span><span class="dt-val" style="color:${col2};">${state.p2.label}</span></div>
+            <div style="border-top:1px solid rgba(255,255,255,0.08);margin:6px 0 4px;"></div>
+            <div class="dt-row"><span class="dt-lbl">Valeur A</span><span class="dt-val">${fmtP(state.p1.val)}</span></div>
+            <div class="dt-row"><span class="dt-lbl">Valeur B</span><span class="dt-val">${fmtP(state.p2.val)}</span></div>
+            <div style="border-top:1px solid rgba(255,255,255,0.08);margin:6px 0 4px;"></div>
+            <div class="dt-row"><span class="dt-lbl">Écart B−A</span><span class="dt-val" style="color:${col};font-size:1.1em;">${fmtP(delta)}</span></div>`;
+        el.style.display = 'block';
+    }
+    if (badge) {
+        badge.textContent = `Δ ${fmtP(delta)}`;
+        badge.style.background = delta >= 0 ? 'rgba(0,229,160,0.12)' : 'rgba(255,77,109,0.12)';
+        badge.style.borderColor = delta >= 0 ? 'rgba(0,229,160,0.4)' : 'rgba(255,77,109,0.4)';
+        badge.style.color = col;
+        badge.style.display = 'block';
+    }
+}
+
+function hideBarDelta(tooltipId, badgeId) {
+    const el = document.getElementById(tooltipId);
+    const badge = document.getElementById(badgeId);
+    if (el) el.style.display = 'none';
+    if (badge) badge.style.display = 'none';
+}
+
+// ─── DELTA CLICK SUR GRAPHIQUES ─────────────────────────────────
+// Permet de cliquer 2 points sur un graphique line/bar pour voir
+// la différence (€, %, durée) entre eux.
+//
+// Usage :
+//   enableDeltaClick(chartInstance, canvasId, tooltipId, dataLabels, mode)
+//   mode = 'currency' | 'percent' | 'mixed'  (mixed = la serie peut être € ou %)
+//   dataLabels = tableau de strings (labels de l'axe X)
+// ─────────────────────────────────────────────────────────────────
+
+const _deltaState = {}; // { canvasId: { point1: {x,y,label,val}, point2: ... } }
+
+function enableDeltaClick(chartRef, canvasId, tooltipId, mode) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    // Supprimer ancien listener
+    if (canvas._deltaHandler) canvas.removeEventListener('click', canvas._deltaHandler);
+
+    canvas._deltaHandler = function(e) {
+        const chart = chartRef();
+        if (!chart) return;
+
+        const pts = chart.getElementsAtEventForMode(e, 'index', { intersect: false }, false);
+        if (!pts || pts.length === 0) return;
+
+        const idx    = pts[0].index;
+        const dsIdx  = 0; // première série
+        const label  = chart.data.labels[idx];
+        const val    = chart.data.datasets[dsIdx].data[idx];
+
+        const state = _deltaState[canvasId] || {};
+
+        if (!state.p1) {
+            // Premier point
+            state.p1 = { idx, label, val };
+            state.p2 = null;
+            _deltaState[canvasId] = state;
+            showDeltaTooltip(tooltipId, state, mode, canvasId);
+            // Marquer visuellement — changer pointRadius pour ce point
+            markDeltaPoint(chart, dsIdx, idx, '#00d4ff', canvasId, 'p1');
+        } else if (!state.p2 && idx !== state.p1.idx) {
+            // Deuxième point
+            state.p2 = { idx, label, val };
+            _deltaState[canvasId] = state;
+            showDeltaTooltip(tooltipId, state, mode, canvasId);
+            markDeltaPoint(chart, dsIdx, idx, '#f59e0b', canvasId, 'p2');
+        } else {
+            // Reset
+            state.p1 = null; state.p2 = null;
+            _deltaState[canvasId] = state;
+            hideDeltaTooltip(tooltipId);
+            clearDeltaMarkers(canvasId);
+        }
+    };
+
+    canvas.addEventListener('click', canvas._deltaHandler);
+    // Curseur pointer sur le canvas
+    canvas.style.cursor = 'crosshair';
+}
+
+function showDeltaTooltip(tooltipId, state, mode, canvasId) {
+    const el = document.getElementById(tooltipId);
+    if (!el) return;
+
+    const fmtE = v => new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:2}).format(v);
+    const fmtP = v => (v >= 0 ? '+' : '') + v.toFixed(2) + ' %';
+    const fmtV = v => {
+        if (mode === 'percent') return (v >= 0 ? '+' : '') + v.toFixed(2) + ' %';
+        return fmtE(v);
+    };
+
+    if (!state.p1) { el.style.display = 'none'; return; }
+
+    if (!state.p2) {
+        // Un seul point sélectionné
+        el.innerHTML = `
+            <div class="dt-header">Clic 1 / 2 — sélectionnez un second point</div>
+            <div class="dt-row"><span class="dt-lbl">Point A</span><span class="dt-val" style="color:#00d4ff;">${state.p1.label}</span></div>
+            <div class="dt-row"><span class="dt-lbl">Valeur</span><span class="dt-val">${fmtV(state.p1.val)}</span></div>`;
+        el.style.display = 'block';
+        return;
+    }
+
+    // Deux points — calcul delta
+    const v1 = state.p1.val, v2 = state.p2.val;
+    const delta = v2 - v1;
+    const deltaPct = (v1 !== 0) ? (delta / Math.abs(v1) * 100) : 0;
+    const [pA, pB] = state.p1.idx < state.p2.idx ? [state.p1, state.p2] : [state.p2, state.p1];
+    const idxDiff  = Math.abs(state.p2.idx - state.p1.idx);
+    const col = delta >= 0 ? '#00e5a0' : '#ff4d6d';
+
+    el.innerHTML = `
+        <div class="dt-header">Δ Comparaison de 2 points — cliquer pour réinitialiser</div>
+        <div class="dt-row"><span class="dt-lbl">De</span><span class="dt-val" style="color:#00d4ff;">${pA.label}</span></div>
+        <div class="dt-row"><span class="dt-lbl">À</span><span class="dt-val" style="color:#f59e0b;">${pB.label}</span></div>
+        <div style="border-top:1px solid rgba(255,255,255,0.08);margin:6px 0 4px;"></div>
+        <div class="dt-row"><span class="dt-lbl">Variation</span><span class="dt-val" style="color:${col};">${mode==='percent' ? fmtP(delta) : fmtE(delta)}</span></div>
+        <div class="dt-row"><span class="dt-lbl">Var. %</span><span class="dt-val" style="color:${col};">${fmtP(deltaPct)}</span></div>
+        <div class="dt-row"><span class="dt-lbl">Période</span><span class="dt-val">${idxDiff} point${idxDiff>1?'s':''}</span></div>
+        <div style="border-top:1px solid rgba(255,255,255,0.08);margin:6px 0 4px;"></div>
+        <div class="dt-row"><span class="dt-lbl">Valeur A</span><span class="dt-val">${fmtV(pA.val)}</span></div>
+        <div class="dt-row"><span class="dt-lbl">Valeur B</span><span class="dt-val">${fmtV(pB.val)}</span></div>`;
+    el.style.display = 'block';
+}
+
+function hideDeltaTooltip(tooltipId) {
+    const el = document.getElementById(tooltipId);
+    if (el) el.style.display = 'none';
+}
+
+function markDeltaPoint(chart, dsIdx, ptIdx, color, canvasId, key) {
+    // On crée un marker DOM flottant sur le canvas
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const wrapper = canvas.parentElement;
+
+    // Supprimer ancien marker de ce key
+    const old = wrapper.querySelector('.delta-marker.' + key);
+    if (old) old.remove();
+
+    try {
+        const meta = chart.getDatasetMeta(dsIdx);
+        const el   = meta.data[ptIdx];
+        if (!el) return;
+        const { x, y } = el.getProps(['x','y'], true);
+
+        const m = document.createElement('div');
+        m.className = 'delta-marker ' + key;
+        m.style.left  = x + 'px';
+        m.style.top   = y + 'px';
+        m.style.background = color;
+        wrapper.appendChild(m);
+    } catch(e) {}
+}
+
+function clearDeltaMarkers(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    canvas.parentElement.querySelectorAll('.delta-marker').forEach(m => m.remove());
+}
+
+// Activer le delta-click sur tous les graphiques linéaires au rendu
+function attachDeltaClicks() {
+    enableDeltaClick(() => historyChart, 'historyChart', 'hc-delta',    'mixed');
+    enableDeltaClick(() => chartTotal,   'chart-total',  'bc-total-delta', 'mixed');
+    enableDeltaClick(() => immoChart,    'immoChart',    'immo-delta',   'currency');
+    enableDeltaClick(() => calcChart,    'calcChart',    'calc-delta',   'currency');
+}
+
 function changerOnglet(nom) {
     ongletActif = nom; 
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); 
     document.getElementById('tab-' + nom).classList.add('active'); 
     document.querySelectorAll('.section-content').forEach(s => { s.classList.remove('active'); });
     
-    const hideGlobal = ['REF','BILAN','INDICES'].includes(nom); 
+    const hideGlobal = ['REF','BILAN','INDICES','CALC','IMMO', 'STATS'].includes(nom); 
     document.getElementById('dashboard-global-wrapper').style.display = hideGlobal ? 'none' : 'grid'; 
-    document.getElementById('dashboard-onglet').style.display = ['REF','BILAN','INDICES','ACCUEIL'].includes(nom) ? 'none' : 'grid'; 
+    document.getElementById('dashboard-onglet').style.display = ['REF','BILAN','INDICES','ACCUEIL','CALC','IMMO', 'STATS'].includes(nom) ? 'none' : 'grid'; 
     
     const boxLiq = document.getElementById('box-liquidites');
     if (nom === 'CTO' || nom === 'PEA' || nom === 'PEE') {
@@ -856,7 +1834,6 @@ function changerOnglet(nom) {
         boxLiq.style.display = 'none';
     }
     
-    // Remonter en haut de page à chaque changement d'onglet pour éviter les décalages
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     if (nom === 'ACCUEIL') { 
@@ -877,8 +1854,32 @@ function changerOnglet(nom) {
     else if (nom === 'BILAN') { 
         document.getElementById('section-bilan').classList.add('active'); 
         renderTableSuivi(); 
-        renderSuiviCharts(); 
+        renderSuiviCharts();
+        const el_cto  = document.getElementById('suivi-cto');
+        const el_pea  = document.getElementById('suivi-pea');
+        const el_pee  = document.getElementById('suivi-pee');
+        const el_cash = document.getElementById('suivi-cash');
+        const el_date = document.getElementById('suivi-date');
+        if (el_cto)  el_cto.value  = perfsActuelles.CTO.actuel  > 0 ? (perfsActuelles.CTO.actuel  / 1000).toFixed(2) : '';
+        if (el_pea)  el_pea.value  = perfsActuelles.PEA.actuel  > 0 ? (perfsActuelles.PEA.actuel  / 1000).toFixed(2) : '';
+        if (el_pee)  el_pee.value  = perfsActuelles.PEE.actuel  > 0 ? (perfsActuelles.PEE.actuel  / 1000).toFixed(2) : '';
+        if (el_cash) el_cash.value = '0'; 
+        if (el_date) el_date.valueAsDate = new Date();
     } 
+    else if (nom === 'STATS') {
+        document.getElementById('section-stats').classList.add('active');
+        calculerStats();
+    }
+    else if (nom === 'CALC') { 
+        document.getElementById('section-calc').classList.add('active'); 
+        const capEl = document.getElementById('calc-capital');
+        if (capEl && !capEl.value && perfsActuelles.global.actuel > 0) capEl.value = Math.round(perfsActuelles.global.actuel);
+        calcProjection();
+    } 
+    else if (nom === 'IMMO') {
+        document.getElementById('section-immo').classList.add('active');
+        calcImmo();
+    }
     else if (nom === 'REF') { document.getElementById('section-ref').classList.add('active'); chargerFormulaireReferences(); chargerFormulaireReferencesIndices(); }
 }
 
@@ -912,7 +1913,6 @@ function mettreAJourAffichage() {
 
     const oG = appData.references.origine.global; const oC = appData.references.origine.CTO; const oP = appData.references.origine.PEA; const oE = appData.references.origine.PEE;
 
-    // LOGIQUE DE CALCUL NEUTRE AU CASH
     ['CTO', 'PEA'].forEach(c => {
         let o = (c === 'CTO') ? oC : oP;
         let val_actions = perfsActuelles[c].actuel;
@@ -968,13 +1968,11 @@ function mettreAJourAffichage() {
 
     const gPct = (perfsActuelles.global.perf / perfsActuelles.global.base_perf)*100;
 
-    // DASHBOARD GLOBAL
     document.getElementById('global-actuel').textContent = W(fmtE0(perfsActuelles.global.actuel)); 
     document.getElementById('global-apports').textContent = W(fmtE0(perfsActuelles.global.apports)); 
     document.getElementById('global-cash').textContent = 'Dont cash : ' + W(fmtE0(perfsActuelles.global.cash));
     updatePerfDisplay('box-global-perf', 'global-perf-val', 'global-perf-pct', perfsActuelles.global.perf, gPct);
 
-    // TABLE ACCUEIL
     const tAccueil = document.getElementById('table-accueil-body');
     if (tAccueil) {
         tAccueil.innerHTML = `
@@ -982,30 +1980,35 @@ function mettreAJourAffichage() {
                 <td style="text-align:left; color:var(--cto); font-weight:700;">CTO</td>
                 <td>${W(fmtE0(perfsActuelles.CTO.apports))}</td>
                 <td>${W(fmtE0(perfsActuelles.CTO.actuel))}</td>
-                <td>${perfHtml(perfsActuelles.CTO.perf, perfsActuelles.CTO.base_perf > 0 ? (perfsActuelles.CTO.perf/perfsActuelles.CTO.base_perf)*100 : 0, 'right')}</td>
+                <td>${(()=>{ if(synWindow==='all') return perfHtml(perfsActuelles.CTO.perf, perfsActuelles.CTO.base_perf>0?(perfsActuelles.CTO.perf/perfsActuelles.CTO.base_perf)*100:0,'right'); const rk=synWindow==='ytd'?'ytd':'mois'; const rv=appData.references[rk]['CTO']?.v; if(rv&&rv>0){const g=perfsActuelles.CTO.actuel-rv;return perfHtml(g,(g/rv)*100,'right');} return perfHtml(perfsActuelles.CTO.perf,perfsActuelles.CTO.base_perf>0?(perfsActuelles.CTO.perf/perfsActuelles.CTO.base_perf)*100:0,'right'); })()}</td>
             </tr>
             <tr>
                 <td style="text-align:left; color:var(--pea); font-weight:700;">PEA</td>
                 <td>${W(fmtE0(perfsActuelles.PEA.apports))}</td>
                 <td>${W(fmtE0(perfsActuelles.PEA.actuel))}</td>
-                <td>${perfHtml(perfsActuelles.PEA.perf, perfsActuelles.PEA.base_perf > 0 ? (perfsActuelles.PEA.perf/perfsActuelles.PEA.base_perf)*100 : 0, 'right')}</td>
+                <td>${(()=>{ if(synWindow==='all') return perfHtml(perfsActuelles.PEA.perf, perfsActuelles.PEA.base_perf>0?(perfsActuelles.PEA.perf/perfsActuelles.PEA.base_perf)*100:0,'right'); const rk=synWindow==='ytd'?'ytd':'mois'; const rv=appData.references[rk]['PEA']?.v; if(rv&&rv>0){const g=perfsActuelles.PEA.actuel-rv;return perfHtml(g,(g/rv)*100,'right');} return perfHtml(perfsActuelles.PEA.perf,perfsActuelles.PEA.base_perf>0?(perfsActuelles.PEA.perf/perfsActuelles.PEA.base_perf)*100:0,'right'); })()}</td>
             </tr>
             <tr>
                 <td style="text-align:left; color:var(--pee); font-weight:700;">PEE</td>
                 <td>${W(fmtE0(perfsActuelles.PEE.apports))}</td>
                 <td>${W(fmtE0(perfsActuelles.PEE.actuel))}</td>
-                <td>${perfHtml(perfsActuelles.PEE.perf, perfsActuelles.PEE.base_perf > 0 ? (perfsActuelles.PEE.perf/perfsActuelles.PEE.base_perf)*100 : 0, 'right')}</td>
+                <td>${(()=>{ if(synWindow==='all') return perfHtml(perfsActuelles.PEE.perf, perfsActuelles.PEE.base_perf>0?(perfsActuelles.PEE.perf/perfsActuelles.PEE.base_perf)*100:0,'right'); const rk=synWindow==='ytd'?'ytd':'mois'; const rv=appData.references[rk]['PEE']?.v; if(rv&&rv>0){const g=perfsActuelles.PEE.actuel-rv;return perfHtml(g,(g/rv)*100,'right');} return perfHtml(perfsActuelles.PEE.perf,perfsActuelles.PEE.base_perf>0?(perfsActuelles.PEE.perf/perfsActuelles.PEE.base_perf)*100:0,'right'); })()}</td>
             </tr>
             <tr style="background:rgba(255,255,255,0.05);">
                 <td style="text-align:left; font-weight:800; color:var(--text);">TOTAL GLOBAL</td>
                 <td style="font-weight:800;">${W(fmtE0(perfsActuelles.global.apports))}</td>
                 <td style="font-weight:800;">${W(fmtE0(perfsActuelles.global.actuel))}</td>
-                <td>${perfHtml(perfsActuelles.global.perf, gPct, 'right')}</td>
+                <td>${(()=>{
+                    if(synWindow==='all') return perfHtml(perfsActuelles.global.perf,gPct,'right');
+                    const rk=synWindow==='ytd'?'ytd':'mois';
+                    const rv=appData.references[rk]['global']?.v;
+                    if(rv&&rv>0){const g=perfsActuelles.global.actuel-rv;return perfHtml(g,(g/rv)*100,'right');}
+                    return perfHtml(perfsActuelles.global.perf,gPct,'right');
+                })()}</td>
             </tr>
         `;
     }
 
-    // DASHBOARD ONGLET (CTO/PEA/PEE)
     if (['CTO','PEA','PEE'].includes(ongletActif)) {
         const tab = perfsActuelles[ongletActif]; 
         const tabPct = (tab.perf / tab.base_perf)*100;
@@ -1017,9 +2020,13 @@ function mettreAJourAffichage() {
     if (['CTO','PEA'].includes(ongletActif)) renderTableBourse(); 
     else if (ongletActif === 'PEE') renderTablePEE();
     
+    if(perfsActuelles.PEE.actuel>0) sectorDist['Énergie']=(sectorDist['Énergie']||0)+perfsActuelles.PEE.actuel;
+    const totalCash = (appData.cashCTO||0) + (appData.cashPEA||0) + (appData.cashPEE||0);
+    if(totalCash > 0) sectorDist['Liquidités'] = totalCash;
     mettreAJourGraphiqueSecteur(sectorDist); 
     calculerPerformancesYTD_Mois(); 
     localStorage.setItem('portefeuilleV43', JSON.stringify(appData));
+    if (ongletActif === 'STATS') calculerStats();
 }
 
 function renderTableBourse() {
@@ -1027,24 +2034,26 @@ function renderTableBourse() {
     appData[ongletActif].forEach((a, idx) => {
         const cout = (a.quantite * a.prixAchat) + a.frais; const pru = cout / a.quantite; const val = a.quantite * a.prixActuel; const pv = (val - cout) + a.dividendes; const pvPct = cout > 0 ? (pv/cout)*100 : 0;
         totQte += a.quantite; totI += cout; totV += val; totDiv += a.dividendes; totP += pv; const nom = a.nom || a.ticker; const dateFr = new Date(a.dateAchat).toLocaleDateString('fr-FR');
-        const tr = document.createElement('tr'); 
+        const tr = document.createElement('tr');
+        tr.id = 'row-bourse-' + idx;
         tr.innerHTML = `
-            <td style="vertical-align: middle;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <input type="text" class="inline-edit text-left blur-text" value="${nom}" onchange="updateLigneBourse(${idx}, 'nom', this.value)">
+            <td style="vertical-align:middle;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <input type="text" id="b-nom-${idx}" class="inline-edit text-left blur-text" value="${nom}" readonly onchange="updateLigneBourse(${idx},'nom',this.value)">
                     <span class="badge-sector">${a.secteur}</span>
                 </div>
             </td>
-            <td style="vertical-align: middle;">${dateFr}</td>
-            <td style="vertical-align: middle;"><input type="number" class="inline-edit blur-text" value="${a.quantite}" step="0.0001" onchange="updateLigneBourse(${idx}, 'quantite', this.value)"></td>
-            <td style="vertical-align: middle;"><input type="number" class="inline-edit blur-text" value="${pru.toFixed(2)}" step="0.01" onchange="updateLigneBourse(${idx}, 'pru', this.value)"></td>
-            <td style="vertical-align: middle;">${W(fmtE2(cout))}</td>
-            <td style="vertical-align: middle;"><input type="number" class="inline-edit blur-text" value="${a.prixActuel.toFixed(2)}" step="0.01" onchange="updateLigneBourse(${idx}, 'prixActuel', this.value)"></td>
-            <td style="vertical-align: middle;">${W(fmtE2(val))}</td>
-            <td style="vertical-align: middle;"><input type="number" class="inline-edit blur-text" style="color:var(--success)" value="${a.dividendes}" step="0.01" onchange="updateLigneBourse(${idx}, 'dividendes', this.value)"></td>
-            <td style="vertical-align: middle;">${perfHtml(pv, pvPct, 'right')}</td>
-            <td style="vertical-align: middle; text-align: center;">
-                <button type="button" class="delete-btn" onclick="supprimerActionBourse(${idx})">❌</button>
+            <td style="vertical-align:middle;">${dateFr}</td>
+            <td style="vertical-align:middle;"><input type="number" id="b-qte-${idx}" class="inline-edit blur-text" value="${a.quantite}" step="0.0001" readonly onchange="updateLigneBourse(${idx},'quantite',this.value)"></td>
+            <td style="vertical-align:middle;"><input type="number" id="b-pru-${idx}" class="inline-edit blur-text" value="${pru.toFixed(2)}" step="0.01" readonly onchange="updateLigneBourse(${idx},'pru',this.value)"></td>
+            <td style="vertical-align:middle;">${W(fmtE2(cout))}</td>
+            <td style="vertical-align:middle;"><input type="number" id="b-cours-${idx}" class="inline-edit blur-text" value="${a.prixActuel.toFixed(2)}" step="0.01" readonly onchange="updateLigneBourse(${idx},'prixActuel',this.value)"></td>
+            <td style="vertical-align:middle;">${W(fmtE2(val))}</td>
+            <td style="vertical-align:middle;"><input type="number" id="b-div-${idx}" class="inline-edit blur-text" style="color:var(--success)" value="${a.dividendes}" step="0.01" readonly onchange="updateLigneBourse(${idx},'dividendes',this.value)"></td>
+            <td style="vertical-align:middle;">${perfHtml(pv,pvPct,'right')}</td>
+            <td style="vertical-align:middle;text-align:center;white-space:nowrap;">
+                <button type="button" class="action-btn edit" id="b-edit-btn-${idx}" onclick="toggleEditBourse(${idx})" title="Modifier">${iconEdit}</button>
+                <button type="button" class="action-btn delete" onclick="supprimerActionBourse(${idx})" title="Supprimer">${iconDelete}</button>
             </td>`; 
         tbody.appendChild(tr);
     });
@@ -1056,12 +2065,16 @@ function renderTablePEE() {
     const tbody = document.getElementById('table-pee-body'); tbody.innerHTML = '';
     appData.PEE.forEach((ev, idx) => {
         const pv = ev.actuel - ev.investi; const pvPct = ev.investi > 0 ? (pv/ev.investi)*100 : 0; const tr = document.createElement('tr');
+        tr.id = 'row-pee-' + idx;
         tr.innerHTML = `
-            <td style="vertical-align: middle;"><strong>${new Date(ev.date).toLocaleDateString('fr-FR')}</strong></td>
-            <td style="vertical-align: middle;"><input type="number" class="inline-edit blur-text" value="${ev.investi.toFixed(2)}" step="0.01" onchange="updateLignePEE(${idx},'investi',this.value)"></td>
-            <td style="vertical-align: middle;"><input type="number" class="inline-edit blur-text" value="${ev.actuel.toFixed(2)}" step="0.01" onchange="updateLignePEE(${idx},'actuel',this.value)"></td>
-            <td style="vertical-align: middle;">${perfHtml(pv, pvPct, 'right')}</td>
-            <td style="vertical-align: middle; text-align: center;"><button type="button" class="delete-btn" onclick="supprimerActionPEE(${idx})">❌</button></td>`; 
+            <td style="vertical-align:middle;"><strong>${new Date(ev.date).toLocaleDateString('fr-FR')}</strong></td>
+            <td style="vertical-align:middle;"><input type="number" id="p-inv-${idx}" class="inline-edit blur-text" value="${ev.investi.toFixed(2)}" step="0.01" readonly onchange="updateLignePEE(${idx},'investi',this.value)"></td>
+            <td style="vertical-align:middle;"><input type="number" id="p-act-${idx}" class="inline-edit blur-text" value="${ev.actuel.toFixed(2)}" step="0.01" readonly onchange="updateLignePEE(${idx},'actuel',this.value)"></td>
+            <td style="vertical-align:middle;">${perfHtml(pv,pvPct,'right')}</td>
+            <td style="vertical-align:middle;text-align:center;white-space:nowrap;">
+                <button type="button" class="action-btn edit" id="p-edit-btn-${idx}" onclick="toggleEditPEE(${idx})" title="Modifier">${iconEdit}</button>
+                <button type="button" class="action-btn delete" onclick="supprimerActionPEE(${idx})" title="Supprimer">${iconDelete}</button>
+            </td>`; 
         tbody.appendChild(tr);
     });
 }
@@ -1087,7 +2100,6 @@ window.trierBourse = function(col) {
     appData[ongletActif].sort((a, b) => { let valA, valB; const coutA = (a.quantite * a.prixAchat) + a.frais; const coutB = (b.quantite * b.prixAchat) + b.frais; switch(col) { case 'ticker': valA = a.nom ? a.nom : a.ticker; valB = b.nom ? b.nom : b.ticker; break; case 'dateAchat': valA = new Date(a.dateAchat); valB = new Date(b.dateAchat); break; case 'quantite': valA = a.quantite; valB = b.quantite; break; case 'pru': valA = coutA/a.quantite; valB = coutB/b.quantite; break; case 'investi': valA = coutA; valB = coutB; break; case 'prixActuel': valA = a.prixActuel; valB = b.prixActuel; break; case 'valeur': valA = a.quantite * a.prixActuel; valB = b.quantite * b.prixActuel; break; case 'dividendes': valA = a.dividendes; valB = b.dividendes; break; case 'perfEuro': valA = (a.quantite * a.prixActuel) - coutA + a.dividendes; valB = (b.quantite * b.prixActuel) - coutB + b.dividendes; break; } if (valA < valB) return etatTri.asc ? -1 : 1; if (valA > valB) return etatTri.asc ? 1 : -1; return 0; }); mettreAJourAffichage();
 };
 
-// HELPER GRAPHIQUES : Dégradés
 const createGradient = (ctx, colorStart) => {
     const gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, colorStart); 
@@ -1097,7 +2109,6 @@ const createGradient = (ctx, colorStart) => {
 
 const chartDefaults = () => { Chart.defaults.color = '#64748b'; Chart.defaults.font.family = "'DM Sans', sans-serif"; };
 
-// GESTION DU SUIVI JOURNALIER
 document.addEventListener('DOMContentLoaded', () => {
     const inputDate = document.getElementById('suivi-date');
     if(inputDate) inputDate.valueAsDate = new Date();
@@ -1118,7 +2129,6 @@ document.getElementById('form-suivi-journalier')?.addEventListener('submit', fun
     if (existingIndex >= 0) appData.suiviManuel[existingIndex] = entry;
     else appData.suiviManuel.push(entry);
     
-    // Trier par ordre chronologique
     appData.suiviManuel.sort((a,b) => new Date(a.date) - new Date(b.date));
     localStorage.setItem('portefeuilleV43', JSON.stringify(appData));
     
@@ -1132,18 +2142,20 @@ function renderTableSuivi() {
     const tbody = document.getElementById('table-suivi-body');
     if(!tbody) return;
     tbody.innerHTML = '';
-    // Inverser pour avoir les plus récents en haut
     [...appData.suiviManuel].reverse().forEach((s, idx) => {
         const realIdx = appData.suiviManuel.length - 1 - idx;
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td>${new Date(s.date).toLocaleDateString('fr-FR')}</td>
-            <td>${W(fmtE2(s.cto))}</td>
-            <td>${W(fmtE2(s.pea))}</td>
-            <td>${W(fmtE2(s.pee))}</td>
-            <td>${W(fmtE2(s.cash))}</td>
-            <td style="font-weight:bold; color:var(--accent)">${W(fmtE2(s.total))}</td>
-            <td style="text-align:center;"><button type="button" class="delete-btn" onclick="supprimerSuivi(${realIdx})">❌</button></td>
+            <td id="sc-cto-${realIdx}">${W(fmtE2(s.cto))}</td>
+            <td id="sc-pea-${realIdx}">${W(fmtE2(s.pea))}</td>
+            <td id="sc-pee-${realIdx}">${W(fmtE2(s.pee))}</td>
+            <td id="sc-cash-${realIdx}">${W(fmtE2(s.cash))}</td>
+            <td style="font-weight:bold;color:var(--accent);" id="sc-total-${realIdx}">${W(fmtE2(s.total))}</td>
+            <td style="text-align:center;white-space:nowrap;">
+                <button type="button" class="action-btn edit" onclick="modifierSuivi(${realIdx})" title="Modifier">${iconEdit}</button>
+                <button type="button" class="action-btn delete" onclick="supprimerSuivi(${realIdx})" title="Supprimer">${iconDelete}</button>
+            </td>
         `;
         tbody.appendChild(tr);
     });
@@ -1160,98 +2172,285 @@ window.supprimerSuivi = function(index) {
     }
 };
 
-let chartTotal = null, chartCTO = null, chartPEA = null, chartPEE = null;
-function renderSuiviCharts() {
-    if(ongletActif !== 'BILAN') return;
-    chartDefaults();
-    
-    // Sécurité au cas où le tableau est vide
-    const safeData = appData.suiviManuel || [];
-    const labels = safeData.map(s => new Date(s.date).toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'2-digit'}));
-    
-    const createLineChart = (id, chartInstance, label, data, color, gradientColor) => {
-        const canvas = document.getElementById(id);
-        if (!canvas) return chartInstance;
-        const ctx = canvas.getContext('2d');
-        if (chartInstance) chartInstance.destroy();
-        return new Chart(ctx, {
-            type: 'line',
-            data: { 
-                labels: labels, 
-                datasets: [{ 
-                    label: label, 
-                    data: data, 
-                    borderColor: color, 
-                    backgroundColor: createGradient(ctx, gradientColor), 
-                    borderWidth: 2.5, 
-                    pointRadius: safeData.length > 1 ? 0 : 4,
-                    pointHoverRadius: 6,
-                    tension: 0.4, 
-                    fill: true 
-                }] 
-            },
+let chartTotal=null,chartCTO=null,chartPEA=null,chartPEE=null;
+
+let hcWindow = 'month', hcMode = 'eur';
+let bcWindow = 'all',   bcMode = 'eur';
+let synWindow = 'all';
+let idxView   = 'ytd';
+let calcChart = null;
+let retChart = null;
+let retSourceYear = 4;        
+let _projectionData = {};     
+
+function setRetSource(y) {
+    retSourceYear = y;
+    document.querySelectorAll('#ret-btns-container .cwb').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.getElementById('ret-dyn-' + (y === 'fin' ? 'fin' : y));
+    if (activeBtn) activeBtn.classList.add('active');
+    const val = y === 'fin' ? _projectionData['fin'] : (_projectionData[y] || _projectionData['fin']);
+    const el = document.getElementById('ret-capital');
+    if (el && val > 0) { el.value = Math.round(val); calcRetraite(); }
+}
+
+function renderRetButtons(duree) {
+    const container = document.getElementById('ret-btns-container');
+    if (!container) return;
+    const candidats = [1, 2, 3, 4, 5, 7, 10, 15, 20, 25, 30];
+    const jalonsRet = candidats.filter(y => y <= duree);
+    jalonsRet.push('fin');
+    container.innerHTML = jalonsRet.map(y => {
+        const label = y === 'fin' ? 'Final' : ('An ' + y);
+        const isActive = (y === retSourceYear) || (y === 'fin' && retSourceYear === 'fin');
+        const btnOnclick = (y === 'fin') ? "setRetSource('fin')" : ('setRetSource(' + y + ')');
+        return `<button type="button" id="ret-dyn-${y}" class="cwb${isActive?' active':''}" onclick="${btnOnclick}">${label}</button>`;
+    }).join('');
+}
+
+function calcRetraite() {
+    const capital = parseFloat(document.getElementById('ret-capital')?.value) || 0;
+    const taux    = parseFloat(document.getElementById('ret-taux')?.value)    || 4;
+    if (capital <= 0) return;
+    const fmtK = v => new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(v);
+    const annuel  = capital * taux / 100;
+    const mensuel = annuel / 12;
+    const el = id => document.getElementById(id);
+    if(el('ret-capital-display')) el('ret-capital-display').textContent = fmtK(capital);
+    if(el('ret-annuel'))          el('ret-annuel').textContent          = fmtK(annuel) + ' / an';
+    if(el('ret-mensuel'))         el('ret-mensuel').textContent         = fmtK(mensuel);
+    if(el('ret-mensuel-2'))       el('ret-mensuel-2').textContent       = fmtK(mensuel);
+
+    const tableau = el('ret-table');
+    if (tableau) {
+        const taux_list = [2, 3, 4, 5, 6, 7, 8];
+        tableau.innerHTML = taux_list.map(t => {
+            const m = capital * t / 100 / 12;
+            const isActive = Math.abs(t - taux) < 0.01;
+            return `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:${isActive?'rgba(124,58,237,0.12)':'var(--surface3)'};border-radius:7px;border:1px solid ${isActive?'rgba(124,58,237,0.4)':'var(--border)'};font-size:0.82em;">
+                <span style="color:var(--muted);font-weight:600;">${t}% / an</span>
+                <div style="text-align:right;">
+                    <div style="font-family:'DM Mono',monospace;font-weight:700;color:${isActive?'#a78bfa':'var(--success)'};">${fmtK(m)} / mois</div>
+                    <div style="font-size:0.78em;color:var(--muted);">${fmtK(capital*t/100)} / an</div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    const retCtx = el('retChart');
+    if (retCtx && Object.keys(_projectionData).length > 0) {
+        chartDefaults();
+        if (retChart) retChart.destroy();
+        const years = Object.keys(_projectionData).filter(k => k !== 'fin').map(Number).sort((a,b)=>a-b);
+        const retLabels = years.map(y => 'An ' + y);
+        const retVals   = years.map(y => Math.round(_projectionData[y] * taux / 100 / 12));
+        const retColors = years.map(y => (y === retSourceYear) ? 'rgba(167,139,250,0.9)' : 'rgba(124,58,237,0.45)');
+        retChart = new Chart(retCtx.getContext('2d'), {
+            type: 'bar',
+            data: { labels: retLabels, datasets: [{ label: 'Rente / mois', data: retVals, backgroundColor: retColors, borderRadius: 5, borderSkipped: false }] },
             options: {
                 responsive: true, maintainAspectRatio: false,
-                plugins: { 
-                    legend: { display: false }, 
-                    tooltip: { backgroundColor: 'rgba(8, 14, 26, 0.95)', titleFont: {size: 13}, bodyFont: {size: 14, weight: 'bold'}, padding: 12, callbacks: { label: c => isIncognito ? '***' : fmtE2(c.parsed.y) } }, 
-                    datalabels: {display:false} 
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { display: false },
+                    datalabels: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(8,14,26,0.95)',
+                        titleColor: '#94a3b8', bodyColor: '#e2e8f0',
+                        titleFont: { size: 11 }, bodyFont: { size: 13, weight: 'bold' },
+                        padding: 10,
+                        callbacks: { label: ctx => fmtK(ctx.parsed.y) + ' / mois' }
+                    }
                 },
-                scales: { 
-                    y: { grid: { color: 'rgba(255, 255, 255, 0.05)', borderDash: [5, 5] }, ticks: { callback: v => isIncognito ? '***' : fmt0(v), font: {size: 11} } }, 
-                    x: { grid: { display: false }, ticks: { maxTicksLimit: 6, font: {size: 10} } } 
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.05)', borderDash: [5,5] },
+                         ticks: { callback: v => fmtK(v), color: '#64748b', font: { size: 10 } } },
+                    x: { grid: { display: false },
+                         ticks: { color: '#64748b', font: { size: 10 }, maxTicksLimit: 15 } }
                 }
             }
         });
-    };
+    }
+}
 
-    chartTotal = createLineChart('chart-total', chartTotal, 'Total', safeData.map(s => s.total), '#00d4ff', 'rgba(0,212,255,0.4)');
-    chartCTO = createLineChart('chart-cto', chartCTO, 'CTO', safeData.map(s => s.cto), '#00d4ff', 'rgba(0,212,255,0.2)');
-    chartPEA = createLineChart('chart-pea', chartPEA, 'PEA', safeData.map(s => s.pea), '#00e5a0', 'rgba(0,229,160,0.2)');
-    chartPEE = createLineChart('chart-pee', chartPEE, 'PEE', safeData.map(s => s.pee), '#f59e0b', 'rgba(245,158,11,0.2)');
+function activateBtn(ids, activeId, usePctClass) {
+    ids.forEach(id => {
+        const b = document.getElementById(id); if (!b) return;
+        b.classList.remove('active','active-pct');
+        if (b.id === activeId) b.classList.add(usePctClass ? 'active-pct' : 'active');
+    });
+}
+function filterSuivi(data, win) {
+    if (!data || !data.length) return data;
+    const now = new Date();
+    if (win === 'month') { const c = new Date(now); c.setDate(c.getDate()-30); return data.filter(s=>new Date(s.date)>=c); }
+    if (win === 'ytd')   return data.filter(s=>new Date(s.date)>=new Date(now.getFullYear(),0,1));
+    return data;
+}
+function toPct(arr) {
+    if (!arr || !arr.length) return arr;
+    const base = arr[0];
+    return arr.map(v => base>0 ? +((v-base)/base*100).toFixed(2) : 0);
+}
+function setHcWindow(w) { hcWindow=w; activateBtn(['hc-month','hc-ytd','hc-all'],'hc-'+w,false); mettreAJourGraphiqueLigne(); }
+function setHcMode(m)   { hcMode=m;   activateBtn(['hc-eur','hc-pct'],'hc-'+m,m==='pct'); mettreAJourGraphiqueLigne(); }
+function setBcWindow(w) { bcWindow=w; activateBtn(['bc-all','bc-ytd','bc-month'],'bc-'+w,false); renderSuiviCharts(); }
+function setBcMode(m)   { bcMode=m;   activateBtn(['bc-eur','bc-pct'],'bc-'+m,m==='pct'); renderSuiviCharts(); }
+function setSynWindow(w) {
+    synWindow=w; activateBtn(['syn-month','syn-ytd','syn-all'],'syn-'+w,false);
+    const hdr=document.getElementById('syn-perf-header');
+    if(hdr) hdr.textContent = w==='month'?'Perf. Mois':w==='ytd'?'Perf. YTD':'Plus-Value';
+    mettreAJourAffichage();
+}
+function setIdxView(v) {
+    idxView=v; activateBtn(['idx-btn-ytd','idx-btn-orig'],'idx-btn-'+v,false);
+    const lbl=document.getElementById('idx-col2-label');
+    if(lbl) lbl.textContent = v==='ytd'?'Perf. % YTD':'Perf. % Depuis Origine';
+    const c1=document.getElementById('indicesChart');
+    const c2=document.getElementById('indicesOrigineChart');
+    if(c1) c1.style.display = v==='ytd'?'':'none';
+    if(c2) c2.style.display = v==='orig'?'':'none';
+}
+
+function calcProjection() {
+    const capital  = parseFloat(document.getElementById('calc-capital')?.value) || 0;
+    const mensuel  = parseFloat(document.getElementById('calc-mensuel')?.value) || 0;
+    const taux     = parseFloat(document.getElementById('calc-taux')?.value)    || 0;
+    const duree    = parseInt(document.getElementById('calc-duree')?.value)      || 10;
+    if (capital <= 0 && mensuel <= 0) return;
+
+    const tauxM = taux / 100 / 12;
+    const n     = duree * 12;
+    let valFin;
+    if (tauxM === 0) {
+        valFin = capital + mensuel * n;
+    } else {
+        const facteur = Math.pow(1 + tauxM, n);
+        valFin = capital * facteur + mensuel * (facteur - 1) / tauxM;
+    }
+    const totalVersements = mensuel * n;
+    const totalInvesti    = capital + totalVersements;
+    const interets        = valFin - totalInvesti;
+
+    const fmtK = v => new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(v);
+    const el = id => document.getElementById(id);
+    if(el('calc-final'))          el('calc-final').textContent          = fmtK(valFin);
+    if(el('calc-final-label'))    el('calc-final-label').textContent    = `Valeur projetée dans ${duree} ans`;
+    if(el('calc-stat-capital'))   el('calc-stat-capital').textContent   = fmtK(capital);
+    if(el('calc-stat-versements'))el('calc-stat-versements').textContent= fmtK(totalVersements);
+    if(el('calc-stat-interets'))  el('calc-stat-interets').textContent  = '+' + fmtK(interets);
+    if(el('calc-stat-total'))     el('calc-stat-total').textContent     = fmtK(valFin);
+
+    const jalonEl = el('calc-jalons');
+    if (jalonEl) {
+        const jalons = [];
+        for (let y = 1; y <= duree; y++) {
+            if (y === 1 || y === 2 || y === 5 || y % 10 === 0 || y === duree) {
+                const ny = y * 12;
+                let vj;
+                if (tauxM === 0) { vj = capital + mensuel * ny; }
+                else { const fj = Math.pow(1+tauxM,ny); vj = capital*fj + mensuel*(fj-1)/tauxM; }
+                jalons.push({y, v:vj});
+            }
+        }
+        _projectionData = {};
+        for (let y2 = 1; y2 <= duree; y2++) {
+            const ny2 = y2 * 12;
+            let vj2;
+            if (tauxM === 0) { vj2 = capital + mensuel * ny2; }
+            else { const fj2 = Math.pow(1+tauxM,ny2); vj2 = capital*fj2 + mensuel*(fj2-1)/tauxM; }
+            _projectionData[y2] = vj2;
+        }
+        _projectionData['fin'] = valFin;
+        jalonEl.innerHTML = jalons.map(j => {
+            const isRetSrc = (retSourceYear === j.y) || (retSourceYear === 'fin' && j.y === duree);
+            return `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:${isRetSrc?'rgba(124,58,237,0.1)':'var(--surface3)'};border-radius:8px;font-size:0.85em;border:1px solid ${isRetSrc?'rgba(124,58,237,0.3)':'transparent'};cursor:pointer;" onclick="setRetSource(${j.y})">
+                <span style="color:var(--muted);font-weight:600;">Dans ${j.y} an${j.y>1?'s':''}</span>
+                <span style="font-family:'DM Mono',monospace;font-weight:700;color:var(--success);">${fmtK(j.v)}</span>
+            </div>`;
+        }).join('');
+        const retSrcVal = retSourceYear === 'fin' ? valFin : (_projectionData[retSourceYear] || valFin);
+        renderRetButtons(duree);
+        const retCapEl = document.getElementById('ret-capital');
+        if (retCapEl) { retCapEl.value = Math.round(retSrcVal); calcRetraite(); }
+    }
+
+    const canvas = document.getElementById('calcChart'); if(!canvas) return;
+    if(calcChart) calcChart.destroy();
+    chartDefaults();
+    const labelsY=[], dataCapital=[], dataTotal=[];
+    for (let y=0; y<=duree; y++) {
+        labelsY.push(y===0?'Aujourd\'hui':'An '+y);
+        const ny=y*12;
+        let vt;
+        if(tauxM===0){vt=capital+mensuel*ny;}
+        else{const f=Math.pow(1+tauxM,ny);vt=capital*f+mensuel*(f-1)/tauxM;}
+        dataCapital.push(+(capital+mensuel*ny).toFixed(0));
+        dataTotal.push(+vt.toFixed(0));
+    }
+    const ctx=canvas.getContext('2d');
+    calcChart = new Chart(ctx,{
+        type:'line',
+        data:{labels:labelsY,datasets:[
+            {label:'Valeur totale projetée',data:dataTotal,borderColor:'#00d4ff',backgroundColor:createGradient(ctx,'rgba(0,212,255,0.25)'),borderWidth:3,pointRadius:0,pointHoverRadius:6,pointHitRadius:20,tension:0.4,fill:true},
+            {label:'Capital + versements',data:dataCapital,borderColor:'#64748b',borderDash:[5,5],borderWidth:2,pointRadius:0,fill:false,tension:0.4}
+        ]},
+        options:{responsive:true,maintainAspectRatio:false,
+            interaction:{mode:'index',intersect:false},
+            plugins:{
+                datalabels:{display:false},
+                legend:{display:true,labels:{color:'#94a3b8',font:{size:12}}},
+                tooltip:{backgroundColor:'rgba(8,14,26,0.95)',titleFont:{size:12},bodyFont:{size:13,weight:'bold'},padding:12,
+                    callbacks:{label:ctx=>ctx.dataset.label+' : '+new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(ctx.parsed.y)}}
+            },
+            scales:{
+                y:{grid:{color:'rgba(255,255,255,0.05)',borderDash:[5,5]},ticks:{callback:v=>new Intl.NumberFormat('fr-FR',{notation:'compact',compactDisplay:'short'}).format(v)+' €',font:{size:11}}},
+                x:{grid:{display:false},ticks:{maxTicksLimit:duree+1,font:{size:10},autoSkip:true}}
+            }}
+    });
+    setTimeout(()=>enableDeltaClick(()=>calcChart,'calcChart','calc-delta','currency'),50);
+}
+
+function renderSuiviCharts() {
+    chartDefaults();
+    const all=appData.suiviManuel||[], data=filterSuivi(all,bcWindow), isPct=bcMode==='pct';
+    const mkTick=isPct?(v=>isIncognito?'***':(v>=0?'+':'')+v.toFixed(1)+'%'):(v=>isIncognito?'***':fmt0(v));
+    const mkTT=isPct?(c=>isIncognito?'***':(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+' %'):(c=>isIncognito?'***':fmtE2(c.parsed.y));
+    const labels=data.map(s=>new Date(s.date).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'2-digit'}));
+    const make=(id,inst,lbl,raw,color,grad)=>{
+        const cv=document.getElementById(id); if(!cv) return inst;
+        const ctx=cv.getContext('2d'); if(inst) inst.destroy();
+        return new Chart(ctx,{type:'line',data:{labels,datasets:[{label:lbl,data:isPct?toPct(raw):raw,borderColor:color,backgroundColor:createGradient(ctx,grad),borderWidth:2.5,pointRadius:0,pointHoverRadius:5,pointHitRadius:24,tension:0.4,fill:true}]},
+            options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+                plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(8,14,26,0.95)',titleFont:{size:12},bodyFont:{size:13,weight:'bold'},padding:10,callbacks:{label:mkTT}},datalabels:{display:false}},
+                scales:{y:{grid:{color:'rgba(255,255,255,0.05)',borderDash:[5,5]},ticks:{callback:mkTick,font:{size:11}}},x:{grid:{display:false},ticks:{maxTicksLimit:6,font:{size:10}}}}}});
+    };
+    chartTotal=make('chart-total',chartTotal,'Total',data.map(s=>s.total),'#00d4ff','rgba(0,212,255,0.4)');
+    chartCTO  =make('chart-cto',  chartCTO,  'CTO',  data.map(s=>s.cto),  '#00d4ff','rgba(0,212,255,0.2)');
+    chartPEA  =make('chart-pea',  chartPEA,  'PEA',  data.map(s=>s.pea),  '#00e5a0','rgba(0,229,160,0.2)');
+    chartPEE  =make('chart-pee',  chartPEE,  'PEE',  data.map(s=>s.pee),  '#f59e0b','rgba(245,158,11,0.2)');
+    setTimeout(()=>enableDeltaClick(()=>chartTotal,'chart-total','bc-total-delta','mixed'),50);
 }
 
 function mettreAJourGraphiqueLigne() {
-    const canvas = document.getElementById('historyChart');
-    if(!canvas) return; 
-    const ctx = canvas.getContext('2d'); 
-    if (historyChart) historyChart.destroy(); 
-    chartDefaults();
-    
-    const safeData = appData.suiviManuel || [];
-    const labels = safeData.map(s => new Date(s.date).toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'2-digit'}));
-    const dataTotal = safeData.map(s => s.total);
-
-    historyChart = new Chart(ctx, { 
-        type: 'line', 
-        data: { 
-            labels: labels, 
-            datasets: [ { 
-                label: 'Valeur Globale (Suivi)', 
-                data: dataTotal, 
-                borderColor: '#00d4ff', 
-                backgroundColor: createGradient(ctx, 'rgba(0,212,255,0.4)'), 
-                borderWidth: 3, 
-                pointRadius: safeData.length > 1 ? 0 : 4,
-                pointHoverRadius: 6,
-                tension: 0.4, 
-                fill: true 
-            } ] 
-        }, 
-        options: { 
-            responsive: true, maintainAspectRatio: false, 
-            layout: { padding: { left: 10, right: 20, top: 10, bottom: 10 } },
-            plugins: { 
-                datalabels:{display:false}, 
-                legend: { display: false }, 
-                tooltip: { backgroundColor: 'rgba(8, 14, 26, 0.9)', titleFont: {size: 13}, bodyFont: {size: 14, weight: 'bold'}, padding: 12, callbacks: { label: function(context) { return isIncognito ? context.dataset.label + ': ***' : context.dataset.label + ': ' + fmtE2(context.parsed.y); } } } 
-            }, 
-            scales: { 
-                y: { grid: { color: 'rgba(255, 255, 255, 0.05)', borderDash: [5, 5] }, ticks: { callback: function(value) { return isIncognito ? '***' : value; }, font: {size: 11} } }, 
-                x: { grid: { display: false }, ticks: { maxTicksLimit: 8, font: {size: 10} } } 
-            } 
-        } 
-    });
+    const canvas=document.getElementById('historyChart'); if(!canvas) return;
+    const ctx=canvas.getContext('2d'); if(historyChart) historyChart.destroy(); chartDefaults();
+    const all=appData.suiviManuel||[], filtered=filterSuivi(all,hcWindow), isPct=hcMode==='pct';
+    let disp,ttCb,tickCb;
+    if(isPct&&filtered.length>0){
+        disp=toPct(filtered.map(s=>s.total));
+        ttCb=c=>isIncognito?'***':(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+' %';
+        tickCb=v=>isIncognito?'***':(v>=0?'+':'')+v.toFixed(1)+'%';
+    }else{
+        disp=filtered.map(s=>s.total);
+        ttCb=c=>isIncognito?c.dataset.label+': ***':c.dataset.label+': '+fmtE2(c.parsed.y);
+        tickCb=v=>isIncognito?'***':v;
+    }
+    const labels=filtered.map(s=>new Date(s.date).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'2-digit'}));
+    historyChart=new Chart(ctx,{type:'line',data:{labels,datasets:[{label:'Valeur Globale',data:disp,borderColor:'#00d4ff',backgroundColor:createGradient(ctx,'rgba(0,212,255,0.4)'),borderWidth:3,pointRadius:0,pointHoverRadius:5,pointHitRadius:24,tension:0.4,fill:true}]},
+        options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},layout:{padding:{left:10,right:20,top:10,bottom:10}},
+            plugins:{datalabels:{display:false},legend:{display:false},tooltip:{backgroundColor:'rgba(8,14,26,0.95)',titleFont:{size:13},bodyFont:{size:14,weight:'bold'},padding:12,callbacks:{label:ttCb}}},
+            scales:{y:{grid:{color:'rgba(255,255,255,0.05)',borderDash:[5,5]},ticks:{callback:tickCb,font:{size:11}}},x:{grid:{display:false},ticks:{maxTicksLimit:8,font:{size:10}}}}}});
+    setTimeout(()=>enableDeltaClick(()=>historyChart,'historyChart','hc-delta','mixed'),50);
 }
 
 function mettreAJourGraphiqueSecteur(distribution) {
@@ -1263,7 +2462,6 @@ async function actualiserIndices() {
     const spinner = document.getElementById('indices-spinner'); 
     if (spinner) spinner.style.display = 'inline-block';
     
-    // API ULTRA RAPIDE : Range 1 jour uniquement
     const tickers = [ 
         { id: 'cac', sym: '^FCHI', elVal:'idx-cac-val', elYTD:'idx-cac-ytd', elAll:'idx-cac-all', refKey:'cac' }, 
         { id: 'sp', sym: '^GSPC', elVal:'idx-sp-val', elYTD:'idx-sp-ytd', elAll:'idx-sp-all', refKey:'sp' }, 
@@ -1273,8 +2471,6 @@ async function actualiserIndices() {
     ];
     
     const indicesData = {};
-    
-    // FETCH EN PARALLÈLE avec proxy de fallback
     const PROXIES = [
         url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
         url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
@@ -1289,7 +2485,7 @@ async function actualiserIndices() {
                 const d = await r.json();
                 const prix = d?.chart?.result?.[0]?.meta?.regularMarketPrice;
                 if (prix && prix > 0) return prix;
-            } catch(e) { /* try next proxy */ }
+            } catch(e) {}
         }
         return null;
     }
@@ -1301,14 +2497,12 @@ async function actualiserIndices() {
             if (prix === null) throw new Error('Tous les proxies ont échoué');
             indicesData[t.id] = { current: prix };
             
-            // On récupère les valeurs manuellement saisies dans l'onglet Réf.
             const refOrig = appData.indicesRef[t.refKey]?.orig;
             const refYTD = appData.indicesRef[t.refKey]?.ytd;
 
             const elVal = document.getElementById(t.elVal); 
             if (elVal) elVal.textContent = fmt0(prix);
             
-            // Calcul YTD
             const elYTD = document.getElementById(t.elYTD);
             if (elYTD) { 
                 if (refYTD && refYTD > 0) { 
@@ -1322,7 +2516,6 @@ async function actualiserIndices() {
                 } 
             }
             
-            // Calcul Origine
             const elAll = document.getElementById(t.elAll);
             if (elAll) { 
                 if (refOrig && refOrig > 0) { 
@@ -1340,12 +2533,10 @@ async function actualiserIndices() {
         }
     }));
     
-    // PORTFOLIO COMPARISON
     const pVal = document.getElementById('idx-p-val'); 
     const portCurrentValue = perfsActuelles.global.actuel;
     if (pVal) pVal.innerHTML = W(fmtE0(portCurrentValue));
     
-    // Récupération des Réf. Manuelles du Portefeuille
     const portRefOrig = appData.indicesRef['port']?.orig;
     const portRefYTD = appData.indicesRef['port']?.ytd;
 
@@ -1375,14 +2566,18 @@ async function actualiserIndices() {
         }
     }
     
-    renderIndicesChart(indicesData, portYTD); 
-    renderIndicesOrigineChart(indicesData, portAllPct);
-    if (spinner) spinner.style.display = 'none';
+    let portMonthlyPct=null;
+    const portRefMois=appData.references?.mois?.global?.v;
+    if(portRefMois&&portRefMois>0) portMonthlyPct=(portCurrentValue-portRefMois)/portRefMois*100;
+    renderIndicesChart(indicesData,portYTD);
+    renderIndicesOrigineChart(indicesData,portAllPct);
+    renderIndicesMonthlyChart(indicesData,portMonthlyPct);
+    setIdxView(idxView);
+    if(spinner) spinner.style.display='none';
 }
 
 function buildBarChartOptions(data, colors) {
     const maxAbs = Math.max(...data.map(Math.abs), 0.01);
-    // Label color: dark if bar is light (cyan), white otherwise
     const labelColors = data.map((v, i) => colors[i].includes('0,212,255') ? '#000d1a' : '#ffffff');
 
     return {
@@ -1404,22 +2599,19 @@ function buildBarChartOptions(data, colors) {
                 datalabels: {
                     font: { weight: 'bold', size: 12 },
                     formatter: v => v === 0 ? '' : signe(v) + Math.abs(v).toFixed(2) + '%',
-                    // Pour les positifs : après la barre à droite
-                    // Pour les négatifs : après le zéro à droite (anchor end du côté positif = start de la barre négative inversée)
                     anchor: 'end',
                     align: ctx => {
                         const v = ctx.dataset.data[ctx.dataIndex];
-                        return v >= 0 ? 'right' : 'left'; // négatif: 'left' = côté zéro sur axe horizontal inversé
+                        return v >= 0 ? 'right' : 'left'; 
                     },
                     offset: ctx => {
                         const v = ctx.dataset.data[ctx.dataIndex];
-                        // Pour les négatifs, on pousse le label au-delà du zéro
                         if (v < 0) {
                             const chart = ctx.chart;
                             const xScale = chart.scales.x;
                             const zeroX = xScale.getPixelForValue(0);
                             const barEnd = xScale.getPixelForValue(v);
-                            return zeroX - barEnd + 6; // distance de la fin de barre jusqu'au zéro + marge
+                            return zeroX - barEnd + 6; 
                         }
                         return 6;
                     },
@@ -1436,7 +2628,6 @@ function buildBarChartOptions(data, colors) {
                 x: {
                     grid: { color: 'rgba(255,255,255,0.04)', borderDash: [4, 4] },
                     ticks: { callback: v => v + '%', font: { size: 10 }, color: '#64748b' },
-                    // Force x-axis max/min to leave room for labels
                     afterDataLimits: axis => {
                         const extra = maxAbs * 0.32;
                         if (axis.max > 0) axis.max += extra;
@@ -1448,13 +2639,37 @@ function buildBarChartOptions(data, colors) {
                     ticks: {
                         font: { size: 11 },
                         color: '#94a3b8',
-                        // Add padding so label text is away from bar
                         padding: 8
                     }
                 }
             }
         }
     };
+}
+
+
+function renderIndicesMonthlyChart(indicesData, portMonthlyPct) {
+    chartDefaults();
+    const ctx=document.getElementById('indicesMonthlyChart'); if(!ctx) return;
+    if(indicesMonthlyChart) indicesMonthlyChart.destroy();
+    const labels=[],data=[],colors=[];
+    const maps=[{key:'cac',label:'CAC 40'},{key:'sp',label:'S&P 500'},{key:'msci',label:'MSCI World'},{key:'ndx',label:'Nasdaq 100'},{key:'estx50',label:'Eurostoxx 50'}];
+    if(portMonthlyPct!==null&&portMonthlyPct!==undefined){labels.push('Mon Portefeuille');data.push(+portMonthlyPct.toFixed(2));colors.push(portMonthlyPct>=0?'rgba(0,212,255,0.85)':'rgba(255,77,109,0.75)');}
+    else{labels.push('Mon Portefeuille');data.push(0);colors.push('rgba(255,255,255,0.06)');}
+    maps.forEach(m=>{
+        const cur=indicesData[m.key]?.current,ref=appData.indicesRef[m.key]?.mois;
+        if(cur&&ref&&ref>0){const p=(cur-ref)/ref*100;labels.push(m.label);data.push(+p.toFixed(2));colors.push(p>=0?'rgba(0,229,160,0.75)':'rgba(255,77,109,0.75)');}
+        else{labels.push(m.label);data.push(0);colors.push('rgba(255,255,255,0.06)');}
+    });
+    const opts=buildBarChartOptions(data,colors); opts.data.labels=labels;
+    // Hauteur adaptative selon le nombre de barres
+    const nbBars = labels.length;
+    const barH = Math.max(32, Math.min(52, Math.floor((window.innerHeight * 0.5) / Math.max(nbBars,1))));
+    const totalH = Math.max(200, Math.min(420, nbBars * barH + 40));
+    ctx.parentElement.style.minHeight = totalH + 'px';
+    ctx.style.height = totalH + 'px';
+    indicesMonthlyChart=new Chart(ctx.getContext('2d'),opts);
+    setTimeout(()=>enableBarDeltaClick(()=>indicesMonthlyChart,'indicesMonthlyChart','idx-monthly-delta','idx-monthly-delta-badge'),50);
 }
 
 function renderIndicesChart(indicesData, portYTD) {
@@ -1495,7 +2710,13 @@ function renderIndicesChart(indicesData, portYTD) {
 
     const opts = buildBarChartOptions(data, colors);
     opts.data.labels = labels;
+    const nbBars2 = labels.length;
+    const barH2 = Math.max(32, Math.min(52, Math.floor((window.innerHeight * 0.5) / Math.max(nbBars2,1))));
+    const totalH2 = Math.max(200, Math.min(420, nbBars2 * barH2 + 40));
+    ctx.parentElement.style.minHeight = totalH2 + 'px';
+    ctx.style.height = totalH2 + 'px';
     indicesChart = new Chart(ctx.getContext('2d'), opts);
+    setTimeout(()=>enableBarDeltaClick(()=>indicesChart,'indicesChart','idx-ytd-delta','idx-ytd-delta-badge'),50);
 }
 
 function renderIndicesOrigineChart(indicesData, portAllPct) {
@@ -1539,7 +2760,6 @@ function renderIndicesOrigineChart(indicesData, portAllPct) {
     indicesOrigineChart = new Chart(ctx.getContext('2d'), opts);
 }
 
-// ─── AUTO CALC REFERENCES ───
 window.autoCalcRef = function() {
     const getV = id => { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; };
     const origTotal = getV('ref-orig-cto-app') + getV('ref-orig-pea-app') + getV('ref-orig-pee-app');
@@ -1571,9 +2791,11 @@ function chargerFormulaireReferencesIndices() {
     ['port','cac','sp','msci','ndx','estx50'].forEach(k => { 
         const origEl = document.getElementById(`ref-${k}-orig`); 
         if (origEl) origEl.value = r[k]?.orig ?? ''; 
-        const ytdEl = document.getElementById(`ref-${k}-ytd`); 
-        if (ytdEl) ytdEl.value = r[k]?.ytd ?? '';
-    }); 
+        const ytdEl=document.getElementById(`ref-${k}-ytd`);
+        if(ytdEl) ytdEl.value=r[k]?.ytd??'';
+        const moisEl=document.getElementById(`ref-${k}-mois`);
+        if(moisEl) moisEl.value=r[k]?.mois??'';
+    });
 }
 
 window.sauvegarderReferences = function() {
@@ -1598,8 +2820,10 @@ window.sauvegarderReferencesIndices = function() {
         const orig = parseFloat(document.getElementById(`ref-${k}-orig`)?.value) || null; 
         const ytd = parseFloat(document.getElementById(`ref-${k}-ytd`)?.value) || null; 
         if(!appData.indicesRef[k]) appData.indicesRef[k] = {};
-        appData.indicesRef[k].orig = orig; 
-        appData.indicesRef[k].ytd = ytd; 
+        appData.indicesRef[k].orig=orig;
+        appData.indicesRef[k].ytd=ytd;
+        const moisV=parseFloat(document.getElementById(`ref-${k}-mois`)?.value)||null;
+        appData.indicesRef[k].mois=moisV;
     }); 
     localStorage.setItem('portefeuilleV43', JSON.stringify(appData)); 
     toast('Références indices enregistrées !'); 
@@ -1664,60 +2888,278 @@ function calculerPerformancesYTD_Mois() {
     }
 }
 
-document.getElementById('form-bourse').addEventListener('submit', function(e) {
-    e.preventDefault(); 
-    const ticker = document.getElementById('ticker').value; 
-    const quantite = parseFloat(document.getElementById('quantite').value); 
-    const mode = document.querySelector('input[name="modeSaisie"]:checked').value; 
-    const dateAchat = document.getElementById('dateAchat').value; 
-    const secteur = document.getElementById('secteur').value; 
-    const dividendes = parseFloat(document.getElementById('dividendes').value) || 0;
-    
-    let prixAchatFinal = 0; let fraisAbsoluFinal = 0;
-    if (mode === 'detail') { 
-        const prixAchat = parseFloat(document.getElementById('prixAchat').value); 
-        prixAchatFinal = prixAchat; 
-        fraisAbsoluFinal = (quantite * prixAchat) * ((parseFloat(document.getElementById('fraisPourcent').value) || 0) / 100); 
-    } else { 
-        prixAchatFinal = parseFloat(document.getElementById('pruDirect').value); 
-        fraisAbsoluFinal = 0; 
+// ─── CALCUL DES STATISTIQUES ───
+let statRollingChart = null, statContribChart = null, statDDChart = null;
+
+function calculerStats() {
+    const fmtE  = v => new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(v);
+    const fmtPct = v => (v>=0?'+':'')+v.toFixed(2)+' %';
+    const fmtPctRaw = v => v.toFixed(2)+' %';
+
+    const sortedSuivi = [...(appData.suiviManuel||[])].sort((a,b)=>new Date(a.date)-new Date(b.date));
+
+    // ── Helper : stats série temporelle
+    function calcSeriesStats(fn) {
+        let peak=0, maxDD=0, bestDay=0, worstDay=0, returns=[], ddSeries=[];
+        for(let i=0;i<sortedSuivi.length;i++){
+            const v=fn(sortedSuivi[i]);
+            if(v>peak) peak=v;
+            const dd = peak>0?(v-peak)/peak:0;
+            ddSeries.push(dd*100);
+            if(dd<maxDD) maxDD=dd;
+            if(i>0){
+                const prev=fn(sortedSuivi[i-1]);
+                const r=prev>0?(v-prev)/prev:0;
+                returns.push(r);
+                if(r>bestDay) bestDay=r;
+                if(r<worstDay) worstDay=r;
+            }
+        }
+        let vol=0, mean=0;
+        if(returns.length>0){
+            mean=returns.reduce((a,b)=>a+b,0)/returns.length;
+            const varR=returns.reduce((a,b)=>a+Math.pow(b-mean,2),0)/returns.length;
+            vol=Math.sqrt(varR)*Math.sqrt(252);
+        }
+        // Rolling 30j
+        const rolling30=returns.slice(-30).map((r,i,a)=>{
+            const slice=a.slice(Math.max(0,i-29),i+1);
+            return slice.reduce((s,v)=>s+v,0)*100;
+        });
+        // Streak positif courant
+        let streak=0;
+        for(let i=returns.length-1;i>=0;i--){
+            if(returns[i]>0) streak++; else break;
+        }
+        const annRet=mean*252;
+        const riskFree=0.03;
+        const sharpe=vol>0?(annRet-riskFree)/vol:0;
+        const calmar=maxDD<0?annRet/Math.abs(maxDD):0;
+        return {maxDD, bestDay, worstDay, vol, returns, rolling30, ddSeries, sharpe, calmar, streak, annRet};
     }
-    
-    appData[ongletActif].push({ ticker: ticker, nom: ticker, quantite: quantite, prixAchat: prixAchatFinal, frais: fraisAbsoluFinal, prixActuel: prixAchatFinal, dateAchat: dateAchat, secteur: secteur, dividendes: dividendes }); 
-    mettreAJourAffichage(); sauvegarderHistorique();
-    
-    document.getElementById('ticker').value = ''; document.getElementById('quantite').value = ''; document.getElementById('dividendes').value = '0'; document.getElementById('ticker').focus(); 
-    toast(`Position ajoutée !`);
-});
 
-document.querySelectorAll('input[name="modeSaisie"]').forEach(radio => { radio.addEventListener('change', (e) => { const gPrix = document.getElementById('group-prixAchat'); const gFrais = document.getElementById('group-frais'); const gPru = document.getElementById('group-pru'); if(e.target.value === 'pru') { gPrix.style.display = 'none'; gFrais.style.display = 'none'; gPru.style.display = 'flex'; document.getElementById('prixAchat').required = false; document.getElementById('pruDirect').required = true; } else { gPrix.style.display = 'flex'; gFrais.style.display = 'flex'; gPru.style.display = 'none'; document.getElementById('prixAchat').required = true; document.getElementById('pruDirect').required = false; } }); });
+    const statG=calcSeriesStats(s=>s.total);
+    const statC=calcSeriesStats(s=>s.cto);
+    const statP=calcSeriesStats(s=>s.pea);
+    const statE=calcSeriesStats(s=>s.pee);
 
-window.supprimerActionBourse = function(index) { if(confirm(`Supprimer cette ligne ?`)) { appData[ongletActif].splice(index, 1); mettreAJourAffichage(); sauvegarderHistorique(); toast("Ligne supprimée"); } };
-window.supprimerActionPEE = function(index) { if(confirm(`Supprimer cette évaluation ?`)) { appData.PEE.splice(index, 1); mettreAJourAffichage(); sauvegarderHistorique(); toast("Évaluation supprimée");} };
+    // ── CAGR depuis le 1er suivi
+    let cagr=0, twrr=0;
+    if(sortedSuivi.length>=2){
+        const v0=sortedSuivi[0].total, vN=sortedSuivi[sortedSuivi.length-1].total;
+        const days=(new Date(sortedSuivi[sortedSuivi.length-1].date)-new Date(sortedSuivi[0].date))/(1000*60*60*24);
+        const years=days/365;
+        if(v0>0&&years>0) cagr=(Math.pow(vN/v0,1/years)-1)*100;
+        // TWRR approx = produit des rendements journaliers
+        twrr=(statG.returns.reduce((p,r)=>p*(1+r),1)-1)*100;
+    }
 
-// ─── FORM PEE SUBMIT (fix: était manquant) ───
-document.getElementById('form-pee').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const date = document.getElementById('pee-date').value;
-    const investi = parseFloat(document.getElementById('pee-investi').value);
-    const actuel = parseFloat(document.getElementById('pee-actuel').value);
-    if (!date || isNaN(investi) || isNaN(actuel)) { toast('Veuillez remplir tous les champs', 'error'); return; }
-    appData.PEE.push({ date, investi, actuel });
-    mettreAJourAffichage(); sauvegarderHistorique();
-    document.getElementById('pee-investi').value = '';
-    document.getElementById('pee-actuel').value = '';
-    document.getElementById('pee-date').valueAsDate = new Date();
-    toast('Évaluation PEE enregistrée !');
-});
+    // ── Durée de détention (actif le plus ancien)
+    let oldestDate=null;
+    ['CTO','PEA'].forEach(env=>{
+        (appData[env]||[]).forEach(a=>{
+            if(a.dateAchat){
+                const d=new Date(a.dateAchat);
+                if(!oldestDate||d<oldestDate) oldestDate=d;
+            }
+        });
+    });
+    let dureeStr='—';
+    if(oldestDate){
+        const diff=new Date()-oldestDate;
+        const yrs=Math.floor(diff/(1000*60*60*24*365));
+        const mths=Math.floor((diff%(1000*60*60*24*365))/(1000*60*60*24*30));
+        dureeStr=`${yrs>0?yrs+'a ':''} ${mths}m`;
+    }
 
-// ─── TOGGLE HISTORIQUE SAISIE JOURNALIÈRE ───
+    // ── Dividendes totaux
+    let divTotal=0, divInvesti=0;
+    ['CTO','PEA'].forEach(env=>{
+        (appData[env]||[]).forEach(a=>{
+            divTotal+=(a.dividendes||0);
+            divInvesti+=(a.quantite*a.prixAchat)+(a.frais||0);
+        });
+    });
+    const divYield=divInvesti>0?divTotal/divInvesti*100:0;
+
+    // ── Perf YTD / Mois depuis références
+    const refYTD=appData.references?.ytd?.global?.v||0;
+    const refMois=appData.references?.mois?.global?.v||0;
+    const valNow=perfsActuelles.global.actuel||0;
+    const perfYTD=refYTD>0?(valNow-refYTD)/refYTD*100:0;
+    const perfMois=refMois>0?(valNow-refMois)/refMois*100:0;
+
+    // ── KPIs globaux ligne 1
+    const el=id=>document.getElementById(id);
+    const set=(id,txt,col)=>{const e=el(id);if(e){e.textContent=txt;if(col)e.style.color=col;}};
+
+    set('st-val-total', fmtE(valNow));
+    const pv=perfsActuelles.global.perf||0;
+    set('st-pv-total', (pv>=0?'+':'')+fmtE(pv), pv>=0?'var(--success)':'var(--danger)');
+    const pvPct=perfsActuelles.global.actuel>0&&perfsActuelles.global.apports>0?(pv/perfsActuelles.global.apports)*100:0;
+    set('st-perf-pct', fmtPct(pvPct), pvPct>=0?'var(--success)':'var(--danger)');
+    set('st-investi', fmtE(perfsActuelles.global.apports));
+    set('st-div-total', '+'+fmtE(divTotal));
+    set('st-duree', dureeStr);
+
+    // ── Risque
+    set('st-g-dd',    fmtPctRaw(statG.maxDD*100),  statG.maxDD<0?'var(--danger)':'');
+    set('st-g-vol',   fmtPctRaw(statG.vol*100));
+    set('st-g-sharpe',statG.sharpe.toFixed(2),      statG.sharpe>=1?'var(--success)':statG.sharpe<0?'var(--danger)':'var(--accent3)');
+    set('st-g-best',  '+'+fmtPctRaw(statG.bestDay*100), 'var(--success)');
+    set('st-g-worst', fmtPctRaw(statG.worstDay*100), 'var(--danger)');
+    set('st-g-calmar', statG.calmar.toFixed(2),      statG.calmar>=1?'var(--success)':statG.calmar<0?'var(--danger)':'var(--accent3)');
+
+    // ── Risque par enveloppe (tableau)
+    const envRows=el('st-env-risk-rows');
+    if(envRows){
+        const envs=[
+            {lbl:'Global',  st:statG, col:'var(--text)'},
+            {lbl:'CTO',     st:statC, col:'var(--cto)'},
+            {lbl:'PEA',     st:statP, col:'var(--pea)'},
+            {lbl:'PEE',     st:statE, col:'var(--pee)'},
+        ];
+        envRows.innerHTML=envs.map(e=>`
+            <div style="display:grid;grid-template-columns:60px 1fr 1fr 1fr;gap:6px;padding:6px 8px;background:var(--surface3);border-radius:7px;font-size:0.82em;align-items:center;">
+                <span style="font-weight:700;color:${e.col};">${e.lbl}</span>
+                <span style="text-align:center;color:var(--danger);">${fmtPctRaw(e.st.maxDD*100)}</span>
+                <span style="text-align:center;">${fmtPctRaw(e.st.vol*100)}</span>
+                <span style="text-align:center;color:${e.st.sharpe>=1?'var(--success)':e.st.sharpe<0?'var(--danger)':'var(--accent3)'};">${e.st.sharpe.toFixed(2)}</span>
+            </div>`).join('')+`
+            <div style="display:grid;grid-template-columns:60px 1fr 1fr 1fr;gap:6px;padding:3px 8px;font-size:0.7em;color:var(--muted);align-items:center;">
+                <span></span><span style="text-align:center;">Drawdown</span><span style="text-align:center;">Volatilité</span><span style="text-align:center;">Sharpe</span>
+            </div>`;
+    }
+
+    // ── Croissance
+    set('st-cagr',     cagr.toFixed(2)+' %/an',  cagr>=0?'var(--success)':'var(--danger)');
+    set('st-twrr',     fmtPct(twrr));
+    set('st-rdt-div',  divYield.toFixed(2)+' %');
+    set('st-perf-ytd', fmtPct(perfYTD),           perfYTD>=0?'var(--success)':'var(--danger)');
+    set('st-perf-mois',fmtPct(perfMois),           perfMois>=0?'var(--success)':'var(--danger)');
+    set('st-streak',   statG.streak+' j',          statG.streak>=3?'var(--success)':'');
+
+    // ── Allocation par enveloppe (barres)
+    const allocRows=el('st-alloc-rows');
+    if(allocRows&&valNow>0){
+        const envsAlloc=[
+            {lbl:'CTO', val:perfsActuelles.CTO.actuel, col:'var(--cto)'},
+            {lbl:'PEA', val:perfsActuelles.PEA.actuel, col:'var(--pea)'},
+            {lbl:'PEE', val:perfsActuelles.PEE.actuel, col:'var(--pee)'},
+        ];
+        allocRows.innerHTML=envsAlloc.map(e=>{
+            const pct=valNow>0?e.val/valNow*100:0;
+            return `<div style="display:flex;flex-direction:column;gap:2px;">
+                <div style="display:flex;justify-content:space-between;font-size:0.82em;margin-bottom:1px;">
+                    <span style="color:${e.col};font-weight:700;">${e.lbl}</span>
+                    <span style="font-family:'DM Mono',monospace;">${pct.toFixed(1)}% · ${fmtE(e.val)}</span>
+                </div>
+                <div style="height:5px;background:var(--surface3);border-radius:3px;overflow:hidden;">
+                    <div style="height:100%;width:${pct}%;background:${e.col};border-radius:3px;transition:width 0.5s;"></div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    // ── Graphiques
+    renderStatDist(statG.returns);
+    renderStatRolling(sortedSuivi, statG.returns);
+    renderStatContrib();
+    renderStatDD(sortedSuivi, statG.ddSeries);
+}
+
+function renderStatDist(returns) {
+    const ctx=document.getElementById('statDistChart'); if(!ctx) return;
+    if(statDistChart) statDistChart.destroy();
+    chartDefaults();
+    const bins={'< −2%':0,'−2 à −1%':0,'−1 à 0%':0,'0 à 1%':0,'1 à 2%':0,'> 2%':0};
+    returns.forEach(r=>{
+        const p=r*100;
+        if(p<-2) bins['< −2%']++;
+        else if(p<-1) bins['−2 à −1%']++;
+        else if(p<0)  bins['−1 à 0%']++;
+        else if(p<1)  bins['0 à 1%']++;
+        else if(p<2)  bins['1 à 2%']++;
+        else          bins['> 2%']++;
+    });
+    statDistChart=new Chart(ctx.getContext('2d'),{
+        type:'bar',
+        data:{labels:Object.keys(bins),datasets:[{data:Object.values(bins),backgroundColor:['#ff4d6d','#ff7b93','#fbbf24','#33ebb5','#00e5a0','#00d4ff'],borderRadius:5}]},
+        options:{responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{display:false},datalabels:{display:true,color:'#94a3b8',font:{size:10},formatter:v=>v||''},tooltip:{callbacks:{label:c=>c.parsed.y+' jours'}}},
+            scales:{y:{grid:{color:'rgba(255,255,255,0.05)',borderDash:[5,5]},ticks:{color:'#64748b',font:{size:10}}},x:{grid:{display:false},ticks:{color:'#64748b',font:{size:10}}}}}
+    });
+}
+
+function renderStatRolling(sortedSuivi, returns) {
+    const ctx=document.getElementById('statRollingChart'); if(!ctx) return;
+    if(statRollingChart) statRollingChart.destroy();
+    chartDefaults();
+    if(returns.length<2) return;
+    const window30=30;
+    const data=[], labels=[];
+    for(let i=window30;i<=returns.length;i++){
+        const slice=returns.slice(i-window30,i);
+        const cum=(slice.reduce((p,r)=>p*(1+r),1)-1)*100;
+        data.push(+cum.toFixed(2));
+        if(sortedSuivi[i]) labels.push(new Date(sortedSuivi[i].date).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}));
+        else labels.push('');
+    }
+    const colors=data.map(v=>v>=0?'rgba(0,229,160,0.8)':'rgba(255,77,109,0.8)');
+    statRollingChart=new Chart(ctx.getContext('2d'),{
+        type:'bar',
+        data:{labels,datasets:[{data,backgroundColor:colors,borderRadius:3}]},
+        options:{responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{display:false},datalabels:{display:false},tooltip:{callbacks:{label:c=>(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+' %'}}},
+            scales:{y:{grid:{color:'rgba(255,255,255,0.05)',borderDash:[5,5]},ticks:{color:'#64748b',font:{size:10},callback:v=>v+'%'}},
+                x:{grid:{display:false},ticks:{color:'#64748b',font:{size:9},maxTicksLimit:10}}}}
+    });
+}
+
+function renderStatContrib() {
+    const ctx=document.getElementById('statContribChart'); if(!ctx) return;
+    if(statContribChart) statContribChart.destroy();
+    chartDefaults();
+    const data=[
+        {lbl:'CTO', val:perfsActuelles.CTO.perf||0,  col:'rgba(0,212,255,0.75)'},
+        {lbl:'PEA', val:perfsActuelles.PEA.perf||0,  col:'rgba(0,229,160,0.75)'},
+        {lbl:'PEE', val:perfsActuelles.PEE.perf||0,  col:'rgba(245,158,11,0.75)'},
+    ];
+    statContribChart=new Chart(ctx.getContext('2d'),{
+        type:'bar',
+        data:{labels:data.map(d=>d.lbl),datasets:[{data:data.map(d=>d.val),backgroundColor:data.map(d=>d.col),borderRadius:6}]},
+        options:{responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{display:false},datalabels:{display:true,color:'#94a3b8',font:{size:11,weight:'bold'},formatter:v=>v>=0?'+'+Math.round(v)+'€':Math.round(v)+'€'},
+                tooltip:{callbacks:{label:c=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(c.parsed.y)}}},
+            scales:{y:{grid:{color:'rgba(255,255,255,0.05)',borderDash:[5,5]},ticks:{color:'#64748b',font:{size:10},callback:v=>Math.round(v/1000)+'k€'}},
+                x:{grid:{display:false},ticks:{color:'#94a3b8',font:{size:11}}}}}
+    });
+}
+
+function renderStatDD(sortedSuivi, ddSeries) {
+    const ctx=document.getElementById('statDDChart'); if(!ctx) return;
+    if(statDDChart) statDDChart.destroy();
+    chartDefaults();
+    if(ddSeries.length<2) return;
+    const labels=sortedSuivi.slice(0,ddSeries.length).map(s=>new Date(s.date).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'2-digit'}));
+    statDDChart=new Chart(ctx.getContext('2d'),{
+        type:'line',
+        data:{labels,datasets:[{data:ddSeries,borderColor:'#ff4d6d',backgroundColor:'rgba(255,77,109,0.15)',borderWidth:1.5,pointRadius:0,pointHoverRadius:4,tension:0.3,fill:true}]},
+        options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+            plugins:{legend:{display:false},datalabels:{display:false},
+                tooltip:{backgroundColor:'rgba(8,14,26,0.95)',callbacks:{label:c=>c.parsed.y.toFixed(2)+' %'}}},
+            scales:{y:{grid:{color:'rgba(255,255,255,0.05)',borderDash:[5,5]},ticks:{color:'#64748b',font:{size:10},callback:v=>v+'%'},max:0},
+                x:{grid:{display:false},ticks:{color:'#64748b',font:{size:9},maxTicksLimit:8}}}}
+    });
+}
+
 window.toggleSaisieJournaliere = function() {
     const body = document.getElementById('saisie-journaliere-body');
     const icon = document.getElementById('saisie-toggle-icon');
     const header = document.getElementById('saisie-toggle-header');
     const isHidden = body.style.display === 'none';
     body.style.display = isHidden ? 'block' : 'none';
-    icon.textContent = isHidden ? '▲ Masquer' : '▼ Afficher';
+    icon.textContent = isHidden ? 'Masquer' : 'Afficher';
     icon.style.color = isHidden ? 'var(--accent)' : 'var(--muted)';
     icon.style.background = isHidden ? 'rgba(0,212,255,0.08)' : 'var(--surface3)';
     icon.style.borderColor = isHidden ? 'rgba(0,212,255,0.25)' : 'var(--border)';
