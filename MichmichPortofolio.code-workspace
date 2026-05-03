@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "meteo-dashboard",
+			"path": "../meteo-dashboard"
+		}
+	],
+	"settings": {}
+}
