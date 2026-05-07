@@ -672,7 +672,7 @@
                 </div>
                 <div style="position:relative;" id="idx-ytd-wrap">
                     <canvas id="indicesChart"       style="width:100%;"></canvas>
-                    <canvas id="indicesOrigineChart" style="width:100%;display:none;position:absolute;top:0;left:0;"></canvas>
+                    <canvas id="indicesOrigineChart" style="width:100%;height:100%;display:none;position:absolute;top:0;left:0;"></canvas>
                     <div class="delta-tooltip" id="idx-ytd-delta" style="display:none;top:6px;right:0;left:auto;transform:none;"></div>
                 </div>
             </div>
@@ -1860,9 +1860,9 @@ function changerOnglet(nom) {
         const el_pee  = document.getElementById('suivi-pee');
         const el_cash = document.getElementById('suivi-cash');
         const el_date = document.getElementById('suivi-date');
-        if (el_cto)  el_cto.value  = perfsActuelles.CTO.actuel  > 0 ? (perfsActuelles.CTO.actuel  / 1000).toFixed(2) : '';
-        if (el_pea)  el_pea.value  = perfsActuelles.PEA.actuel  > 0 ? (perfsActuelles.PEA.actuel  / 1000).toFixed(2) : '';
-        if (el_pee)  el_pee.value  = perfsActuelles.PEE.actuel  > 0 ? (perfsActuelles.PEE.actuel  / 1000).toFixed(2) : '';
+        if (el_cto)  el_cto.value  = perfsActuelles.CTO.actuel  > 0 ? perfsActuelles.CTO.actuel.toFixed(2)  : '';
+        if (el_pea)  el_pea.value  = perfsActuelles.PEA.actuel  > 0 ? perfsActuelles.PEA.actuel.toFixed(2)  : '';
+        if (el_pee)  el_pee.value  = perfsActuelles.PEE.actuel  > 0 ? perfsActuelles.PEE.actuel.toFixed(2)  : '';
         if (el_cash) el_cash.value = '0'; 
         if (el_date) el_date.valueAsDate = new Date();
     } 
@@ -2666,7 +2666,7 @@ function renderIndicesMonthlyChart(indicesData, portMonthlyPct) {
     const nbBars = labels.length;
     const barH = Math.max(32, Math.min(52, Math.floor((window.innerHeight * 0.5) / Math.max(nbBars,1))));
     const totalH = Math.max(200, Math.min(420, nbBars * barH + 40));
-    ctx.parentElement.style.minHeight = totalH + 'px';
+    ctx.parentElement.style.height = totalH + 'px';
     ctx.style.height = totalH + 'px';
     indicesMonthlyChart=new Chart(ctx.getContext('2d'),opts);
     setTimeout(()=>enableBarDeltaClick(()=>indicesMonthlyChart,'indicesMonthlyChart','idx-monthly-delta','idx-monthly-delta-badge'),50);
@@ -2713,7 +2713,7 @@ function renderIndicesChart(indicesData, portYTD) {
     const nbBars2 = labels.length;
     const barH2 = Math.max(32, Math.min(52, Math.floor((window.innerHeight * 0.5) / Math.max(nbBars2,1))));
     const totalH2 = Math.max(200, Math.min(420, nbBars2 * barH2 + 40));
-    ctx.parentElement.style.minHeight = totalH2 + 'px';
+    ctx.parentElement.style.height = totalH2 + 'px';
     ctx.style.height = totalH2 + 'px';
     indicesChart = new Chart(ctx.getContext('2d'), opts);
     setTimeout(()=>enableBarDeltaClick(()=>indicesChart,'indicesChart','idx-ytd-delta','idx-ytd-delta-badge'),50);
@@ -2757,6 +2757,11 @@ function renderIndicesOrigineChart(indicesData, portAllPct) {
 
     const opts = buildBarChartOptions(data, colors);
     opts.data.labels = labels;
+    const nbBarsO = labels.length;
+    const barHO = Math.max(32, Math.min(52, Math.floor((window.innerHeight * 0.5) / Math.max(nbBarsO,1))));
+    const totalHO = Math.max(200, Math.min(420, nbBarsO * barHO + 40));
+    ctx.parentElement.style.height = totalHO + 'px';
+    ctx.style.height = totalHO + 'px';
     indicesOrigineChart = new Chart(ctx.getContext('2d'), opts);
 }
 
@@ -2832,7 +2837,7 @@ window.sauvegarderReferencesIndices = function() {
 
 function sauvegarderHistorique() {
     const todayStr = new Date().toLocaleDateString('fr-FR'); 
-    const newEntry = { date: todayStr, global: { valeur: perfsActuelles.global.actuel, apports: perfsActuelles.global.apports, investi: perfsActuelles.global.investi, perf: perfsActuelles.global.perf }, CTO: { valeur: perfsActuelles.CTO.actuel + perfsActuelles.CTO.cash, investi: perfsActuelles.CTO.investi, perf: perfsActuelles.CTO.perf, apports: perfsActuelles.CTO.apports }, PEA: { valeur: perfsActuelles.PEA.actuel + perfsActuelles.PEA.cash, investi: perfsActuelles.PEA.investi, perf: perfsActuelles.PEA.perf, apports: perfsActuelles.PEA.apports }, PEE: { valeur: perfsActuelles.PEE.actuel, investi: perfsActuelles.PEE.investi, perf: perfsActuelles.PEE.perf, apports: perfsActuelles.PEE.apports } };
+    const newEntry = { date: todayStr, global: { valeur: perfsActuelles.global.actuel, apports: perfsActuelles.global.apports, investi: perfsActuelles.global.investi, perf: perfsActuelles.global.perf }, CTO: { valeur: perfsActuelles.CTO.actuel, investi: perfsActuelles.CTO.investi, perf: perfsActuelles.CTO.perf, apports: perfsActuelles.CTO.apports }, PEA: { valeur: perfsActuelles.PEA.actuel, investi: perfsActuelles.PEA.investi, perf: perfsActuelles.PEA.perf, apports: perfsActuelles.PEA.apports }, PEE: { valeur: perfsActuelles.PEE.actuel, investi: perfsActuelles.PEE.investi, perf: perfsActuelles.PEE.perf, apports: perfsActuelles.PEE.apports } };
     if (historiqueData.length > 0 && historiqueData[historiqueData.length - 1].date === todayStr) historiqueData[historiqueData.length - 1] = newEntry; 
     else historiqueData.push(newEntry);
     if (historiqueData.length > 365) historiqueData.shift();
@@ -2873,7 +2878,7 @@ function calculerPerformancesYTD_Mois() {
             updatePerfDisplay(boxId, valId, pctId, null, 0); return;
         }
 
-        const valActuelle = dataKey === 'global' ? perfsActuelles.global.actuel : (perfsActuelles[dataKey].actuel + (perfsActuelles[dataKey].cash || 0));
+        const valActuelle = perfsActuelles[dataKey]?.actuel ?? perfsActuelles.global.actuel;
         const gainPeriode = valActuelle - refValeur;
         const deltaPct = (gainPeriode / refValeur) * 100;
 
@@ -2996,7 +3001,7 @@ function calculerStats() {
     set('st-val-total', fmtE(valNow));
     const pv=perfsActuelles.global.perf||0;
     set('st-pv-total', (pv>=0?'+':'')+fmtE(pv), pv>=0?'var(--success)':'var(--danger)');
-    const pvPct=perfsActuelles.global.actuel>0&&perfsActuelles.global.apports>0?(pv/perfsActuelles.global.apports)*100:0;
+    const pvPct=perfsActuelles.global.base_perf>0?(pv/perfsActuelles.global.base_perf)*100:0;
     set('st-perf-pct', fmtPct(pvPct), pvPct>=0?'var(--success)':'var(--danger)');
     set('st-investi', fmtE(perfsActuelles.global.apports));
     set('st-div-total', '+'+fmtE(divTotal));
