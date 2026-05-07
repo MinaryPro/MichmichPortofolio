@@ -1860,9 +1860,9 @@ function changerOnglet(nom) {
         const el_pee  = document.getElementById('suivi-pee');
         const el_cash = document.getElementById('suivi-cash');
         const el_date = document.getElementById('suivi-date');
-        if (el_cto)  el_cto.value  = perfsActuelles.CTO.actuel  > 0 ? perfsActuelles.CTO.actuel.toFixed(2)  : '';
-        if (el_pea)  el_pea.value  = perfsActuelles.PEA.actuel  > 0 ? perfsActuelles.PEA.actuel.toFixed(2)  : '';
-        if (el_pee)  el_pee.value  = perfsActuelles.PEE.actuel  > 0 ? perfsActuelles.PEE.actuel.toFixed(2)  : '';
+        if (el_cto)  el_cto.value  = perfsActuelles.CTO.actuel  > 0 ? (perfsActuelles.CTO.actuel  / 1000).toFixed(2) : '';
+        if (el_pea)  el_pea.value  = perfsActuelles.PEA.actuel  > 0 ? (perfsActuelles.PEA.actuel  / 1000).toFixed(2) : '';
+        if (el_pee)  el_pee.value  = perfsActuelles.PEE.actuel  > 0 ? (perfsActuelles.PEE.actuel  / 1000).toFixed(2) : '';
         if (el_cash) el_cash.value = '0'; 
         if (el_date) el_date.valueAsDate = new Date();
     } 
