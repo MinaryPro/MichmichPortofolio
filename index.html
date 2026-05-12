@@ -1921,11 +1921,11 @@ function mettreAJourAffichage() {
         
         if (o !== null && o !== '') { 
             perfsActuelles[c].apports = parseFloat(o); 
-            perfsActuelles[c].base_perf = perfsActuelles[c].apports - cash;
+            perfsActuelles[c].base_perf = perfsActuelles[c].apports;
             if (perfsActuelles[c].base_perf <= 0) perfsActuelles[c].base_perf = 1;
         } else { 
             perfsActuelles[c].apports = perfsActuelles[c].investi + cash; 
-            perfsActuelles[c].base_perf = perfsActuelles[c].investi;
+            perfsActuelles[c].base_perf = perfsActuelles[c].apports;
             if (perfsActuelles[c].base_perf <= 0) perfsActuelles[c].base_perf = 1;
         }
         perfsActuelles[c].actuel = val_total;
@@ -1958,7 +1958,7 @@ function mettreAJourAffichage() {
     
     if (oG !== null && oG !== '') { 
         perfsActuelles.global.apports = parseFloat(oG); 
-        perfsActuelles.global.base_perf = perfsActuelles.global.apports - perfsActuelles.global.cash;
+        perfsActuelles.global.base_perf = perfsActuelles.global.apports;
     } else { 
         perfsActuelles.global.apports = perfsActuelles.CTO.apports + perfsActuelles.PEA.apports + perfsActuelles.PEE.apports; 
         perfsActuelles.global.base_perf = perfsActuelles.CTO.base_perf + perfsActuelles.PEA.base_perf + perfsActuelles.PEE.base_perf;
