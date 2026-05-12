@@ -173,6 +173,8 @@
 
         .positif { color: var(--success) !important; font-weight: 700; }
         .negatif { color: var(--danger) !important; font-weight: 700; }
+        .positif .perf-amount, .positif .perf-pct { color: var(--success) !important; }
+        .negatif .perf-amount, .negatif .perf-pct { color: var(--danger) !important; }
         .perf-block { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; justify-content: center;}
         .perf-amount { font-size: 0.95em; white-space: nowrap; font-weight: 600;}
         .perf-pct { font-size: 0.75em; font-weight: 700; background: rgba(255,255,255,0.06); padding: 2px 5px; border-radius: 4px; white-space: nowrap; align-self: flex-end; font-family: 'DM Mono', monospace;}
@@ -1256,9 +1258,17 @@ function updatePerfDisplay(boxId, valId, pctId, montant, pct) {
     const elPct = document.getElementById(pctId);
     if(!box || !elVal || !elPct) return;
     
-    box.classList.remove('positif', 'negatif');
+    const states = ['positif', 'negatif'];
+    box.classList.remove(...states);
+    elVal.classList.remove(...states);
+    elPct.classList.remove(...states);
+    elVal.style.color = '';
+
     if (montant !== null) {
-        box.classList.add(montant >= 0 ? 'positif' : 'negatif');
+        const stateClass = montant >= 0 ? 'positif' : 'negatif';
+        box.classList.add(stateClass);
+        elVal.classList.add(stateClass);
+        elPct.classList.add(stateClass);
         elVal.textContent = isIncognito ? '***' : signe(montant) + fmt0(montant) + ' €';
         elPct.textContent = signe(pct) + pct.toFixed(2) + ' %';
     } else {
