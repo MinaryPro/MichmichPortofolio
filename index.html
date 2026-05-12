@@ -1488,28 +1488,44 @@ const iconEdit = `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="
 const iconSave = `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
 const iconDelete = `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`;
 
+function _saveBourse(idx) {
+    if (!_editingBourse[idx]) return;
+    _editingBourse[idx] = false;
+    ['b-nom-'+idx,'b-qte-'+idx,'b-pru-'+idx,'b-cours-'+idx,'b-div-'+idx].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.setAttribute('readonly', true);
+        el.classList.remove('editable');
+        el.dispatchEvent(new Event('change'));
+    });
+    const btn = document.getElementById('b-edit-btn-'+idx);
+    if (btn) { btn.innerHTML = iconEdit; btn.classList.remove('editing'); btn.title = 'Modifier'; }
+    mettreAJourAffichage();
+    toast('Modifications sauvegardées');
+}
+
 window.toggleEditBourse = function(idx) {
-    const isEditing = _editingBourse[idx];
-    if (isEditing) {
-        _editingBourse[idx] = false;
-        ['b-nom-'+idx,'b-qte-'+idx,'b-pru-'+idx,'b-cours-'+idx,'b-div-'+idx].forEach(id => {
-            const el = document.getElementById(id);
-            if (!el) return;
-            el.setAttribute('readonly', true);
-            el.classList.remove('editable');
-            el.dispatchEvent(new Event('change'));
-        });
-        const btn = document.getElementById('b-edit-btn-'+idx);
-        if (btn) { btn.innerHTML = iconEdit; btn.classList.remove('editing'); btn.title = 'Modifier'; }
-        mettreAJourAffichage();
-        toast('Modifications sauvegardées');
+    if (_editingBourse[idx]) {
+        _saveBourse(idx);
     } else {
         _editingBourse[idx] = true;
-        ['b-nom-'+idx,'b-qte-'+idx,'b-pru-'+idx,'b-cours-'+idx,'b-div-'+idx].forEach(id => {
+        const ids = ['b-nom-'+idx,'b-qte-'+idx,'b-pru-'+idx,'b-cours-'+idx,'b-div-'+idx];
+        ids.forEach(id => {
             const el = document.getElementById(id);
             if (!el) return;
             el.removeAttribute('readonly');
             el.classList.add('editable');
+            el.addEventListener('keydown', function handler(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    _saveBourse(idx);
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    _editingBourse[idx] = false;
+                    mettreAJourAffichage();
+                }
+            }, { capture: true });
         });
         const btn = document.getElementById('b-edit-btn-'+idx);
         if (btn) { btn.innerHTML = iconSave; btn.classList.add('editing'); btn.title = 'Valider'; }
@@ -1518,21 +1534,25 @@ window.toggleEditBourse = function(idx) {
     }
 };
 
+function _savePEE(idx) {
+    if (!_editingPEE[idx]) return;
+    _editingPEE[idx] = false;
+    ['p-inv-'+idx,'p-act-'+idx].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.setAttribute('readonly', true);
+        el.classList.remove('editable');
+        el.dispatchEvent(new Event('change'));
+    });
+    const btn = document.getElementById('p-edit-btn-'+idx);
+    if (btn) { btn.innerHTML = iconEdit; btn.classList.remove('editing'); btn.title = 'Modifier'; }
+    mettreAJourAffichage();
+    toast('Modifications PEE sauvegardées');
+}
+
 window.toggleEditPEE = function(idx) {
-    const isEditing = _editingPEE[idx];
-    if (isEditing) {
-        _editingPEE[idx] = false;
-        ['p-inv-'+idx,'p-act-'+idx].forEach(id => {
-            const el = document.getElementById(id);
-            if (!el) return;
-            el.setAttribute('readonly', true);
-            el.classList.remove('editable');
-            el.dispatchEvent(new Event('change'));
-        });
-        const btn = document.getElementById('p-edit-btn-'+idx);
-        if (btn) { btn.innerHTML = iconEdit; btn.classList.remove('editing'); btn.title = 'Modifier'; }
-        mettreAJourAffichage();
-        toast('Modifications PEE sauvegardées');
+    if (_editingPEE[idx]) {
+        _savePEE(idx);
     } else {
         _editingPEE[idx] = true;
         ['p-inv-'+idx,'p-act-'+idx].forEach(id => {
@@ -1540,6 +1560,17 @@ window.toggleEditPEE = function(idx) {
             if (!el) return;
             el.removeAttribute('readonly');
             el.classList.add('editable');
+            el.addEventListener('keydown', function handler(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    _savePEE(idx);
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    _editingPEE[idx] = false;
+                    mettreAJourAffichage();
+                }
+            }, { capture: true });
         });
         const btn = document.getElementById('p-edit-btn-'+idx);
         if (btn) { btn.innerHTML = iconSave; btn.classList.add('editing'); btn.title = 'Valider'; }
@@ -2030,6 +2061,7 @@ function mettreAJourAffichage() {
 }
 
 function renderTableBourse() {
+    Object.keys(_editingBourse).forEach(k => delete _editingBourse[k]);
     const tbody = document.getElementById('table-bourse-body'); tbody.innerHTML = ''; let totQte=0, totI=0, totV=0, totDiv=0, totP=0;
     appData[ongletActif].forEach((a, idx) => {
         const cout = (a.quantite * a.prixAchat) + a.frais; const pru = cout / a.quantite; const val = a.quantite * a.prixActuel; const pv = (val - cout) + a.dividendes; const pvPct = cout > 0 ? (pv/cout)*100 : 0;
@@ -2062,6 +2094,7 @@ function renderTableBourse() {
 }
 
 function renderTablePEE() {
+    Object.keys(_editingPEE).forEach(k => delete _editingPEE[k]);
     const tbody = document.getElementById('table-pee-body'); tbody.innerHTML = '';
     appData.PEE.forEach((ev, idx) => {
         const pv = ev.actuel - ev.investi; const pvPct = ev.investi > 0 ? (pv/ev.investi)*100 : 0; const tr = document.createElement('tr');
@@ -3168,6 +3201,91 @@ window.toggleSaisieJournaliere = function() {
     icon.style.color = isHidden ? 'var(--accent)' : 'var(--muted)';
     icon.style.background = isHidden ? 'rgba(0,212,255,0.08)' : 'var(--surface3)';
     icon.style.borderColor = isHidden ? 'rgba(0,212,255,0.25)' : 'var(--border)';
+};
+
+// ─── FORM BOURSE (CTO / PEA) ────────────────────────────────────────────────
+document.querySelectorAll('input[name="modeSaisie"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        const isPRU = this.value === 'pru';
+        document.getElementById('group-prixAchat').style.display = isPRU ? 'none' : '';
+        document.getElementById('group-frais').style.display      = isPRU ? 'none' : '';
+        document.getElementById('group-pru').style.display        = isPRU ? ''     : 'none';
+        document.getElementById('prixAchat').required = !isPRU;
+        document.getElementById('pruDirect').required = isPRU;
+    });
+});
+
+document.getElementById('form-bourse')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const mode      = document.querySelector('input[name="modeSaisie"]:checked')?.value || 'detail';
+    const ticker    = document.getElementById('ticker').value.trim();
+    const dateAchat = document.getElementById('dateAchat').value;
+    const secteur   = document.getElementById('secteur').value;
+    const quantite  = parseFloat(document.getElementById('quantite').value)    || 0;
+    const dividendes= parseFloat(document.getElementById('dividendes').value)  || 0;
+
+    let prixAchat, frais;
+    if (mode === 'pru') {
+        prixAchat = parseFloat(document.getElementById('pruDirect').value) || 0;
+        frais = 0;
+    } else {
+        prixAchat = parseFloat(document.getElementById('prixAchat').value)    || 0;
+        const fp  = parseFloat(document.getElementById('fraisPourcent').value) || 0;
+        frais = quantite * prixAchat * fp / 100;
+    }
+
+    if (!ticker || !dateAchat || quantite <= 0 || prixAchat <= 0) return;
+
+    appData[ongletActif].push({
+        ticker, nom: ticker,
+        dateAchat, secteur,
+        quantite, prixAchat, frais,
+        prixActuel: prixAchat,
+        dividendes
+    });
+
+    mettreAJourAffichage();
+    sauvegarderHistorique();
+    this.reset();
+    document.getElementById('fraisPourcent').value = '0.5';
+    document.getElementById('dateAchat').valueAsDate = new Date();
+    toast('Position ajoutée au ' + ongletActif + ' !');
+});
+
+// ─── FORM PEE ───────────────────────────────────────────────────────────────
+document.getElementById('form-pee')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const date    = document.getElementById('pee-date').value;
+    const investi = parseFloat(document.getElementById('pee-investi').value) || 0;
+    const actuel  = parseFloat(document.getElementById('pee-actuel').value)  || 0;
+    if (!date || investi <= 0) return;
+
+    appData.PEE.push({ date, investi, actuel });
+    appData.PEE.sort((a, b) => new Date(a.date) - new Date(b.date));
+    mettreAJourAffichage();
+    sauvegarderHistorique();
+    this.reset();
+    document.getElementById('pee-date').valueAsDate = new Date();
+    toast('Évaluation PEE enregistrée !');
+});
+
+// ─── SUPPRESSION BOURSE & PEE ───────────────────────────────────────────────
+window.supprimerActionBourse = function(index) {
+    if (confirm('Supprimer cette position ?')) {
+        appData[ongletActif].splice(index, 1);
+        mettreAJourAffichage();
+        sauvegarderHistorique();
+        toast('Position supprimée');
+    }
+};
+
+window.supprimerActionPEE = function(index) {
+    if (confirm('Supprimer cette évaluation PEE ?')) {
+        appData.PEE.splice(index, 1);
+        mettreAJourAffichage();
+        sauvegarderHistorique();
+        toast('Évaluation PEE supprimée');
+    }
 };
 
 changerOnglet('ACCUEIL'); sauvegarderHistorique(); 
